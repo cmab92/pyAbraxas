@@ -1,5 +1,4 @@
 import sys
-#print(sys.version)
 import tensorflow as tf
 import pandas as pd
 import numpy as np
@@ -13,65 +12,61 @@ import tensorflow.contrib.layers as tflayers
 from tensorflow.contrib.learn.python.learn import learn_runner
 import tensorflow.contrib.metrics as metrics
 import tensorflow.contrib.rnn as rnn
-
+from loadAndClean import loadAndClean
+from gaussFilter import gaussFilter
+#from sliceAndWindow import sliceAndWindowV2 as sliceAndWindow
 
 TSAMPLE = 0.0165
 irData, forceData, quatData, linAccData, angVecData = loadAndClean("_20185161226.txt", 10, 4, tSample = TSAMPLE, dirPath = "/home/bonenberger/Dokumente/Rabe/Daten/dataRABE/")
-data = []
-for i in range(10):
-    data.append(irData[i])
-for i in range(2):
-    data.append(forceData[i])
-## get windows:
-WSIZE = 0.165 # window size in seconds
-ENASC = 1 # slice check
-WINDOWFCT = 'ham'
-ALPHA = 10
-ENAWC = 0 ## window function check
-WINDOWSHIFT = 0.01
-trainingData, numOfWindowsTrD = sliceAndWindow(data=data, startT=0, stopT=10**9, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA, enaCWF=ENAWC)
-trainingData, numOfWindowsTrD = sliceAndWindow(data=data, startT=40, stopT=80, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA)
-print('Number of windows (Training Data)')
-print(numOfWindowsTrD)
-testData, numOfWindowsTeD = sliceAndWindow(data=data, startT=122, stopT=130, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA)
-#print('Number of windows (Test Data)')
-#print(numOfWindowsTeD)
-#outlierData, numOfWindowsOuD = ao.sliceAndWindow(data=data, startT=118, stopT=121, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA)
-#print(tf.__version__)
+#plt.plot(irData[0][1000:6000,1])
+#plt.show()
 ##
-rng = pd.date_range(start='2000', periods=209, freq='M')
-ts = pd.Series(np.random.uniform(-10,10,size=len(rng)), rng).cumsum()
-#ts.plot(c='b', title='Time Series')
+ts = irData[1][1000:5011,1]
+ts_f = gaussFilter(x=1, y=ts, AMP=1, MEAN=0, SIGMA=0.15)
+#plt.plot(ts)
+#plt.plot(ts_f)
+#plt.show()
+TS = np.array(ts_f)
 
-#print(ts.head(10))
-TS = np.array(ts)
-num_periods = 20
-f_horizon = 1
+num_periods = 402
+f_horizon = 100
 
 x_data = TS[:(len(TS)-(len(TS) % num_periods))]
-x_batches = x_data.reshape(-1, 20, 1)
-y_data = TS[1:(len(TS)-(len(TS) % num_periods))+f_horizon]
-y_batches = y_data.reshape(-1, 20, 1)
-#print(len(x_batches))
-#print(x_batches.shape)
+x_batches = x_data.reshape(-1, num_periods, 1)
+y_data = TS[f_horizon:(len(TS)-(len(TS) % num_periods))+f_horizon]
+y_batches = y_data.reshape(-1, num_periods, 1)
+print(len(x_batches))
+print(x_batches.shape)
 #plt.figure()
-#plt.plot(x_batches[0])
+#plt.plot(x_batches[0][::,0])
+#plt.plot(y_batches[0][::,0])
+#plt.show()
+
+
+#for i in range(len(x_batches)):
+#    plt.figure(1)
+#    plt.plot(np.linspace(i*len(x_batches[i]), (i+1)*len(x_batches[i]),len(x_batches[i])),x_batches[i],'b')
+#plt.show()
 
 def test_data(series, forecast, num_periods):
   test_x_setup = series[-(num_periods + forecast):]
-  testX = test_x_setup[:num_periods].reshape(-1, 20, 1)
-  testY = series[-(num_periods):].reshape(-1, 20, 1)
+  testX = test_x_setup[:num_periods].reshape(-1, num_periods, 1)
+  testY = series[-(num_periods):].reshape(-1, num_periods, 1)
   return testX, testY
 
 X_test, Y_test = test_data(TS, f_horizon, num_periods)
+
+#plt.figure()
+#plt.plot(X_test.reshape(-1),'b')
+#plt.plot(Y_test.reshape(-1),'g')
+#plt.show()
 #print(X_test.shape)
 #print(X_test)
 
 tf.reset_default_graph()
 
-num_periods = 20
 inputs = 1
-hidden = 100
+hidden = 20
 output = 1
 X = tf.placeholder(tf.float32, shape=[None, num_periods, inputs])
 y = tf.placeholder(tf.float32, shape=[None, num_periods, inputs])
@@ -91,20 +86,32 @@ training_op = optimizer.minimize(loss)
 
 init = tf.global_variables_initializer()
 
-epochs = 1000
+epochs = 1500
 
 with tf.Session() as sess:
   init.run()
+  prec = 10
   for ep in range(epochs):
     sess.run(training_op, feed_dict={X: x_batches, y: y_batches})
-    if ep % 100 == 0:
+    mse = loss.eval(feed_dict={X: x_batches, y: y_batches})
+    if ep % 50 == 0:
       mse = loss.eval(feed_dict={X: x_batches, y: y_batches})
       print(ep, "\tMSE", mse)
+    if mse<prec:
+      prec -= 1
+      y_pred = sess.run(outputs, feed_dict={X: X_test})
+      plt.title("fc vs gt")
+      plt.plot(pd.Series(np.ravel(Y_test)), "b", markersize=10, label="actual values")
+      plt.plot(pd.Series(np.ravel(y_pred)),"r", markersize=10, label="forecast")
+      plt.legend()
+      plt.xlabel("")
+      plt.show()
+  mse = loss.eval(feed_dict={X: x_batches, y: y_batches})
+  print(ep, "\tMSE", mse)
   y_pred = sess.run(outputs, feed_dict={X: X_test})
-print(y_pred)
 plt.title("fc vs gt")
-plt.plot(pd.Series(np.ravel(Y_test)), "b", markersize=10, label="gt")
-plt.plot(pd.Series(np.ravel(y_pred)),"r", markersize=10, label="fc")
+plt.plot(pd.Series(np.ravel(Y_test)), "b", markersize=10, label="actual values")
+plt.plot(pd.Series(np.ravel(y_pred)),"r", markersize=10, label="forecast")
 plt.legend()
 plt.xlabel("")
 plt.show()
