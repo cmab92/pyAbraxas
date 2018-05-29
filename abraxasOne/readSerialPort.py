@@ -76,4 +76,4 @@ if __name__ == '__main__':
         fileName_ = "testORtestORtestORtestORtestORtestORtestORtestORtestORtestORtestOR"
     dirPath_ = ""
     print("Recording...")
-    readSerialPort(fileName=fileName_, numOfSensors=17, dirPath=dirPath_, baudRate=57600, dataPoints=2)
+    readSerialPort(fileName=fileName_, numOfSensors=17, dirPath=dirPath_, baudRate=57600, dataPoints='inf')
