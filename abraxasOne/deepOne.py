@@ -12,7 +12,7 @@ import tensorflow.contrib.layers as tflayers
 from tensorflow.contrib.learn.python.learn import learn_runner
 import tensorflow.contrib.metrics as metrics
 import tensorflow.contrib.rnn as rnn
-from loadAndClean import loadAndClean
+from abraxasOne.loadAndClean import loadAndClean
 from gaussFilter import gaussFilter
 #from sliceAndWindow import sliceAndWindowV2 as sliceAndWindow
 
@@ -28,8 +28,8 @@ ts_f = gaussFilter(x=1, y=ts, AMP=1, MEAN=0, SIGMA=0.15)
 #plt.show()
 TS = np.array(ts_f)
 
-num_periods = 402
-f_horizon = 100
+num_periods = 102
+f_horizon = 20
 
 x_data = TS[:(len(TS)-(len(TS) % num_periods))]
 x_batches = x_data.reshape(-1, num_periods, 1)
@@ -66,7 +66,7 @@ X_test, Y_test = test_data(TS, f_horizon, num_periods)
 tf.reset_default_graph()
 
 inputs = 1
-hidden = 20
+hidden = 100
 output = 1
 X = tf.placeholder(tf.float32, shape=[None, num_periods, inputs])
 y = tf.placeholder(tf.float32, shape=[None, num_periods, inputs])

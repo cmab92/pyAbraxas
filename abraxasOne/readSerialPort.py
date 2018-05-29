@@ -73,7 +73,7 @@ if __name__ == '__main__':
     try:
         fileName_ = raw_input("Enter file name: ") # start from terminal
     except:
-        fileName_ = "test"
+        fileName_ = "testORtestORtestORtestORtestORtestORtestORtestORtestORtestORtestOR"
     dirPath_ = ""
     print("Recording...")
-    readSerialPort(fileName=fileName_, numOfSensors=17, dirPath=dirPath_, baudRate=57600, dataPoints="inf")
+    readSerialPort(fileName=fileName_, numOfSensors=17, dirPath=dirPath_, baudRate=57600, dataPoints=2)
