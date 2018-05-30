@@ -16,6 +16,7 @@ import serial
 import csv
 import numpy as np
 import datetime
+from abraxasOne.qtPlotSerialData import qtPlotSerialData
 ##
 def readSerialPort(fileName, numOfSensors, dirPath = "/home/bonenberger/Dokumente/Rabe/Daten/dataRABE/", baudRate = 57600, dataPoints = 'inf', port = '/dev/ttyUSB0'):
     dateAndTime = datetime.datetime.now()
@@ -75,5 +76,6 @@ if __name__ == '__main__':
     except:
         fileName_ = "testORtestORtestORtestORtestORtestORtestORtestORtestORtestORtestOR"
     dirPath_ = ""
+    qtPlotSerialData(windowWidth=500)
     print("Recording...")
     readSerialPort(fileName=fileName_, numOfSensors=17, dirPath=dirPath_, baudRate=57600, dataPoints='inf')
