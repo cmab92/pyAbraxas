@@ -5,7 +5,8 @@
 ## read data from serial port
 ##
 ## function inputs:
-## fileName: output file name
+## fileName: output file name... if .txt no time and date... else time and date attached
+## numOfSensors: number of analog (!) Sensors
 ## dirpath: output file directory
 ## baudRate: ...
 ## dataPoints: number of data points to get
@@ -16,7 +17,8 @@ import serial
 import csv
 import numpy as np
 import datetime
-from abraxasOne.qtPlotSerialData import qtPlotSerialData
+import matplotlib.pyplot as plt
+from loadAndClean import loadAndClean
 ##
 def readSerialPort(fileName, numOfSensors, dirPath = "/home/bonenberger/Dokumente/Rabe/Daten/dataRABE/", baudRate = 57600, dataPoints = 'inf', port = '/dev/ttyUSB0'):
     dateAndTime = datetime.datetime.now()
@@ -30,6 +32,7 @@ def readSerialPort(fileName, numOfSensors, dirPath = "/home/bonenberger/Dokument
     dummy = ser.readline() # dummy read ... read first (possibly incomplete) line
     oldLine = ser.readline() # get line for interpolation
     oldLine = oldLine.decode("utf-8")
+    numOfSensors = numOfSensors+5
     while (np.size(oldLine)!=numOfSensors): # wait until received complete message
         oldLine = ser.readline()
         oldLine = oldLine.decode("utf-8")
@@ -73,9 +76,34 @@ def readSerialPort(fileName, numOfSensors, dirPath = "/home/bonenberger/Dokument
 if __name__ == '__main__':
     try:
         fileName_ = raw_input("Enter file name: ") # start from terminal
+        n_ir_entered = 0
+        while (n_ir_entered==0):
+            n_ir = raw_input("Enter number of ir sensors: ") # start from terminal
+            n_ir_entered = 1
+            try:
+                n_ir = int(n_ir)
+            except ValueError:
+                n_ir_entered = 0
+        n_force_entered = 0
+        while (n_force_entered==0):
+            n_force = raw_input("Enter number of force sensors: ") # start from terminal
+            n_force_entered = 1
+            try:
+                n_force = int(n_force)
+            except ValueError:
+                n_force_entered = 0
     except:
-        fileName_ = "testORtestORtestORtestORtestORtestORtestORtestORtestORtestORtestOR"
+        fileName_ = "test.txt"
+        n_force = 2
+        n_ir = 10
     dirPath_ = ""
-    qtPlotSerialData(windowWidth=500)
+    readSerialPort(fileName="temp.txt", numOfSensors=(n_ir+n_force), dirPath=dirPath_, baudRate=57600, dataPoints=100)
+    irData, forceData, quatData, linAccData, angVecData = loadAndClean(fileName="temp.txt", numberOfIrSensors=n_ir, numberOfForceSensors=n_force, dirPath="")
+    for i in range(n_ir):
+        plt.plot(irData[i][::,1], label="ir"+str(i))
+    for i in range(n_force):
+        plt.plot(forceData[i][::,1], label="force"+str(i))
+    plt.legend()
+    plt.show()
     print("Recording...")
-    readSerialPort(fileName=fileName_, numOfSensors=17, dirPath=dirPath_, baudRate=57600, dataPoints='inf')
+    readSerialPort(fileName=fileName_, numOfSensors=(n_ir+n_force), dirPath=dirPath_, baudRate=57600, dataPoints='inf')

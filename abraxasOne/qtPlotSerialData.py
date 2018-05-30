@@ -60,16 +60,12 @@ def qtPlotSerialData(windowWidth=1000):
 
     p = Process(target=display, args=(q, windowWidth))
     p.start()
-    endless = 1
-    while(endless==1):
+    while(1):
+        port = input("port? ")
         try:
-            port = input("port? ")
-            try:
-                port = int(port)
-            except ValueError:
-                port = 0
-        except KeyboardInterrupt:
-            endless = 0
+            port = int(port)
+        except ValueError:
+            port = 0
         if ( (port >= 0) & (port < 19)):
                 analogPort = port
 

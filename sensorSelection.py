@@ -30,6 +30,9 @@ for i in range(len(irData)):
     #data = 1/np.max(data)/(1-np.min(data)/np.max(data))*data - (1/np.max(data)/(1-np.min(data)/np.max(data))*np.min(data))*np.ones([len(data)])
     X.append(data)
     autoCorrX.append(autoCorr(x = data, lagUpTo=200))
+    plt.figure()
+    plt.plot(autoCorr(x = data, lagUpTo=200))
+    plt.show()
     corrXtemp = []
     for j in range(len(irData)):
         corrXtemp.append(pd.Series(data).corr(other=pd.Series(irData[j][::,1])))
