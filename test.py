@@ -75,3 +75,4 @@ for k, element in enumerate(files):
 
 corrTotal = np.array(corrTotal)
 corrTotal = np.sum(corrTotal,0)/len(corrTotal)
+

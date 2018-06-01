@@ -1,6 +1,7 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
+import seaborn as sns
 
 ## load data
 from abraxasOne.loadAndClean import loadAndClean
