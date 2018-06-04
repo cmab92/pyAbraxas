@@ -4,7 +4,7 @@
 ## general info:
 ## algorithm from "Feature Subset Selection And Feature Ranking For Multivariate Time Series", Yoon et al. , 2005
 ##
-## denoising by gauss???!!!
+## denoising by gauss???!!!!
 ##
 ## function inputs:
 ##
