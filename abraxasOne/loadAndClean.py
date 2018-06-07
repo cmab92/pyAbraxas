@@ -10,6 +10,7 @@
 ## numberOfForceSensors: ...
 ## tSample: smapling time (analog values) ... assuming tSample_bno = 3*tSample_analog
 ## dirPath: input file directory
+## normAnalog: normalization of analog data (boolean)
 ##
 ## functions output:
 ## irData, forceData: data[i][j,k] -> i-th sensor, jth datapoint (k=0 -> time, k=1 -> value)
@@ -25,23 +26,25 @@ def loadAndClean(fileName, numberOfIrSensors, numberOfForceSensors, tSample = 0.
     cols = np.size(data[0,::])
     numberOfAnalogSensors = numberOfIrSensors + numberOfForceSensors
     # ir data (normalize and clean transmission errors):
-    irData = data[::, 0:numberOfIrSensors]/1023 # normalization (10 bit adc)
-    irData[irData>1] = 1
+    irData = data[::, 0:numberOfIrSensors]
+    irData[irData > 1023] = 1023
+    irData[irData < 0] = 0
+    forceData = 1 - data[::, numberOfIrSensors:numberOfAnalogSensors]
+    forceData[forceData > 1023] = 1023
+    forceData[forceData < 0] = 0
     # force Data (normalize and clean transmission errors):
-    forceData = 1 - data[::, numberOfIrSensors:numberOfAnalogSensors]/1023 # normalization (10 bit adc)
-    forceData[forceData>1] = 1
     # handle bno data (normalize):
     temp = data[data[::, cols-1]==0]     # get lines with quatData
-    quatData = temp[::, numberOfAnalogSensors:(numberOfAnalogSensors+4)]/(2**14-1) # normalization (14 bit)
+    quatData = temp[::, numberOfAnalogSensors:(numberOfAnalogSensors+4)] # normalization (14 bit)
     quatData[quatData>1] = 1
     quatData[quatData<-1] = -1
     norm = 10 # normalization of linAcc and angVec
     upperLim = 1000
     temp = data[data[::, cols-1]==1]     # get lines with lin acc data
-    linAccData = temp[::, numberOfAnalogSensors:(numberOfAnalogSensors+3)]/norm # arbitrary normalization
+    linAccData = temp[::, numberOfAnalogSensors:(numberOfAnalogSensors+3)] # arbitrary normalization
     linAccData[linAccData>upperLim/norm] = 0
     temp = data[data[::, cols-1]==2]     # get lines with ang vec data
-    angVecData = temp[::, numberOfAnalogSensors:(numberOfAnalogSensors+3)]/norm # arbitrary normalization
+    angVecData = temp[::, numberOfAnalogSensors:(numberOfAnalogSensors+3)] # arbitrary normalization
     angVecData[angVecData>upperLim/norm] = 0
     # quat, linaAcc and angVec possibly of different length ...:
     bnoDataSize = np.min([np.size(quatData[::,0]), np.size(linAccData[::,0]), np.size(angVecData[::,0])])

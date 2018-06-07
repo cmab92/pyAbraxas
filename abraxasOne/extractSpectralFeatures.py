@@ -21,7 +21,7 @@ import scipy.signal
 import scipy.ndimage
 from statsmodels.robust import mad
 from sklearn import svm
-from helperFunctions import scalogram
+from abraxasOne.helperFunctions import scalogram
 ##
 ## numDomCoeffs: number of dominant wavelet coefficients to be selected <- todo: optimize
 ## numDomFreqs: number of dominant frequencies to be selected <- todo: optimize
@@ -74,5 +74,4 @@ def extractSpectralFeatures(dataWindow, numDomCoeffs=2, numDomFreqs=2, sampleT=0
         for j in range(numOfSensors):
             featureVector.append(np.round([(np.transpose(dominantFreqVal)[i,j], np.transpose(dominantFreqAmp)[i,j])],5))
     featureVector = np.reshape(featureVector, np.size(featureVector))
-    #plt.plot(featureVector)
     return featureVector

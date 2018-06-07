@@ -14,82 +14,71 @@
 import numpy as np
 import matplotlib.pyplot as plt
 import pandas as pd
-import seaborn as sns
+from sklearn import preprocessing
+from mpl_toolkits.mplot3d import Axes3D
 from abraxasOne.gaussFilter import gaussFilter
+from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
+from scipy.cluster.vq import kmeans, vq
 
-from abraxasOne.loadAndClean import loadAndClean
+def computeDCPC(dataSet, delta):
+    loading = []
+    p = []
+    for i in range(len(dataSet)):
+        X = np.array(dataSet[i])
+        if np.linalg.cond(X)>10**9:
+            print("Ill-conditioned matrix X... Cond. number is: \n", np.linalg.cond(X))
+        ########################################################################
+        #### U, S, VT = svd(X)
+        #### W, D, WT = svd(C), where C is the correlation matrix 1/n*X'*X
+        ### W = VT' except sign ambiguity
+        ### D = 1/n*S²
+        ########################################################################
+        #C = np.matmul(X.T,X)/len(X)
+        #W, D, WT = np.linalg.svd(C)
+        #D = np.diag(D)
+        U, S, VT = np.linalg.svd(X)
+        if np.linalg.cond(VT)>10**9:
+            print("Ill-conditioned matrix VT... Cond. number is: \n", np.linalg.cond(X))
+        S = 1/len(X)*np.diag(S)**2
+        variance = np.array(sorted(np.diag(S), reverse=True))
+        loading.append(VT.T)
+        percentVar = 100*variance/np.sum(variance)
+        for j in range(len(percentVar)+1):
+            if (np.sum(percentVar[0:j])>=delta):
+                p.append(j)
+                break
+    p = np.max(p)
+    H = []
+    for i in range(len(dataSet)):
+        L = loading[i][:p,::]
+        if i==0:
+            H.append(np.matmul(L.transpose(),L))
+        else:
+            H.append(H[i-1] + np.matmul(L.transpose(),L))
+    H = H[len(H)-1]
+    V, S, VT = np.linalg.svd(H)
+    DCPC = V[:p,::]  # descriptive common principal component
+    return DCPC
 
-files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt"] #
-start = np.array([400, 200, 100, 100, 100, 100, 3500])
-stop = np.array([3400, 1800, 1500, 1700, 1600, 3000, 6000])
-stop = np.ones([len(start)])*np.min(stop-start)+start
-stop = [int(x) for x in stop]
+def rankVariables(dataSet, delta, k):
+    DCPC = computeDCPC(dataSet=dataSet, delta=delta)
+    score = []
+    for i in range(np.size(DCPC[0,::])):
+        score.append(np.linalg.norm(DCPC[::,i], ord=2))
+    score = np.array(score)
+    index = score.argsort()[-k:][::-1]
+    return index
 
-check_data = False
-if check_data:
-    for i, element in enumerate(files):
-        irData, forceData, quatData, linAccData, angVecData = loadAndClean(element, 10, 2, tSample=0.0165, dirPath="")
-        for j in range(len(irData)):
-            plt.plot(irData[j][start[i]:stop[i],1], label=str(j))
-            plt.title(files[i])
-        plt.legend()
-        plt.show()
-
-dataSet = []
-for i, element in enumerate(files):
-    irData, forceData, quatData, linAccData, angVecData = loadAndClean(element, 10, 2, tSample=0.0165, dirPath="")
-    dummyData = np.random.rand(np.size(irData[0][start[0]:stop[0],1]))
-    for j in range(len(irData)):
-        irData[j] = gaussFilter(0, irData[j][start[i]:stop[i],1]) #*0 + np.random.rand(np.size(dummyData))
-    #irData[1] = irData[0]
-    dataSet.append(irData)
-
-dcpc = [] # descriptive common principal component
-loading = []
-p = []
-delta = 90
-for i in range(len(dataSet)):
-    X = np.array(dataSet[i]).transpose()
-    corr = np.array(pd.DataFrame(X).corr())
-    #plt.figure()
-    #plt.title(files[i]+" Corr")
-    #sns.heatmap(np.abs(corr))
-    U, variance, UT = np.linalg.svd(corr, full_matrices=True)
-    #variance = np.round(variance, 12)
-    #U = np.round(U, 12).T
-    #plt.figure()
-    #plt.title(files[i]+" U")
-    #sns.heatmap(np.abs(U))
-    loading.append(U)
-    percentVar = 100*variance/np.sum(variance)
-    for j in range(len(percentVar)+1):
-        if (np.sum(percentVar[0:j])>=delta):
-            p.append(j)
-            print(j)
-            break
-print(p)
-p = np.max(p)
-H = []
-for i in range(len(dataSet)):
-    L = loading[i][:p,::]
-    if i==0:
-        H.append(np.matmul(L.transpose(),L))
-    else:
-        H.append(H[i-1] + np.matmul(L.transpose(),L))
-    #plt.figure()
-    #plt.title(files[i]+" H")
-    #sns.heatmap(np.abs(H[i])/np.max(np.max(H[i])))
-H = H[len(H)-1]
-V, S, VT = np.linalg.svd(H)
-#V = np.round(V, 12)
-DCPC = V[:p,::]
-#plt.figure()
-#plt.title("H")
-#sns.heatmap(np.abs(H[len(dataSet)-1]))
-for i in range(p):
-    print(np.sum(np.abs(DCPC[i,::])*np.abs(DCPC[i,::])))
-plt.figure()
-plt.title("DCPC")
-plt.imshow(np.abs(DCPC))
-plt.colorbar()
-plt.show()
+def clusterVariables(dataSet, delta, k):
+    DCPC = np.array(computeDCPC(dataSet=dataSet, delta=delta)).T
+    centroid,_ = kmeans(DCPC, k)
+    index,_ = vq(DCPC,centroid)
+    selected = []
+    for i in range(k):
+        distance = []
+        for j in range(len(DCPC)):
+            distance.append( np.linalg.norm(centroid[i]-DCPC[j,::], ord=2 ) )
+        selected.append(np.argmin(distance))
+    plotMatrixWithValues(DCPC, show=False)
+    plotMatrixWithValues(centroid, show=False)
+    return selected

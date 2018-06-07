@@ -1,5 +1,16 @@
 import matplotlib.pyplot as plt
 import numpy as np
+
+def scaleData(data, scaleAmp=True, scaleMean=True, scaleVar=True):
+    for i in range(len(data)):
+        if scaleAmp:
+            data[i] = (data[i]-np.min(data[i]))/(np.max(data[i]-np.min(data[i])))
+        if scaleMean:
+            data[i] = data[i] - np.mean(data[i])
+        if scaleVar:
+            data[i] = data[i] / np.sqrt(np.var(data[i]))
+    return data
+
 def scalogram(data = 0 , title = 'default'):
     bottom = 0
 

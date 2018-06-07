@@ -16,5 +16,5 @@ def gaussFilter(x=1, y=1, AMP=1, MEAN=0, SIGMA=0.5):
     filteredSpectrum = np.array(np.fft.ifftshift(np.fft.fftshift(dataSpectrum)*(AMP*np.exp(-(freqAxis-MEAN)**2/(2*SIGMA**2))/np.size(freqAxis))))
     filteredSpectrum = filteredSpectrum*dataSpectrum[0]/filteredSpectrum[0]
     ## compute filtered data:
-    filteredData = np.array( (np.fft.ifft(filteredSpectrum)) )
+    filteredData = np.real( (np.fft.ifft(filteredSpectrum)) )
     return filteredData
