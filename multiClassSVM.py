@@ -32,7 +32,6 @@ dataWindows = np.array(dataWindows)
 numberOfWindows = np.array(numberOfWindows)
 print("number of windows: ", numberOfWindows)
 
-
 features = []
 labels = []
 trainingFeatures = []
