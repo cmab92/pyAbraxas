@@ -274,7 +274,7 @@ def sliceAndWindowV2(data, startT, stopT, windowWidth, windowShift, sampleT=0.01
 ##
 ########################################################################################################################
 ##
-def sliceAndWindowV3(data, windowWidth, sampleT=0.012, enaCheck=1, window='tukey', alpha=0.1, enaCWF=0):
+def sliceAndWindowV3(data, windowWidth, sampleT=0.012, enaCheck=1, windowShift=1, window='tukey', alpha=0.1, enaCWF=0):
     ## cut slice from input-data:
     numOfSensors = len(data[::].T)
     if enaCheck:
@@ -328,11 +328,11 @@ def sliceAndWindowV3(data, windowWidth, sampleT=0.012, enaCheck=1, window='tukey
     for i in range(numOfSensors):
         minDataLength.append(np.size(data[::,i]))
     minDataLength = np.min(minDataLength)
-    numOfWindows = int(minDataLength/windowNumberOfPoints)
+    numOfWindows = int(minDataLength/windowNumberOfPoints-1)*int((windowNumberOfPoints)/windowShift)
     for i in range(numOfWindows):
         windowedDataTemp = []
         for j in range(numOfSensors):
-            dataTemp = data[i*windowNumberOfPoints:(i*windowNumberOfPoints+windowNumberOfPoints), j]
+            dataTemp = data[i:(i+windowNumberOfPoints), j]
             windowedDataTemp.append(dataTemp * windowFunction)
         windowedDataTemp = np.transpose(windowedDataTemp)
         windowedData.append(windowedDataTemp)
