@@ -1,5 +1,6 @@
 import matplotlib.pyplot as plt
 import numpy as np
+import random
 
 def scaleData(data, scaleAmp=True, scaleMean=True, scaleVar=True):
     for i in range(len(data)):
@@ -33,3 +34,17 @@ def scalogram(data = 0 , title = 'default'):
 #            extent=[time[0], time[-1], bottom, bottom + scale])
 
         bottom += scale
+
+def shuffleData(x, y):
+    if len(x)==len(y):
+        x_out = np.zeros(np.shape(x))
+        y_out = np.zeros(np.shape(y))
+        index = np.linspace(0, len(x) - 1, len(x))
+        random.shuffle(index)
+
+        for i in range(len(index)):
+            x_out[i] = x[int(index[i])]
+            y_out[i] = y[int(index[i])]
+    else:
+        print("Data not shuffled (x!=y).")
+    return x_out, y_out

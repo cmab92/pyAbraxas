@@ -252,7 +252,7 @@ def sliceAndWindowV2(data, startT, stopT, windowWidth, windowShift, sampleT=0.01
 ##
 ## function inputs:
 ## data: data[j,k] -> i-th datapoint, j-th sensor
-## windowWidth: width of data windows in seconds (with respect to sampleT)
+## windowWidth: width of data windows in number of pointss
 ## windowShift: after how many time steps a new window starts?
 ## sampleT: sampling period time in seconds
 ## enaCheck: enables plotting of chosen slices
@@ -274,7 +274,7 @@ def sliceAndWindowV2(data, startT, stopT, windowWidth, windowShift, sampleT=0.01
 ##
 ########################################################################################################################
 ##
-def sliceAndWindowV3(data, windowWidth, sampleT=0.012, enaCheck=1, windowShift=1, window='tukey', alpha=0.1, enaCWF=0):
+def sliceAndWindowV3(data, windowWidth, enaCheck=1, windowShift=1, window='tukey', alpha=0.1, enaCWF=0):
     ## cut slice from input-data:
     numOfSensors = len(data[::].T)
     if enaCheck:
@@ -285,7 +285,7 @@ def sliceAndWindowV3(data, windowWidth, sampleT=0.012, enaCheck=1, windowShift=1
         plt.title('Check selected data!')
         plt.show()
     ## cut slices for windows
-    windowNumberOfPoints = int(windowWidth / (2*sampleT))*2
+    windowNumberOfPoints = windowWidth
     ## choice of window function:
     if (window=='tukey'):
         windowFunction = scipy.signal.tukey(windowNumberOfPoints, alpha)
