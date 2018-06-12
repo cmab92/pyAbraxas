@@ -311,7 +311,8 @@ def sliceAndWindowV3(data, windowWidth, enaCheck=1, windowShift=1, window='tukey
         plt.ylabel('Amplitude')
         plt.grid()
         plt.figure()
-        freqAxis = np.linspace(0,2/sampleT,int(windowNumberOfPoints))
+        SAMPLING_FREQUENCY = 1/0.0165 #!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!! SAMPLING_FREQUENCY !!!!!!!!!!!!!!!!!!!!
+        freqAxis = np.linspace(0,SAMPLING_FREQUENCY/2,int(windowNumberOfPoints))
         windowFreqResponse = np.abs(np.fft.fftshift(np.fft.fft(np.concatenate( (np.zeros(int(windowNumberOfPoints/2)),windowFunction,np.zeros(int(windowNumberOfPoints/2)) )))))
         windowFreqResponse = 20*np.log10(windowFreqResponse/np.max(windowFreqResponse))
         plt.plot(freqAxis,windowFreqResponse[int(windowNumberOfPoints):])
@@ -328,11 +329,11 @@ def sliceAndWindowV3(data, windowWidth, enaCheck=1, windowShift=1, window='tukey
     for i in range(numOfSensors):
         minDataLength.append(np.size(data[::,i]))
     minDataLength = np.min(minDataLength)
-    numOfWindows = int(minDataLength/windowNumberOfPoints-1)*int((windowNumberOfPoints)/windowShift)
+    numOfWindows = int((minDataLength-windowNumberOfPoints)/windowShift+1)
     for i in range(numOfWindows):
         windowedDataTemp = []
         for j in range(numOfSensors):
-            dataTemp = data[i:(i+windowNumberOfPoints), j]
+            dataTemp = data[i*windowShift:(i*windowShift+windowNumberOfPoints), j]
             windowedDataTemp.append(dataTemp * windowFunction)
         windowedDataTemp = np.transpose(windowedDataTemp)
         windowedData.append(windowedDataTemp)

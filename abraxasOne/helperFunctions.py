@@ -1,8 +1,10 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+import itertools
 
 def scaleData(data, scaleAmp=True, scaleMean=True, scaleVar=True):
+    data = data.T
     for i in range(len(data)):
         if scaleAmp:
             data[i] = (data[i]-np.min(data[i]))/(np.max(data[i]-np.min(data[i])))
@@ -10,6 +12,7 @@ def scaleData(data, scaleAmp=True, scaleMean=True, scaleVar=True):
             data[i] = data[i] - np.mean(data[i])
         if scaleVar:
             data[i] = data[i] / np.sqrt(np.var(data[i]))
+    data = data.T
     return data
 
 def scalogram(data = 0 , title = 'default'):
@@ -48,3 +51,10 @@ def shuffleData(x, y):
     else:
         print("Data not shuffled (x!=y).")
     return x_out, y_out
+
+def powerSetOfArray(set):
+    x = [i for i in itertools.chain.from_iterable(itertools.combinations(set, r) for r in range(len(set) + 1))]
+    out =[]
+    for i in range(len(x)):
+        out.append(np.array(x[i]))
+    return out
