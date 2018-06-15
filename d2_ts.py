@@ -1,110 +1,97 @@
-import sys
-#print(sys.version)
-import tensorflow as tf
-import pandas as pd
-import numpy as np
-import os
-import matplotlib
-import matplotlib.pyplot as plt
-import random
-import shutil
-import tensorflow.contrib.learn as tflearn
-import tensorflow.contrib.layers as tflayers
-from tensorflow.contrib.learn.python.learn import learn_runner
-import tensorflow.contrib.metrics as metrics
-import tensorflow.contrib.rnn as rnn
+from math import sqrt
+from numpy import concatenate
+from matplotlib import pyplot
+from pandas import read_csv
+from pandas import DataFrame
+from pandas import concat
+from sklearn.preprocessing import MinMaxScaler
+from sklearn.preprocessing import LabelEncoder
+from sklearn.metrics import mean_squared_error
+from keras.models import Sequential
+from keras.layers import Dense
+from keras.layers import LSTM
+
+# convert series to supervised learning
+def series_to_supervised(data, n_in=1, n_out=1, dropnan=True):
+    n_vars = 1 if type(data) is list else data.shape[1]
+    df = DataFrame(data)
+    cols, names = list(), list()
+    # input sequence (t-n, ... t-1)
+    for i in range(n_in, 0, -1):
+        cols.append(df.shift(i))
+        names += [('var%d(t-%d)' % (j + 1, i)) for j in range(n_vars)]
+    # forecast sequence (t, t+1, ... t+n)
+    for i in range(0, n_out):
+        cols.append(df.shift(-i))
+        if i == 0:
+            names += [('var%d(t)' % (j + 1)) for j in range(n_vars)]
+        else:
+            names += [('var%d(t+%d)' % (j + 1, i)) for j in range(n_vars)]
+    # put it all together
+    agg = concat(cols, axis=1)
+    agg.columns = names
+    # drop rows with NaN values
+    if dropnan:
+        agg.dropna(inplace=True)
+    return agg
 
 
-TSAMPLE = 0.0165
-irData, forceData, quatData, linAccData, angVecData = loadAndClean("_20185161226.txt", 10, 4, tSample = TSAMPLE, dirPath = "/home/bonenberger/Dokumente/Rabe/Daten/dataRABE/")
-data = []
-for i in range(10):
-    data.append(irData[i])
-for i in range(2):
-    data.append(forceData[i])
-## get windows:
-WSIZE = 0.165 # window size in seconds
-ENASC = 1 # slice check
-WINDOWFCT = 'ham'
-ALPHA = 10
-ENAWC = 0 ## window function check
-WINDOWSHIFT = 0.01
-trainingData, numOfWindowsTrD = sliceAndWindow(data=data, startT=0, stopT=10**9, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA, enaCWF=ENAWC)
-trainingData, numOfWindowsTrD = sliceAndWindow(data=data, startT=40, stopT=80, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA)
-print('Number of windows (Training Data)')
-print(numOfWindowsTrD)
-testData, numOfWindowsTeD = sliceAndWindow(data=data, startT=122, stopT=130, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA)
-#print('Number of windows (Test Data)')
-#print(numOfWindowsTeD)
-#outlierData, numOfWindowsOuD = ao.sliceAndWindow(data=data, startT=118, stopT=121, windowWidth=WSIZE, windowShift=WINDOWSHIFT, sampleT=TSAMPLE, enaCheck=ENASC, window=WINDOWFCT, alpha=ALPHA)
-#print(tf.__version__)
-##
-rng = pd.date_range(start='2000', periods=209, freq='M')
-ts = pd.Series(np.random.uniform(-10,10,size=len(rng)), rng).cumsum()
-#ts.plot(c='b', title='Time Series')
+# load dataset
+dataset = read_csv('irData.csv', header=0, index_col=0)
+values = dataset.values
+# integer encode direction
+encoder = LabelEncoder()
+values[:, 4] = encoder.fit_transform(values[:, 4])
+# ensure all data is float
+values = values.astype('float32')
+# normalize features
+scaler = MinMaxScaler(feature_range=(0, 1))
+scaled = scaler.fit_transform(values)
+# frame as supervised learning
+reframed = series_to_supervised(scaled, 1, 1)
+# drop columns we don't want to predict
+reframed.drop(reframed.columns[[9, 10, 11, 12, 13, 14, 15]], axis=1, inplace=True)
+print(reframed.head())
 
-#print(ts.head(10))
-TS = np.array(ts)
-num_periods = 20
-f_horizon = 1
+# split into train and test sets
+values = reframed.values
+n_train_hours = 365 * 24
+train = values[:n_train_hours, :]
+test = values[n_train_hours:, :]
+# split into input and outputs
+train_X, train_y = train[:, :-1], train[:, -1]
+test_X, test_y = test[:, :-1], test[:, -1]
+# reshape input to be 3D [samples, timesteps, features]
+train_X = train_X.reshape((train_X.shape[0], 1, train_X.shape[1]))
+test_X = test_X.reshape((test_X.shape[0], 1, test_X.shape[1]))
+print(train_X.shape, train_y.shape, test_X.shape, test_y.shape)
 
-x_data = TS[:(len(TS)-(len(TS) % num_periods))]
-x_batches = x_data.reshape(-1, 20, 1)
-y_data = TS[1:(len(TS)-(len(TS) % num_periods))+f_horizon]
-y_batches = y_data.reshape(-1, 20, 1)
-#print(len(x_batches))
-#print(x_batches.shape)
-#plt.figure()
-#plt.plot(x_batches[0])
+# design network
+model = Sequential()
+model.add(LSTM(50, input_shape=(train_X.shape[1], train_X.shape[2])))
+model.add(Dense(1))
+model.compile(loss='mae', optimizer='adam')
+# fit network
+history = model.fit(train_X, train_y, epochs=50, batch_size=72, validation_data=(test_X, test_y), verbose=2,
+                    shuffle=False)
+# plot history
+pyplot.plot(history.history['loss'], label='train')
+pyplot.plot(history.history['val_loss'], label='test')
+pyplot.legend()
+pyplot.show()
 
-def test_data(series, forecast, num_periods):
-  test_x_setup = series[-(num_periods + forecast):]
-  testX = test_x_setup[:num_periods].reshape(-1, 20, 1)
-  testY = series[-(num_periods):].reshape(-1, 20, 1)
-  return testX, testY
-
-X_test, Y_test = test_data(TS, f_horizon, num_periods)
-#print(X_test.shape)
-#print(X_test)
-
-tf.reset_default_graph()
-
-num_periods = 20
-inputs = 1
-hidden = 100
-output = 1
-X = tf.placeholder(tf.float32, shape=[None, num_periods, inputs])
-y = tf.placeholder(tf.float32, shape=[None, num_periods, inputs])
-
-basic_cell = tf.contrib.rnn.BasicRNNCell(num_units=hidden, activation=tf.nn.relu)
-rnn_output, states = tf.nn.dynamic_rnn(cell=basic_cell, inputs=X, dtype=tf.float32)
-
-learning_rate = 0.001
-
-stacked_rnn_output = tf.reshape(tensor=rnn_output, shape=[-1, hidden])
-stacked_outputs = tf.layers.dense(inputs=stacked_rnn_output, units=output)
-outputs = tf.reshape(tensor=stacked_outputs, shape=[-1, num_periods, output])
-
-loss = tf.reduce_sum(tf.square(outputs - y))
-optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
-training_op = optimizer.minimize(loss)
-
-init = tf.global_variables_initializer()
-
-epochs = 1000
-
-with tf.Session() as sess:
-  init.run()
-  for ep in range(epochs):
-    sess.run(training_op, feed_dict={X: x_batches, y: y_batches})
-    if ep % 100 == 0:
-      mse = loss.eval(feed_dict={X: x_batches, y: y_batches})
-      print(ep, "\tMSE", mse)
-  y_pred = sess.run(outputs, feed_dict={X: X_test})
-print(y_pred)
-plt.title("fc vs gt")
-plt.plot(pd.Series(np.ravel(Y_test)), "b", markersize=10, label="gt")
-plt.plot(pd.Series(np.ravel(y_pred)),"r", markersize=10, label="fc")
-plt.legend()
-plt.xlabel("")
-plt.show()
+# make a prediction
+yhat = model.predict(test_X)
+test_X = test_X.reshape((test_X.shape[0], test_X.shape[2]))
+# invert scaling for forecast
+inv_yhat = concatenate((yhat, test_X[:, 1:]), axis=1)
+inv_yhat = scaler.inverse_transform(inv_yhat)
+inv_yhat = inv_yhat[:, 0]
+# invert scaling for actual
+test_y = test_y.reshape((len(test_y), 1))
+inv_y = concatenate((test_y, test_X[:, 1:]), axis=1)
+inv_y = scaler.inverse_transform(inv_y)
+inv_y = inv_y[:, 0]
+# calculate RMSE
+rmse = sqrt(mean_squared_error(inv_y, inv_yhat))
+print('Test RMSE: %.3f' % rmse)

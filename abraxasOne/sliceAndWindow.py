@@ -303,6 +303,8 @@ def sliceAndWindowV3(data, windowWidth, enaCheck=1, windowShift=1, window='tukey
         windowFunction = np.kaiser(windowNumberOfPoints, alpha)
     elif (window=='gauss'):
         windowFunction = scipy.signal.gaussian(windowNumberOfPoints, alpha)
+    else:
+        windowFunction = np.ones(windowNumberOfPoints)
     if enaCWF==1:
         timeAxis = np.linspace(0,windowWidth, windowNumberOfPoints)
         plt.plot(timeAxis, windowFunction)

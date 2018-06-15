@@ -14,6 +14,8 @@ files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c
 start = np.array([600, 300, 50, 100, 100, 100, 3500])
 stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000])
 
+fileLabels = np.array([0,1,2,3,4,1,0])
+
 usedSensors = np.array([0,1,2,3,4,5,6,7,8,9])
 print("Using following sensors: ", usedSensors)
 
@@ -46,10 +48,10 @@ for i in range(len(dataWindows)):
         f = extractSpectralFeatures(dataWindow=dataWindows[i][int(index[j])], numDomCoeffs=20, numDomFreqs=2, sampleT=0.0165, wavelet = 'haar')
         if j>int(2/3*numberOfWindows[i]):
             testFeatures.append(f.T)
-            testLabels.append(i)
+            testLabels.append(fileLabels[i])
         else:
             trainingFeatures.append(f.T)
-            trainingLabels.append(i)
+            trainingLabels.append(fileLabels[i])
 
 #shuffledTrainingLabels, shuffledTrainingFeatures = shuffleData(trainingLabels, trainingFeatures)
 #shuffledTestLabels, shuffledTestFeatures = shuffleData(testLabels, testFeatures)
@@ -60,9 +62,9 @@ clf.fit(trainingFeatures, trainingLabels)
 ## test with normal data:
 prediction = []
 error = 0
-classError = np.zeros(len(files))
-numberOfTestsPerClass = np.zeros(len(files))
-confMat = np.zeros([len(files), len(files)])
+classError = np.zeros(len(files)-2)
+numberOfTestsPerClass = np.zeros(len(files)-2)
+confMat = np.zeros([len(files)-2, len(files)-2])
 for i in range(len(testLabels)):
     pred = clf.predict(testFeatures[i].reshape(1, -1))
     confMat[int(pred),testLabels[i]] += 1

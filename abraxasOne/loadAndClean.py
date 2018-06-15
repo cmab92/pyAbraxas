@@ -52,7 +52,7 @@ def loadAndClean(fileName, numberOfIrSensors, numberOfForceSensors, tSample = 0.
     linAccData = linAccData[:bnoDataSize,::]
     angVecData = angVecData[:bnoDataSize,::]
     # generate time axis
-    tAxisAnalog = np.linspace(0, tSample*np.size(irData[::,0]), np.size(irData[::,0]))
+    tAxisAnalog = np.linspace(0, tSample*(np.size(irData[::,0])-1), np.size(irData[::,0]))
     tAxisBno = np.linspace(0, 3*tSample*bnoDataSize, bnoDataSize)
     temp = []
     for i in range(numberOfIrSensors):

@@ -1,10 +1,11 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import random
+import pandas as pd
 import itertools
 
 def scaleData(data, scaleAmp=True, scaleMean=True, scaleVar=True):
-    data = data.T
+    data = np.array(data).T
     for i in range(len(data)):
         if scaleAmp:
             data[i] = (data[i]-np.min(data[i]))/(np.max(data[i]-np.min(data[i])))
@@ -58,3 +59,8 @@ def powerSetOfArray(set):
     for i in range(len(x)):
         out.append(np.array(x[i]))
     return out
+
+def writeDataToCsvFile(data, fileName="test.dat", path=""):
+    data = {'time': np.linspace(0,241,242), 'val': data}
+    output_df = pd.DataFrame(data=data)
+    output_df.to_csv(path+fileName, sep=' ', index=False, header=False)

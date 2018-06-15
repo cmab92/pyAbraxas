@@ -70,4 +70,4 @@ def qtPlotSerialData(windowWidth=1000):
                 analogPort = port
 
 if __name__ == '__main__':
-    qtPlotSerialData(10000)
+    qtPlotSerialData(1000)

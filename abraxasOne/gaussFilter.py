@@ -5,6 +5,8 @@
 import numpy as np
 def gaussFilter(x=1, y=1, AMP=1, MEAN=0, SIGMA=0.5):
     ## compute spectrum:
+    y = np.array(y)
+    print(y)
     dataSpectrum = np.array( np.fft.fft(y) )
     ## compute frequency axis:
     if np.size(x)<2:
