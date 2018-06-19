@@ -5,17 +5,13 @@ import pandas as pd
 from sklearn.preprocessing import MinMaxScaler
 from sklearn.preprocessing import LabelEncoder
 from sklearn.metrics import mean_squared_error
-from keras.models import Sequential
-from keras.layers import Dense
-from keras.layers import LSTM
-
 from pandas import read_csv
 from datetime import datetime
 # load data
 def parse(x):
 	return datetime.strptime(x, '%Y %m %d %H')
 from abraxasOne.loadAndClean import loadAndClean
-allData = loadAndClean("igor.txt", 10, 2, tSample = 0.0165, dirPath = "")
+allData = loadAndClean("ankita.txt", 10, 2, tSample = 0.0165, dirPath = "")
 allData = allData[0]
 dataset = []
 dataset.append(allData[0][100:2100,0])
@@ -33,5 +29,5 @@ print(dataset.head(5))
 # mark all NA values with 0
 
 #dataset.to_csv('irData.csv')
-dataset.to_csv("" + "irData1.csv", sep=',', index=False, header=False)
+dataset.to_csv("" + "irData2.csv", sep=',', index=False, header=False)
 
