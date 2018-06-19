@@ -10,11 +10,12 @@ from abraxasOne.helperFunctions import scaleData
 from abraxasOne.helperFunctions import shuffleData
 from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 
-files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt"]
-start = np.array([600, 300, 50, 100, 100, 100, 3500])
-stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000])
+files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt"]
+start = np.array([600, 300, 50, 100, 100, 100, 3500, 500])
+stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000, 4500])
+numberOfClasses = 5
 
-fileLabels = np.array([0,1,2,3,4,1,0])
+fileLabels = np.array([0,1,2,3,4,1,0,3])
 
 usedSensors = np.array([0,1,2,3,4,5,6,7,8,9])
 print("Using following sensors: ", usedSensors)
@@ -33,7 +34,7 @@ for i in range(len(dataSet)):
 dataWindows = np.array(dataWindows)
 numberOfWindows = np.array(numberOfWindows)
 print("Number of windows per dataset: ", numberOfWindows)
-
+files[i]=="chris.txt"
 features = []
 labels = []
 trainingFeatures = []
@@ -44,14 +45,21 @@ testLabels = []
 for i in range(len(dataWindows)):
     index = np.linspace(0,len(dataWindows[i])-1, len(dataWindows[i]))
     #random.shuffle(index)
-    for j in range(numberOfWindows[i]):
-        f = extractSpectralFeatures(dataWindow=dataWindows[i][int(index[j])], numDomCoeffs=20, numDomFreqs=2, sampleT=0.0165, wavelet = 'haar')
-        if j>int(2/3*numberOfWindows[i]):
+    if i==7 :
+        print(files[i])
+        for j in range(numberOfWindows[i]):
+            f = extractSpectralFeatures(dataWindow=dataWindows[i][int(index[j])], numDomCoeffs=10, numDomFreqs=6, sampleT=0.0165, wavelet = 'haar')
             testFeatures.append(f.T)
             testLabels.append(fileLabels[i])
-        else:
-            trainingFeatures.append(f.T)
-            trainingLabels.append(fileLabels[i])
+    else:
+        for j in range(numberOfWindows[i]):
+            f = extractSpectralFeatures(dataWindow=dataWindows[i][int(index[j])], numDomCoeffs=10, numDomFreqs=6, sampleT=0.0165, wavelet = 'haar')
+            if j>int(1/2*numberOfWindows[i]):
+                testFeatures.append(f.T)
+                testLabels.append(fileLabels[i])
+            else:
+                trainingFeatures.append(f.T)
+                trainingLabels.append(fileLabels[i])
 
 #shuffledTrainingLabels, shuffledTrainingFeatures = shuffleData(trainingLabels, trainingFeatures)
 #shuffledTestLabels, shuffledTestFeatures = shuffleData(testLabels, testFeatures)
@@ -62,9 +70,9 @@ clf.fit(trainingFeatures, trainingLabels)
 ## test with normal data:
 prediction = []
 error = 0
-classError = np.zeros(len(files)-2)
-numberOfTestsPerClass = np.zeros(len(files)-2)
-confMat = np.zeros([len(files)-2, len(files)-2])
+classError = np.zeros(numberOfClasses)
+numberOfTestsPerClass = np.zeros(numberOfClasses)
+confMat = np.zeros([numberOfClasses, numberOfClasses])
 for i in range(len(testLabels)):
     pred = clf.predict(testFeatures[i].reshape(1, -1))
     confMat[int(pred),testLabels[i]] += 1
