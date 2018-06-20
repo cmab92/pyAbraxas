@@ -10,6 +10,7 @@ from abraxasOne.helperFunctions import scaleData
 from abraxasOne.helperFunctions import shuffleData
 from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 import serial
+from six.moves import cPickle
 
 files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt"]
 start = np.array([600, 300, 50, 100, 100, 100, 3500, 500])
@@ -23,11 +24,11 @@ usedSensors = np.array([0,1,2,3,4,5,6,7,8,9])
 print("Using following sensors: ", usedSensors)
 
 ########################################################################################################################
-testFrac = 0.05
+trainFrac = 0.9
 numDomCoeffs = 20
 numDomFreqs = 20
 windowWidth = 100
-windowShift = 10
+windowShift = 100
 numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
@@ -64,7 +65,7 @@ for i in range(len(dataWindows)):
     else:
         for j in range(numberOfWindows[i]):
             f = extractSpectralFeatures(dataWindow=dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, sampleT=0.0165, wavelet = 'haar')
-            if j>int(testFrac*numberOfWindows[i]):
+            if j>int(trainFrac*numberOfWindows[i]):
                 testFeatures.append(f.T)
                 testLabels.append(fileLabels[i])
             else:
@@ -77,6 +78,13 @@ for i in range(len(dataWindows)):
 ## train svm:
 clf = svm.SVC(kernel='rbf')
 clf.fit(trainingFeatures, trainingLabels)
+
+with open('my_dumped_classifier.pkl', 'wb') as fid:
+    cPickle.dump(clf, fid)
+
+with open('my_dumped_classifier.pkl', 'rb') as fid:
+    gnb_loaded = cPickle.load(fid)
+
 ## test with normal data:
 prediction = []
 error = 0
@@ -84,7 +92,9 @@ classError = np.zeros(numberOfClasses)
 numberOfTestsPerClass = np.zeros(numberOfClasses)
 confMat = np.zeros([numberOfClasses, numberOfClasses])
 for i in range(len(testLabels)):
-    pred = clf.predict(testFeatures[i].reshape(1, -1))
+    pred = gnb_loaded.predict(testFeatures[i].reshape(1, -1))
+    if testLabels[i]==3:
+        print(pred)
     confMat[int(pred),testLabels[i]] += 1
     numberOfTestsPerClass[testLabels[i]] += 1
     if pred != testLabels[i]:
@@ -98,24 +108,24 @@ print("per class:")
 print(classError/numberOfTestsPerClass*100)
 plotMatrixWithValues(confMat)
 
-
-windowWidth = 100
-windowShift = 10
-numOfSensors = 10
-ser = serial.Serial(port="/dev/ttyUSB0", baudrate=57600)
-dummy = ser.readline() # throw first line
-window = np.zeros([100, numOfSensors])
-count = 0
-while(1):
-    count += 1
-    line = ser.readline()
-    line = line.decode("utf-8")
-    line = line.split(",")[:numOfSensors]
-    window = np.roll(window, -1, 0)
-    window[-1, ::] = line
-    if count>=windowShift:
-        f = extractSpectralFeatures(dataWindow=window, numDomCoeffs=numDomCoeffs,
-                                numDomFreqs=numDomFreqs, sampleT=0.0165, wavelet='haar')
-        count = 0
-        pred = clf.predict(f.reshape(1, -1))
-        print(pred)
+if 0 :
+    windowWidth = 100
+    windowShift = 10
+    numOfSensors = 10
+    ser = serial.Serial(port="/dev/ttyUSB0", baudrate=57600)
+    dummy = ser.readline() # throw first line
+    window = np.zeros([100, numOfSensors])
+    count = 0
+    while(1):
+        count += 1
+        line = ser.readline()
+        line = line.decode("utf-8")
+        line = line.split(",")[:numOfSensors]
+        window = np.roll(window, -1, 0)
+        window[-1, ::] = line
+        if count>=windowShift:
+            f = extractSpectralFeatures(dataWindow=window, numDomCoeffs=numDomCoeffs,
+                                    numDomFreqs=numDomFreqs, sampleT=0.0165, wavelet='haar')
+            count = 0
+            pred = clf.predict(f.reshape(1, -1))
+            print(pred)
