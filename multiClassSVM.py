@@ -17,12 +17,12 @@ from abraxasOne.extractFeatures import extractFeatures
 #start = np.array([600, 300, 50, 100, 100, 100, 3500, 500, 2000, 2000, 500, 100])
 #stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000, 4500, 3500, 5500, 3500, 4000])
 
-files = ["igor.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "stefan.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]
-start = np.array([600, 100, 100, 100, 3500, 500, 2000, 2000, 500, 100])
-stop = np.array([3400, 1700, 1600, 3000, 6000, 4500, 3500, 5500, 3500, 4000])
+files = ["igor.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]
+start = np.array([600, 100, 100, 100, 3500, 500, 2000, 500, 100])
+stop = np.array([3400, 1700, 1600, 3000, 6000, 4500, 5500, 3500, 4000])
 numberOfClasses = 8
 
-fileLabels = np.array([0, 2, 3, 1, 0, 2, 4, 5, 6, 7])
+fileLabels = np.array([0, 2, 3, 1, 0, 2, 5, 6, 7])
 
 usedSensors = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 

@@ -10,7 +10,7 @@ from six.moves import cPickle
 import scipy.signal
 
 def getFeaturesF(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, windowWidth, windowShift, numDomCoeffs, numDomFreqs, window, alpha):
-    ser = serial.Serial(port="/dev/ttyUSB0", baudrate=57600)
+    ser = serial.Serial(port="/dev/ttyUSB1", baudrate=57600)
     dummy = ser.readline() # throw first line
     oldLine = ser.readline() # get line for interpolation
     oldLine = oldLine.decode("utf-8")
@@ -78,8 +78,8 @@ def plotDataF(plotDataQ, analogPort):
         plt.pause(10**-12)
 
 def classDataF(plotDataQ, featureDataQ, classifier):
-    fileLabelsSym = ['igor, 0', 'ankita, 1', 'chris, 2', 'crooked, 3', 'stefan, 4', 'ben, 5', 'markus, 6',
-                     'schnell (markus), 7']
+    fileLabelsSym = ['igor, 0', 'ankita, 1', 'chris, 2', 'crooked, 3', 'ben, 4', 'markus, 5',
+                     'schnell (markus), 6']
     while(1):
         features = featureDataQ.get()
         pred = classifier.predict(features.reshape(1, -1))
