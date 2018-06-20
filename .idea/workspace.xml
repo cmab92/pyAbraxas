@@ -4,7 +4,7 @@
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my_dumped_classifier.pkl" afterPath="$PROJECT_DIR$/my_dumped_classifier.pkl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/threadingTest.py" afterPath="$PROJECT_DIR$/threadingTest.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/multiClassSVM.py" afterPath="$PROJECT_DIR$/multiClassSVM.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -22,8 +22,8 @@
       <file leaf-file-name="multiClassSVM.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+            <state relative-caret-position="360">
+              <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="26" selection-end-column="43" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -46,11 +46,10 @@
       <file leaf-file-name="threadingTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/threadingTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="28">
-              <caret line="85" column="38" lean-forward="false" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
+            <state relative-caret-position="73">
+              <caret line="79" column="52" lean-forward="true" selection-start-line="79" selection-start-column="52" selection-end-line="81" selection-end-column="43" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
-                <element signature="e#2223#2239#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -103,8 +102,8 @@
         <option value="$PROJECT_DIR$/gaitAnaForUserIdentification.py" />
         <option value="$PROJECT_DIR$/abraxasOne/extractSpectralFeatures.py" />
         <option value="$PROJECT_DIR$/abraxasOne/extractFeatures.py" />
-        <option value="$PROJECT_DIR$/multiClassSVM.py" />
         <option value="$PROJECT_DIR$/threadingTest.py" />
+        <option value="$PROJECT_DIR$/multiClassSVM.py" />
       </list>
     </option>
   </component>
@@ -199,7 +198,9 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/multiClassSVM.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/my_dumped_classifier.pkl</PATH>
+          <PATH vcs="Git" revision="">$PROJECT_DIR$/threadingTest.py</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Created" />
@@ -207,14 +208,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="CREATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/__init__.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/extractFeatures.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/extractSpectralFeatures.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/helperFunctions.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/plotMatrixWithValues.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/readSeveralFiles.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/abraxasOne/sliceAndWindow.pyc</PATH>
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/trainSVC.pyc</PATH>
         </FILE-GROUP>
         <FILE-GROUP>
           <option name="myUpdateName" value="Deleted" />
@@ -635,7 +628,14 @@
       <option name="project" value="LOCAL" />
       <updated>1529506075111</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="feature extraction reworked">
+      <created>1529506747330</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1529506747330</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1050,19 +1050,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/threadingTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28">
-          <caret line="85" column="38" lean-forward="false" selection-start-line="85" selection-start-column="38" selection-end-line="85" selection-end-column="38" />
+        <state relative-caret-position="73">
+          <caret line="79" column="52" lean-forward="true" selection-start-line="79" selection-start-column="52" selection-end-line="81" selection-end-column="43" />
           <folding>
             <element signature="e#0#22#0" expanded="true" />
-            <element signature="e#2223#2239#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="34" column="16" lean-forward="true" selection-start-line="34" selection-start-column="16" selection-end-line="34" selection-end-column="16" />
+        <state relative-caret-position="360">
+          <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="26" selection-end-column="43" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
           </folding>
