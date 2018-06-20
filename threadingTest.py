@@ -3,14 +3,14 @@ import serial
 import numpy as np
 import matplotlib.pyplot as plt
 from sklearn import svm
-from abraxasOne.extractSpectralFeatures import extractSpectralFeatures
+from abraxasOne.extractFeatures import extractFeatures
 from abraxasOne.helperFunctions import scaleData
 from trainSVC import trainSVC
 from six.moves import cPickle
 import scipy.signal
 
 def getFeaturesF(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, windowWidth, windowShift, numDomCoeffs, numDomFreqs, window, alpha):
-    ser = serial.Serial(port="/dev/ttyUSB1", baudrate=57600)
+    ser = serial.Serial(port="/dev/ttyUSB0", baudrate=57600)
     dummy = ser.readline() # throw first line
     oldLine = ser.readline() # get line for interpolation
     oldLine = oldLine.decode("utf-8")
@@ -63,9 +63,8 @@ def getFeaturesF(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, window
         dataOut = np.array(dataWindow)
         for i in range(np.size(usedSensors)):
             dataOut[::, i] = dataOut[::, i]*windowFunction
-        dataOut = scaleData(dataOut, scaleVar=True, scaleAmp=True, scaleMean=False)
-        f = extractSpectralFeatures(dataWindow=dataOut, numDomCoeffs=numDomCoeffs,
-                                    numDomFreqs=numDomFreqs, sampleT=0.0165, wavelet='haar')
+        #dataOut = scaleData(dataOut, scaleVar=True, scaleAmp=True, scaleMean=False)
+        f = extractFeatures(dataOut, numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, wavelet='haar')
         featureDataQ.put(f)
         plotDataQ.put(dataOut)
 
@@ -79,13 +78,15 @@ def plotDataF(plotDataQ, analogPort):
         plt.pause(10**-12)
 
 def classDataF(plotDataQ, featureDataQ, classifier):
+    fileLabelsSym = ['igor, 0', 'ankita, 1', 'chris, 2', 'crooked, 3', 'stefan, 4', 'ben, 5', 'markus, 6',
+                     'schnell (markus), 7']
     while(1):
         features = featureDataQ.get()
         pred = classifier.predict(features.reshape(1, -1))
         plt.clf()
         dataWindow = plotDataQ.get()
         plt.plot(dataWindow[::, analogPort])
-        plt.title(pred)
+        plt.title(fileLabelsSym[int(pred)])
         plt.pause(10**-12)
 
 if __name__ == '__main__':
@@ -100,13 +101,13 @@ if __name__ == '__main__':
 
     totalNumOfSensors = 10+2+5
     usedSensors = np.array([0, 1, 2, 3, 4,  5, 6, 7, 8, 9])
-    windowWidth = 100
-    windowShift = 10
-    numDomCoeffs = 20
-    numDomFreqs = 20
+    windowWidth = 80
+    windowShift = 15
+    numDomCoeffs = 5
+    numDomFreqs = 1
     analogPort = 0
     window = 'tukey'
-    alpha = 0.1
+    alpha = (1-windowWidth/100)
 
     featureProcess = multiprocessing.Process(target=getFeaturesF, args=(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, windowWidth, windowShift, numDomCoeffs, numDomFreqs, window, alpha, ))
     #plotProcess = multiprocessing.Process(target=plotDataF, args=(plotDataQ, analogPort, ))

@@ -33,7 +33,7 @@ trainFrac = 1
 numDomCoeffs = 5
 numDomFreqs = 1
 windowWidth = 80
-windowShift = 5
+windowShift = 15
 numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
