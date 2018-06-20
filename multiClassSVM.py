@@ -12,12 +12,16 @@ from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 import serial
 from six.moves import cPickle
 
-files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "stefan.txt", "ben.txt"]
-start = np.array([600, 300, 50, 100, 100, 100, 3500, 500, 2000, 2000])
-stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000, 4500, 3500, 5500])
-numberOfClasses = 7
+#files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "stefan.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]
+#start = np.array([600, 300, 50, 100, 100, 100, 3500, 500, 2000, 2000, 500, 100])
+#stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000, 4500, 3500, 5500, 3500, 4000])
 
-fileLabels = np.array([0, 1, 2, 3, 4, 1, 0, 3, 5, 6])
+files = ["igor.txt", "ankita.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "stefan.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]
+start = np.array([600, 300, 100, 100, 100, 3500, 500, 2000, 2000, 500, 100])
+stop = np.array([3400, 1800, 1700, 1600, 3000, 6000, 4500, 3500, 5500, 3500, 4000])
+numberOfClasses = 8
+
+fileLabels = np.array([0, 1, 2, 3, 4, 1, 0, 3, 5, 6, 7, 7])
 
 usedSensors = np.array([0,1,2,3,4,5,6,7,8,9])
 
@@ -26,13 +30,13 @@ print("Using following sensors: ", usedSensors)
 ########################################################################################################################
 trainFrac = 2/3
 numDomCoeffs = 20
-numDomFreqs = 3
+numDomFreqs = 0
 windowWidth = 50
 windowShift = 10
 numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
-dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=True, selectSensors=usedSensors)
+dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=False, selectSensors=usedSensors)
 
 for i in range(len(dataSet)):
     dataSet[i] = scaleData(dataSet[i], scaleAmp=True, scaleMean=False, scaleVar=True)
@@ -56,7 +60,7 @@ testLabels = []
 for i in range(len(dataWindows)):
     index = np.linspace(0,len(dataWindows[i])-1, len(dataWindows[i]))
     #random.shuffle(index)
-    if ((i==17)|(i==110)):
+    if ((i==101)|(i==110)):
         print("Dataset:", files[i], " with label:", fileLabels[i], " is for test only...")
         for j in range(numberOfWindows[i]):
             f = extractSpectralFeatures(dataWindow=dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, sampleT=0.0165, wavelet = 'haar')
