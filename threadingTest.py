@@ -83,11 +83,12 @@ def classDataF(plotDataQ, featureDataQ, classifier):
     while(1):
         features = featureDataQ.get()
         pred = classifier.predict(features.reshape(1, -1))
-        plt.clf()
-        dataWindow = plotDataQ.get()
-        plt.plot(dataWindow[::, analogPort])
-        plt.title(fileLabelsSym[int(pred)])
-        plt.pause(10**-12)
+        print(fileLabelsSym[int(pred)])
+        #plt.clf()
+        #dataWindow = plotDataQ.get()
+        #plt.plot(dataWindow[::, analogPort])
+        #plt.title(fileLabelsSym[int(pred)])
+        #plt.pause(10**-12)
 
 if __name__ == '__main__':
 
