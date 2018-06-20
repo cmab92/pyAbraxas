@@ -12,27 +12,27 @@ from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 import serial
 from six.moves import cPickle
 
-files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt"]
-start = np.array([600, 300, 50, 100, 100, 100, 3500, 500])
-stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000, 4500])
-numberOfClasses = 5
+files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "stefan.txt", "ben.txt"]
+start = np.array([600, 300, 50, 100, 100, 100, 3500, 500, 2000, 2000])
+stop = np.array([3400, 1800, 1550, 1700, 1600, 3000, 6000, 4500, 3500, 5500])
+numberOfClasses = 7
 
-fileLabels = np.array([0, 1, 2, 3, 4, 1, 0, 3])
+fileLabels = np.array([0, 1, 2, 3, 4, 1, 0, 3, 5, 6])
 
 usedSensors = np.array([0,1,2,3,4,5,6,7,8,9])
 
 print("Using following sensors: ", usedSensors)
 
 ########################################################################################################################
-trainFrac = 0.9
+trainFrac = 2/3
 numDomCoeffs = 20
-numDomFreqs = 20
-windowWidth = 100
-windowShift = 100
+numDomFreqs = 3
+windowWidth = 50
+windowShift = 10
 numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
-dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=False, selectSensors=usedSensors)
+dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=True, selectSensors=usedSensors)
 
 for i in range(len(dataSet)):
     dataSet[i] = scaleData(dataSet[i], scaleAmp=True, scaleMean=False, scaleVar=True)
@@ -46,7 +46,7 @@ for i in range(len(dataSet)):
 dataWindows = np.array(dataWindows)
 numberOfWindows = np.array(numberOfWindows)
 print("Number of windows per dataset: ", numberOfWindows)
-files[i]=="chris.txt"
+#files[i]=="chris.txt"
 features = []
 labels = []
 trainingFeatures = []
