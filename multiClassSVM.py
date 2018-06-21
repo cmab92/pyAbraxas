@@ -40,7 +40,7 @@ numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
 dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10,
-                           numberOfForceSensors=2, equalLength=True, checkData=True, useForce=True, useBno=False,
+                           numberOfForceSensors=2, equalLength=True, checkData=False, useForce=True, useBno=False,
                            useIr=True, interpBno=True, selectSensors=usedSensors)
 
 
