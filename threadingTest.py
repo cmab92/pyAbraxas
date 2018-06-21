@@ -22,6 +22,7 @@ def getFeaturesF(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, window
                 try:
                     ser = serial.Serial(port="/dev/ttyUSB3", baudrate=57600)
                 except serial.SerialException:
+                    ser = serial.Serial(port="/dev/ttyUSB0", baudrate=57600)
                     print("USB connected???")
     dummy = ser.readline() # throw first line
     oldLine = ser.readline() # get line for interpolation
