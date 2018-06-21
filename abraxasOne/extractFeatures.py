@@ -17,7 +17,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import pywt
 from statsmodels.robust import mad
-def extractFeatures(dataWindow, numDomCoeffs, numDomFreqs, wavelet='haar'):
+def extractFeatures(dataWindow, numDomCoeffs, numDomFreqs, statFeat=True, wavelet='haar'):
     featureVector = []
     windowNumberOfPoints = np.size(dataWindow[::, 0])
     numOfSensors = np.size(dataWindow[0, ::])
@@ -63,5 +63,11 @@ def extractFeatures(dataWindow, numDomCoeffs, numDomFreqs, wavelet='haar'):
             for j in range(np.size(dominantFreqAmpIm[i])):
                 temp = dominantFreqAmpIm
                 featureVector.append(temp[i][j])
+    ## statistical features:
+    if statFeat:
+        for i in range(numOfSensors):
+            featureVector.append(np.mean(dataWindow[::, i]))
+            featureVector.append(np.var(dataWindow[::, i]))
+            featureVector.append(mad(dataWindow[::, i]))
     featureVector = np.reshape(featureVector, np.size(featureVector))
     return featureVector

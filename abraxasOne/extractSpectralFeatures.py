@@ -105,22 +105,16 @@ def extractSpectralFeatures(dataWindow, numDomCoeffs=2, numDomFreqs=2, sampleT=0
         freqAxis = freqAxis[int(windowNumberOfPoints / 2):]*sampleT/2 # from zero to nyquist frequency but normalized to 1
         #windowSpectrum = []
         dominantFreqVal = []
-        dominantFreqAmpRe = []
-        dominantFreqAmpIm = []
+        dominantFreqAmp = []
         for i in range(numOfSensors):
-            complexSpectrum = np.fft.fftshift(np.fft.fft(dataWindow[::, i]))
-            complexSpectrum = complexSpectrum[int(windowNumberOfPoints/2):]
             spectrum = np.abs(np.fft.fftshift(np.fft.fft(dataWindow[::, i])))
             spectrum = spectrum[int(windowNumberOfPoints/2):]#*freqNormFact/signalPower[i]/windowNumberOfPoints
         #windowSpectrum.append(spectrum)
-            dominantFreqAmpRe.append(np.real(complexSpectrum[spectrum.argsort()[-numDomFreqs:]])) # -> get amplitude of real part of largest frequencies
-            dominantFreqAmpIm.append(np.imag(complexSpectrum[spectrum.argsort()[-numDomFreqs:]])) # -> get amplitude of imaginary part of largest frequencies
+            dominantFreqAmp.append(np.real(spectrum[spectrum.argsort()[-numDomFreqs:]])) # -> get amplitude of real part of largest frequencies
             dominantFreqVal.append(freqAxis[spectrum.argsort()[-numDomFreqs:]]) # -> get value of largest frequencies
         for i in range(numDomFreqs):
             for j in range(numOfSensors):
-                featureVector.append(np.round([(np.transpose(dominantFreqVal)[i,j], np.transpose(dominantFreqAmpRe)[i,j], np.transpose(dominantFreqAmpIm)[i,j])],5))
+                featureVector.append(np.round([(np.transpose(dominantFreqVal)[i,j], np.transpose(dominantFreqAmp)[i,j])],5))
         featureVector = np.array(featureVector)
-        plt.plot(featureVector)
-        plt.show()
         featureVector = np.reshape(featureVector, np.size(featureVector))
     return featureVector

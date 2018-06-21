@@ -67,12 +67,12 @@ for i in range(len(dataWindows)):
     if 0*((i==0)|(i==0)):
         print("Dataset:", files[i], " with label:", fileLabels[i], " is for test only...")
         for j in range(numberOfWindows[i]):
-            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, wavelet='haar')
+            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, statFeat=True, wavelet='haar')
             testFeatures.append(f.T)
             testLabels.append(fileLabels[i])
     else:
         for j in range(numberOfWindows[i]):
-            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, wavelet='haar')
+            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, statFeat=True, wavelet='haar')
             if j>int(trainFrac*numberOfWindows[i]-2):
                 testFeatures.append(f.T)
                 testLabels.append(fileLabels[i])

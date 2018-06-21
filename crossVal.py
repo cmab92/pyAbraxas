@@ -33,7 +33,7 @@ for i in range(len(dataSet)):
 dataWindows = []
 numberOfWindows = []
 for i in range(len(dataSet)):
-    windows, numOfWindows = sliceAndWindowV3(data=dataSet[i], windowWidth=20, windowShift=10, enaCheck=False, window='tukey', alpha=0.2, enaCWF=1)
+    windows, numOfWindows = sliceAndWindowV3(data=dataSet[i], windowWidth=80, windowShift=10, enaCheck=False, window='tukey', alpha=0.1, enaCWF=0)
     dataWindows.append(windows)
     numberOfWindows.append(numOfWindows)
 dataWindows = np.array(dataWindows)
@@ -65,7 +65,7 @@ labels = np.concatenate([trainingLabels, testLabels])
 ## simply train and test svm:
 ########################################################################################################################
 if 0:
-    clf = svm.SVC(kernel='rbf')#, C=2.236, gamma=0.00227)
+    clf = svm.SVC(kernel='poly')#, C=2.236, gamma=0.00227)
     clf.fit(trainingFeatures, trainingLabels)
     prediction = []
     error = 0
@@ -95,7 +95,7 @@ import pandas as pd
 ########################################################################################################################
 ## Xval svm:
 ########################################################################################################################
-clf = svm.SVC(kernel='rbf')
+clf = svm.SVC(kernel='poly')
 scores = cross_val_score(clf, np.concatenate([testFeatures, trainingFeatures]),  np.concatenate([testLabels, trainingLabels]), cv=5)
 print("Accuracy: %0.5f (+/- %0.5f)" % (scores.mean(), scores.std() * 2))
 ########################################################################################################################
