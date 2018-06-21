@@ -10,7 +10,19 @@ from six.moves import cPickle
 import scipy.signal
 
 def getFeaturesF(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, windowWidth, windowShift, numDomCoeffs, numDomFreqs, window, alpha):
-    ser = serial.Serial(port="/dev/ttyUSB2", baudrate=57600)
+    try:
+        ser = serial.Serial(port="/dev/ttyUSB0", baudrate=57600)
+    except serial.SerialException:
+        try:
+            ser = serial.Serial(port="/dev/ttyUSB1", baudrate=57600)
+        except serial.SerialException:
+            try:
+                ser = serial.Serial(port="/dev/ttyUSB2", baudrate=57600)
+            except serial.SerialException:
+                try:
+                    ser = serial.Serial(port="/dev/ttyUSB3", baudrate=57600)
+                except serial.SerialException:
+                    print("USB connected???")
     dummy = ser.readline() # throw first line
     oldLine = ser.readline() # get line for interpolation
     oldLine = oldLine.decode("utf-8")
@@ -102,13 +114,13 @@ if __name__ == '__main__':
 
     totalNumOfSensors = 10+2+5
     usedSensors = np.array([0, 1, 2, 3, 4,  5, 6, 7, 8, 9])
-    windowWidth = 80
-    windowShift = 15
-    numDomCoeffs = 5
-    numDomFreqs = 1
+    windowWidth = 150
+    windowShift = 10
+    numDomCoeffs = 20
+    numDomFreqs = 20
     analogPort = 0
     window = 'tukey'
-    alpha = (1-windowWidth/100)
+    alpha = 0.1
 
     featureProcess = multiprocessing.Process(target=getFeaturesF, args=(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, windowWidth, windowShift, numDomCoeffs, numDomFreqs, window, alpha, ))
     #plotProcess = multiprocessing.Process(target=plotDataF, args=(plotDataQ, analogPort, ))

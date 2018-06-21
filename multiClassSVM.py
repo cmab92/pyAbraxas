@@ -32,19 +32,19 @@ print("Using following sensors: ", usedSensors)
 
 ########################################################################################################################
 trainFrac = 1
-numDomCoeffs = 5
-numDomFreqs = 1
-windowWidth = 80
-windowShift = 15
+numDomCoeffs = 20
+numDomFreqs = 20
+windowWidth = 150
+windowShift = 10
 numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
-dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=False, selectSensors=usedSensors)
+dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=True, selectSensors=usedSensors)
 
 dataWindows = []
 numberOfWindows = []
 for i in range(len(dataSet)):
-    windows, numOfWindows = sliceAndWindowV3(data=dataSet[i], windowWidth=windowWidth, windowShift=windowShift, enaCheck=False, window='tukey', alpha=(1-windowWidth/100), enaCWF=0)
+    windows, numOfWindows = sliceAndWindowV3(data=dataSet[i], windowWidth=windowWidth, windowShift=windowShift, enaCheck=False, window='tukey', alpha=0.1, enaCWF=0)
     dataWindows.append(windows)
     numberOfWindows.append(numOfWindows)
 dataWindows = np.array(dataWindows)

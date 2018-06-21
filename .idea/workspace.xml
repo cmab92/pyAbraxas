@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/my_dumped_classifier.pkl" afterPath="$PROJECT_DIR$/my_dumped_classifier.pkl" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/multiClassSVM.py" afterPath="$PROJECT_DIR$/multiClassSVM.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/threadingTest.py" afterPath="$PROJECT_DIR$/threadingTest.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +19,11 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="multiClassSVM.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="multiClassSVM.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="26" selection-end-column="43" />
+            <state relative-caret-position="411">
+              <caret line="46" column="153" lean-forward="false" selection-start-line="46" selection-start-column="153" selection-end-line="46" selection-end-column="153" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
               </folding>
@@ -34,7 +34,7 @@
       <file leaf-file-name="extractFeatures.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasOne/extractFeatures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="846">
+            <state relative-caret-position="930">
               <caret line="65" column="69" lean-forward="false" selection-start-line="65" selection-start-column="69" selection-end-line="65" selection-end-column="69" />
               <folding>
                 <element signature="e#568#599#0" expanded="true" />
@@ -43,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="threadingTest.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="threadingTest.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/threadingTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="73">
-              <caret line="79" column="52" lean-forward="true" selection-start-line="79" selection-start-column="52" selection-end-line="81" selection-end-column="43" />
+            <state relative-caret-position="360">
+              <caret line="24" column="43" lean-forward="false" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -102,8 +102,8 @@
         <option value="$PROJECT_DIR$/gaitAnaForUserIdentification.py" />
         <option value="$PROJECT_DIR$/abraxasOne/extractSpectralFeatures.py" />
         <option value="$PROJECT_DIR$/abraxasOne/extractFeatures.py" />
-        <option value="$PROJECT_DIR$/threadingTest.py" />
         <option value="$PROJECT_DIR$/multiClassSVM.py" />
+        <option value="$PROJECT_DIR$/threadingTest.py" />
       </list>
     </option>
   </component>
@@ -128,6 +128,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -170,8 +172,6 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scratches" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -198,7 +198,6 @@
           <option name="mySupportsDeletion" value="false" />
           <option name="myCanBeAbsent" value="false" />
           <option name="myId" value="UPDATED" />
-          <PATH vcs="Git" revision="">$PROJECT_DIR$/multiClassSVM.py</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/my_dumped_classifier.pkl</PATH>
           <PATH vcs="Git" revision="">$PROJECT_DIR$/threadingTest.py</PATH>
         </FILE-GROUP>
@@ -635,7 +634,14 @@
       <option name="project" value="LOCAL" />
       <updated>1529506747330</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="feature extraction reworked">
+      <created>1529507426610</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1529507426610</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -647,7 +653,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32925585" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32928064" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3853211" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3853211" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
@@ -955,9 +961,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="105">
           <caret line="13" column="23" lean-forward="false" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-          <folding>
-            <element signature="e#0#18#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -965,7 +968,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1875">
           <caret line="131" column="29" lean-forward="false" selection-start-line="131" selection-start-column="29" selection-end-line="131" selection-end-column="29" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -973,7 +975,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -981,9 +982,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#31#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -991,7 +989,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="23" column="61" lean-forward="false" selection-start-line="23" selection-start-column="61" selection-end-line="23" selection-end-column="61" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -999,9 +996,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="420">
           <caret line="28" column="120" lean-forward="true" selection-start-line="28" selection-start-column="120" selection-end-line="32" selection-end-column="20" />
-          <folding>
-            <element signature="e#1401#1432#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1009,9 +1003,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
           <caret line="32" column="38" lean-forward="true" selection-start-line="32" selection-start-column="38" selection-end-line="32" selection-end-column="38" />
-          <folding>
-            <element signature="e#750#781#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1019,12 +1010,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
           <caret line="6" column="0" lean-forward="false" selection-start-line="6" selection-start-column="0" selection-end-line="16" selection-end-column="15" />
-          <folding>
-            <element signature="e#565#1095#0" expanded="false" />
-            <element signature="e#1124#1493#0" expanded="false" />
-            <element signature="e#1525#1722#0" expanded="false" />
-            <element signature="e#1788#1952#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1032,15 +1017,12 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="138">
           <caret line="103" column="56" lean-forward="false" selection-start-line="103" selection-start-column="56" selection-end-line="103" selection-end-column="56" />
-          <folding>
-            <element signature="e#715#746#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasOne/extractFeatures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="846">
+        <state relative-caret-position="930">
           <caret line="65" column="69" lean-forward="false" selection-start-line="65" selection-start-column="69" selection-end-line="65" selection-end-column="69" />
           <folding>
             <element signature="e#568#599#0" expanded="true" />
@@ -1048,22 +1030,22 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/threadingTest.py">
+    <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="73">
-          <caret line="79" column="52" lean-forward="true" selection-start-line="79" selection-start-column="52" selection-end-line="81" selection-end-column="43" />
+        <state relative-caret-position="411">
+          <caret line="46" column="153" lean-forward="false" selection-start-line="46" selection-start-column="153" selection-end-line="46" selection-end-column="153" />
           <folding>
-            <element signature="e#0#22#0" expanded="true" />
+            <element signature="e#0#18#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
+    <entry file="file://$PROJECT_DIR$/threadingTest.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="360">
-          <caret line="24" column="50" lean-forward="true" selection-start-line="24" selection-start-column="50" selection-end-line="26" selection-end-column="43" />
+          <caret line="24" column="43" lean-forward="false" selection-start-line="24" selection-start-column="43" selection-end-line="24" selection-end-column="43" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
         </state>
       </provider>
