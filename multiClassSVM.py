@@ -31,15 +31,18 @@ usedSensors = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 print("Using following sensors: ", usedSensors)
 
 ########################################################################################################################
-trainFrac = 1
+trainFrac = 2/3
 numDomCoeffs = 20
 numDomFreqs = 20
-windowWidth = 150
+windowWidth = 100
 windowShift = 10
 numOfSensors = np.size(usedSensors)
 ########################################################################################################################
 
-dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=False, checkData=True, selectSensors=usedSensors)
+dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10,
+                           numberOfForceSensors=2, equalLength=True, checkData=True, useForce=True, useBno=False,
+                           useIr=True, interpBno=True, selectSensors=usedSensors)
+
 
 dataWindows = []
 numberOfWindows = []
