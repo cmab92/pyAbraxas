@@ -11,6 +11,7 @@ from abraxasOne.helperFunctions import shuffleData
 from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 import serial
 from six.moves import cPickle
+from statsmodels.robust import mad
 from abraxasOne.extractFeatures import extractFeatures
 
 #files = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "stefan.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]
@@ -20,9 +21,9 @@ from abraxasOne.extractFeatures import extractFeatures
 files = ["igor.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]
 start = np.array([600, 100, 100, 100, 3500, 500, 2000, 500, 100])
 stop = np.array([3400, 1700, 1600, 3000, 6000, 4500, 5500, 3500, 4000])
-numberOfClasses = 7
+numberOfClasses = 6
 
-fileLabels = np.array([0, 2, 3, 1, 0, 2, 4, 5, 6])
+fileLabels = np.array([0, 2, 3, 1, 0, 2, 4, 5, 5])
 fileLabelsSym = ['igor, 0', 'ankita, 1', 'chris, 2', 'crooked, 3', 'ben, 4', 'markus, 5',
                      'schnell (markus), 6']
 
@@ -33,7 +34,7 @@ print("Using following sensors: ", usedSensors)
 ########################################################################################################################
 trainFrac = 2/3
 numDomCoeffs = 20
-numDomFreqs = 20
+numDomFreqs = 0
 windowWidth = 100
 windowShift = 10
 numOfSensors = np.size(usedSensors)
@@ -67,21 +68,44 @@ for i in range(len(dataWindows)):
     if 0*((i==0)|(i==0)):
         print("Dataset:", files[i], " with label:", fileLabels[i], " is for test only...")
         for j in range(numberOfWindows[i]):
-            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, statFeat=True, wavelet='haar')
+            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, statFeat=False, wavelet='haar')
             testFeatures.append(f.T)
             testLabels.append(fileLabels[i])
     else:
         for j in range(numberOfWindows[i]):
-            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, statFeat=True, wavelet='haar')
+            f = extractFeatures(dataWindows[i][int(index[j])], numDomCoeffs=numDomCoeffs, numDomFreqs=numDomFreqs, statFeat=False, wavelet='haar')
             if j>int(trainFrac*numberOfWindows[i]-2):
                 testFeatures.append(f.T)
                 testLabels.append(fileLabels[i])
             else:
                 trainingFeatures.append(f.T)
                 trainingLabels.append(fileLabels[i])
+    # plt.plot(f)
+    # plt.show()
 
-## train svm:
-clf = svm.SVC(kernel='poly')
+testFeatures = np.array(testFeatures)
+trainingFeatures = np.array(trainingFeatures)
+numberOfFeatures = np.size(trainingFeatures[0, ::])
+featureMean = []
+featureMax = []
+featureMin = []
+#for i in range(numberOfFeatures):
+#    featureMean.append(np.mean(trainingFeatures[::, i]))
+#    featureMax.append(np.max(trainingFeatures[::, i]))
+#    featureMin.append(np.min(trainingFeatures[::, i]))
+#    print(featureMin[i])
+#    print(featureMax[i])
+#   trainingFeatures[::, i] = (trainingFeatures[::, i] - featureMean[i])/(featureMax[i] - featureMin[i])
+#   testFeatures[::, i] = (testFeatures[::, i] - featureMean[i])/(featureMax[i] - featureMin[i])
+
+#for i in range(len(trainingFeatures)):
+#    plt.plot(trainingFeatures[i])
+#    plt.show()
+
+#plt.plot(np.array(trainingFeatures)[::, 0])
+#plt.show()
+# train svm:
+clf = svm.SVC(kernel='rbf')
 clf.fit(trainingFeatures, trainingLabels)
 
 with open('my_dumped_classifier.pkl', 'wb') as fid:

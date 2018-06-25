@@ -37,7 +37,7 @@ filter_data = True
 
 if check_data:
     for i, element in enumerate(files):
-        irData, forceData, quatData, linAccData, angVecData = loadAndClean(element, 10, 2, tSample=0.0165, dirPath="", normAnalog=False)
+        irData, forceData, quatData, linAccData, angVecData = loadAndClean(element, 10, 2, tSample=0.0165, dirPath="")
         for j in range(len(irData)):
             plt.plot(irData[j][start[i]:stop[i],1], label=str(j))
             plt.title(files[i])
@@ -46,7 +46,7 @@ if check_data:
 
 dataSet = []
 for i, element in enumerate(files):
-    irData, forceData, quatData, linAccData, angVecData = loadAndClean(element, 10, 2, tSample=0.0165, dirPath="", normAnalog=False)
+    irData, forceData, quatData, linAccData, angVecData = loadAndClean(element, 10, 2, tSample=0.0165, dirPath="")
     dummyData = np.random.rand(np.size(irData[0][start[0]:stop[0],1]))
     if filter_data:
         for j in range(len(irData)):
