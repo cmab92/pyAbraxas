@@ -18,24 +18,26 @@ import numpy as np
 import pywt
 from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 from statsmodels.robust import mad
-def extractFeatures(dataWindow, numDomCoeffs, numDomFreqs, statFeat=True, wavelet='haar'):
+def extractFeatures(dataWindow, numDomCoeffs, numDomFreqs, wvltLvl1=False, statFeat=True, wavelet='haar'):
     featureVector = []
     windowNumberOfPoints = np.size(dataWindow[::, 0])
     numOfSensors = np.size(dataWindow[0, ::])
-    ## wavelet features:
+    # wavelet features:
     dominantCoeffsVal = []
     dominantCoeffsVal1 = []
     dominantCoeffsAmp = []
     dominantCoeffsAmp1 = []
     if numDomCoeffs!=0:
         for i in range(numOfSensors):
-            dataWindow[::, i] = dataWindow[::, i]/np.sum(np.square(dataWindow[::, i]))
+            dataWindow[::, i] = dataWindow[::, i]
             coeffs = pywt.wavedec(dataWindow[::, i], wavelet=wavelet, mode='symmetric', level=1)
             coeffs0 = coeffs[0]
             coeffs1 = coeffs[1]
-            translationAxis = np.linspace(-1, 1, np.size(coeffs0))
             dominantCoeffsAmp.append(coeffs0[coeffs0.argsort()[-numDomCoeffs:]])
-            dominantCoeffsAmp1.append(coeffs0[coeffs1.argsort()[-numDomCoeffs:]])
+            dominantCoeffsAmp1.append(coeffs1[coeffs1.argsort()[-numDomCoeffs:]])
+            translationAxis = np.linspace(-1, 1, np.size(coeffs0))
+            translationAxis1 = np.linspace(-1, 1, np.size(coeffs1))
+            #
             if (np.max(coeffs0)==0):
                 dominantCoeffsVal.append(np.zeros(numDomCoeffs))
             else:
@@ -47,43 +49,44 @@ def extractFeatures(dataWindow, numDomCoeffs, numDomFreqs, statFeat=True, wavele
                 temp = dominantCoeffsAmp
                 featureVector.append(temp[i][j])
             # first level
-            if (np.max(coeffs1)==0):
-                dominantCoeffsVal1.append(np.zeros(numDomCoeffs))
-            else:
-                dominantCoeffsVal1.append(translationAxis[coeffs1.argsort()[-numDomCoeffs:]])
-            for j in range(np.size(dominantCoeffsVal1[i])):
-                temp = dominantCoeffsVal1
-                featureVector.append(temp[i][j])
-            for j in range(np.size(dominantCoeffsAmp1[i])):
-                temp = dominantCoeffsAmp1
-                featureVector.append(temp[i][j])
-    ## fourier features:
-    freqAxis = np.linspace(-1, 1, windowNumberOfPoints)
+            if wvltLvl1:
+                if (np.max(coeffs1)==0):
+                    dominantCoeffsVal1.append(np.zeros(numDomCoeffs))
+                else:
+                    dominantCoeffsVal1.append(translationAxis1[coeffs1.argsort()[-numDomCoeffs:]])
+                for j in range(np.size(dominantCoeffsVal1[i])):
+                    temp = dominantCoeffsVal1
+                    featureVector.append(temp[i][j])
+                for j in range(np.size(dominantCoeffsAmp1[i])):
+                    temp = dominantCoeffsAmp1
+                    featureVector.append(temp[i][j])
+    # fourier features:
+    freqAxis = np.linspace(-1, 1, int(windowNumberOfPoints))
     dominantFreqVal = []
-    dominantFreqAmpRe = []
-    dominantFreqAmpIm = []
+    dominantFreqAmp = []
+    dominantFreqPha = []
     if numDomFreqs!=0:
         for i in range(numOfSensors):
             dataWindow[::, i] = dataWindow[::, i]
             spectrum = np.fft.fftshift(np.fft.fft(dataWindow[::, i]))[int(windowNumberOfPoints/2):]
             absSpectrum = np.abs(np.fft.fftshift(np.fft.fft(dataWindow[::, i])))[int(windowNumberOfPoints/2):]
-            dominantFreqAmpRe.append(np.real(spectrum[absSpectrum.argsort()[-numDomFreqs:]]))
-            dominantFreqAmpIm.append(np.imag(spectrum[absSpectrum.argsort()[-numDomFreqs:]]))
+            reS = np.real(spectrum[absSpectrum.argsort()[-numDomFreqs:]])
+            imS = np.imag(spectrum[absSpectrum.argsort()[-numDomFreqs:]])
+            dominantFreqAmp.append(np.sqrt(reS**2+imS**2))
+            dominantFreqPha.append(np.arctan(imS/reS)+0.01*reS)
             dominantFreqVal.append(freqAxis[absSpectrum.argsort()[-numDomFreqs:]])
-            for j in range(np.size(dominantFreqVal[i])):
+            for j in range(np.size(dominantFreqVal[i])-1):
                 temp = dominantFreqVal
                 featureVector.append(temp[i][j])
-            for j in range(np.size(dominantFreqAmpRe[i])):
-                temp = dominantFreqAmpRe
+            for j in range(np.size(dominantFreqAmp[i])):
+                temp = dominantFreqAmp
                 featureVector.append(temp[i][j])
-            for j in range(np.size(dominantFreqAmpIm[i])):
-                temp = dominantFreqAmpIm
+            for j in range(np.size(dominantFreqPha[i])):
+                temp = dominantFreqPha
                 featureVector.append(temp[i][j])
-    # plt.plot(featureVector)
-    # plt.show()
-    ## statistical features:
+    # statistical features
     if statFeat:
-        xCorrWavCoeffs = 2
+        xCorrWavCoeffs = 5
         for i in range(numOfSensors):
             featureVector.append(np.mean(dataWindow[::, i]))
             featureVector.append(np.var(dataWindow[::, i]))
