@@ -6,10 +6,10 @@ from abraxasOne.sliceAndWindow import sliceAndWindowV3
 from abraxasOne.extractFeatures import extractFeatures
 
 
-def splitDataTrainTest(files, start, stop, fileLabels, windowWidth=100, windowShift=10, numDomCoeffs=10, numDomFreqs=10, trainFrac=2/3, statFeat=True, shuffleData=False):
+def splitDataTrainTest(files, start, stop, fileLabels, windowWidth=100, windowShift=10, numDomCoeffs=10, numDomFreqs=10, trainFrac=2/3, statFeat=True, shuffleData=False, checkData=False):
     usedSensors = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10,
-                               numberOfForceSensors=2, equalLength=True, checkData=False, useForce=False, useBno=False,
+                               numberOfForceSensors=2, equalLength=True, checkData=checkData, useForce=False, useBno=False,
                                useIr=True, interpBno=True, selectSensors=usedSensors)
     dataWindows = []
     numberOfWindows = []
