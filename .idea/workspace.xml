@@ -20,10 +20,10 @@
       <file leaf-file-name="receiveData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+            <state relative-caret-position="540">
+              <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
               <folding>
-                <marker date="1530097428253" expanded="true" signature="1109:1111" ph="..." />
+                <element signature="e#1067#1080#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -438,7 +438,14 @@
       <option name="project" value="LOCAL" />
       <updated>1530097310654</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="abra 2">
+      <created>1530097448982</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1530097448982</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -492,7 +499,8 @@
     <MESSAGE value="serial exception crap" />
     <MESSAGE value="..." />
     <MESSAGE value="...svm running iwth statfeats" />
-    <option name="LAST_COMMIT_MESSAGE" value="...svm running iwth statfeats" />
+    <MESSAGE value="abra 2" />
+    <option name="LAST_COMMIT_MESSAGE" value="abra 2" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -796,10 +804,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
+        <state relative-caret-position="540">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="4" />
           <folding>
-            <marker date="1530097428253" expanded="true" signature="1109:1111" ph="..." />
+            <element signature="e#1067#1080#0" expanded="true" />
           </folding>
         </state>
       </provider>

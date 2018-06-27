@@ -24,5 +24,13 @@ cb, 27.06.2018
  Optionally a time axis is provided and received data is returned and written to a .txt-file.
 
  """
-def receiveData(port=None, baudRate=57600):
 
+import serial
+import numpy as np
+import datetime
+import matplotlib.pyplot as plt
+
+
+def receiveData(numIr, numF, samplingRate=None, fileName=None, port=None, baudRate=57600):
+
+    frameLength = numIr + numF + 5      # 5 is for bno data including index
