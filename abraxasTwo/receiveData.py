@@ -206,4 +206,5 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
                         raise
     return True
 
+
 receiveData()
