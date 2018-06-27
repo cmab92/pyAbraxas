@@ -1,6 +1,7 @@
 import numpy as np
 from sklearn import svm
 import matplotlib.pyplot as plt
+from six.moves import cPickle
 from  abraxasOne.splitDataTrainTest import splitDataTrainTest
 from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 
@@ -14,10 +15,22 @@ fileLabelsSym = ['igor, 0', 'crooked, 1', 'ankita, 2', 'chris, 3', 'ben, 4', 'ma
 
 usedSensors = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
 
-trF, teF, trL, teL = splitDataTrainTest(files, start, stop, fileLabels, windowWidth=178, windowShift=10, numDomCoeffs=20, numDomFreqs=20, trainFrac=2/3, statFeat=True, shuffleData=False, checkData=False)
+trF, teF, trL, teL, mean, std_dev = splitDataTrainTest(files, start, stop, fileLabels, windowWidth=100, windowShift=10,
+                                                       numDomCoeffs=10, numDomFreqs=0, trainFrac=1, statFeat=True,
+                                                       shuffleData=False, checkData=False)
+
+normalizationData = []
+normalizationData.append(mean)
+normalizationData.append(std_dev)
+normalizationData = np.array(normalizationData)
+np.savetxt("normData.txt", normalizationData, delimiter=",")
 
 clf = svm.SVC(kernel='rbf')#, C=100.0236, gamma=10.00227)
 clf.fit(trF, trL)
+
+with open('dumpedSVC.pkl', 'wb') as fid:
+    cPickle.dump(clf, fid)
+
 prediction = []
 error = 0
 classError = np.zeros(numberOfClasses)

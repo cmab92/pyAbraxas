@@ -9,7 +9,7 @@ from abraxasOne.extractFeatures import extractFeatures
 def splitDataTrainTest(files, start, stop, fileLabels, windowWidth=100, windowShift=10, numDomCoeffs=10, numDomFreqs=10, trainFrac=2/3, statFeat=True, shuffleData=False, checkData=False):
     usedSensors = np.array([0, 1, 2, 3, 4, 5, 6, 7, 8, 9])
     dataSet = readSeveralFiles(files=files, startTimes=start, stopTimes=stop, path="", numberOfIrSensors=10,
-                               numberOfForceSensors=2, equalLength=True, checkData=checkData, useForce=False, useBno=False,
+                               numberOfForceSensors=2, equalLength=True, checkData=checkData, useForce=True, useBno=True,
                                useIr=True, interpBno=True, selectSensors=usedSensors)
     dataWindows = []
     numberOfWindows = []
@@ -39,10 +39,12 @@ def splitDataTrainTest(files, start, stop, fileLabels, windowWidth=100, windowSh
                 trainingLabels.append(fileLabels[i])
     trainingFeatures = np.array(trainingFeatures)
     testFeatures = np.array(testFeatures)
+    mean = []
+    std_dev = []
     for i in range(np.size(trainingFeatures[0, ::])):
         x = trainingFeatures[::, i]
-        mean = sum(x) / len(x)
-        std_dev = (1 / len(x) * sum([(x_i - mean) ** 2 for x_i in x])) ** 0.5
-        trainingFeatures[::, i] = (trainingFeatures[::, i] - mean) / std_dev
-        testFeatures[::, i] = (testFeatures[::, i] - mean) / std_dev
-    return trainingFeatures, testFeatures, trainingLabels, testLabels
+        mean.append(sum(x) / len(x))
+        std_dev.append((1 / len(x) * sum([(x_i - mean[i]) ** 2 for x_i in x])) ** 0.5)
+        trainingFeatures[::, i] = (trainingFeatures[::, i] - mean[i]) / std_dev[i]
+        testFeatures[::, i] = (testFeatures[::, i] - mean[i]) / std_dev[i]
+    return trainingFeatures, testFeatures, trainingLabels, testLabels, mean, std_dev
