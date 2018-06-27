@@ -2,14 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/abraxasTwo/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/abraxasTwo/receiveData.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/liveClassification.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pyAbraxas.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pyAbraxas.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/abraxasOne/splitDataTrainTest.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasOne/splitDataTrainTest.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/multiClassSVM.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiClassSVM.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasTwo/receiveData.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasTwo/receiveData.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -26,10 +20,10 @@
       <file leaf-file-name="receiveData.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="3629" lean-forward="true" selection-start-line="3629" selection-end-line="3629" />
+            <state relative-caret-position="345">
+              <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
               <folding>
-                <marker date="1530096178464" expanded="true" signature="4740:4742" ph="..." />
+                <marker date="1530097428253" expanded="true" signature="1109:1111" ph="..." />
               </folding>
             </state>
           </provider>
@@ -104,7 +98,22 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="ProjectPane" />
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
+              <item name="abraxasTwo" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope" />
     </panes>
   </component>
@@ -422,48 +431,56 @@
       <option name="project" value="LOCAL" />
       <updated>1530023822123</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="...svm running iwth statfeats">
+      <created>1530097310654</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1530097310654</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="-4" width="1855" height="1084" extended-state="6" />
+    <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16442049" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16442049" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3853211" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.32925585" />
       <window_info anchor="bottom" id="Python Console" order="7" weight="0.32928064" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3853211" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.39959225" />
       <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39959225" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32826748" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Message" order="0" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3853211" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16442049" />
       <window_info id="Structure" order="1" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32925585" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32826748" />
+      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3853211" />
+      <window_info anchor="bottom" id="Python Console" order="9" weight="0.32928064" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39959225" />
       <window_info anchor="bottom" id="Terminal" order="10" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Python Console" order="9" weight="0.32928064" />
+      <window_info anchor="bottom" id="Version Control" order="8" weight="0.32925585" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32826748" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -779,10 +796,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="3629" lean-forward="true" selection-start-line="3629" selection-end-line="3629" />
+        <state relative-caret-position="345">
+          <caret line="23" column="41" selection-start-line="23" selection-start-column="41" selection-end-line="23" selection-end-column="41" />
           <folding>
-            <marker date="1530096178464" expanded="true" signature="4740:4742" ph="..." />
+            <marker date="1530097428253" expanded="true" signature="1109:1111" ph="..." />
           </folding>
         </state>
       </provider>

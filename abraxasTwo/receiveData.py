@@ -19,9 +19,9 @@ cb, 27.06.2018
  ir_0, ir_1, ..., ir_m, force_0, ..., force_n, q_w, q_x, q_y, q_z, la_x, la_y, la_z, av_y, av_y, av_z
  where: 0 <= ir_i, force_j <= 1 and -1 <= bno_k <= 1
 
- Incomplete frames are interpolated. A time axis is provided.
+ Incomplete frames are interpolated.
 
- Received data is returned and written to a .txt-file.
+ Optionally a time axis is provided and received data is returned and written to a .txt-file.
 
  """
 def receiveData(port=None, baudRate=57600):
