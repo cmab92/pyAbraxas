@@ -114,19 +114,19 @@ if __name__ == '__main__':
     featureDataQ = multiprocessing.Queue()
 
     totalNumOfSensors = 10+2+5
-    usedSensors = np.array([0, 1, 2, 3, 4,  5, 6, 7, 8, 9])
+    usedSensors = np.array([0, 1, 2, 3, 4,  5, 6, 7, 8, 9, 10, 11])
     windowWidth = 150
     windowShift = 10
     numDomCoeffs = 20
     numDomFreqs = 20
-    analogPort = 0
+    analogPort = 10
     window = 'tukey'
     alpha = 0.1
 
     featureProcess = multiprocessing.Process(target=getFeaturesF, args=(plotDataQ, featureDataQ, totalNumOfSensors, usedSensors, windowWidth, windowShift, numDomCoeffs, numDomFreqs, window, alpha, ))
-    #plotProcess = multiprocessing.Process(target=plotDataF, args=(plotDataQ, analogPort, ))
+    plotProcess = multiprocessing.Process(target=plotDataF, args=(plotDataQ, analogPort, ))
     classProcess = multiprocessing.Process(target=classDataF, args=(plotDataQ, featureDataQ, classifier, ))
 
     featureProcess.start()
-    #plotProcess.start()
-    classProcess.start()
+    plotProcess.start()
+    #classProcess.start()

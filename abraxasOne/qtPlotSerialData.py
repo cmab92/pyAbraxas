@@ -32,7 +32,7 @@ def display(q, windowWidth):
     QtGui.QApplication.instance().exec_()
 
 def io(running,q):
-    ser = serial.Serial("/dev/ttyUSB0", 57600)
+    ser = serial.Serial("/dev/ttyUSB1", 57600)
     dummy = ser.readline()
     t = 0
     while running.is_set():
