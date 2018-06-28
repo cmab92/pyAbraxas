@@ -42,30 +42,24 @@ windowWidth := Determines the width of the data window in terms of samples. Defa
 
 windowShift := Determines the time shift between data windows in terms of samples. Default 10.
 
-window      := Choose a window function of the follwoing (https://en.wikipedia.org/wiki/Window_function):
-            tukey -> tukey window (flattened cosine)
-            rect -> rectangular window
-            bart -> bartlett window
-            black -> blackman window
-            ham -> hamming window
-            hann -> hanning window (raised-cosine window)
-            kaiser -> kaiser window
-            gauss -> gaussian window
-            Default "tukey".
+window      := Choose a window function. See also miscFunc.py.
 
 alpha       := Shape parameter of window function (not relevant for all). Default 0.1.
+
+plotNr      := Number of data strings to be plotted. If None, live plotting is disabled. Default None.
 
  """
 
 import serial
 import csv
 import datetime
-import scipy.signal
 import numpy as np
 import matplotlib.pyplot as plt
+from abraxasTwo.miscFunc import applyWindow
+
 
 def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRate=57600, windowWidth=100,
-                windowShift=10, window="tukey", alpha=0.1, dataOutQueue=None):
+                windowShift=10, window="tukey", alpha=0.1, dataOutQueue=None, plotNr=None):
 
     #
     # find and connect COM port:
@@ -88,28 +82,7 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
     except AttributeError:
         print("\n \n COM-port connected? Baud rate correct? Connected to another process? \n \n ")
 
-    #
-    # set window function:
-    #
 
-    if window == 'tukey':
-        windowFunction = scipy.signal.tukey(windowWidth, alpha)
-    elif window == 'rect':
-        windowFunction = np.ones(windowWidth)
-    elif window == 'bart':
-        windowFunction = np.bartlett(windowWidth)
-    elif window == 'black':
-        windowFunction = np.blackman(windowWidth)
-    elif window == 'ham':
-        windowFunction = np.hamming(windowWidth)
-    elif window == 'hann':
-        windowFunction = np.hanning(windowWidth)
-    elif window == 'kaiser':
-        windowFunction = np.kaiser(windowWidth, alpha)
-    elif window == 'gauss':
-        windowFunction = scipy.signal.gaussian(windowWidth, alpha)
-    else:
-        windowFunction = np.ones(windowWidth)
 
     #
     # setup .txt-file:
@@ -145,7 +118,7 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
             oldLine = ser.readline()
             oldLine = oldLine.decode("utf-8")
             oldLine = oldLine.split(",")[:frameLength]
-            if waitCount > 20:
+            if waitCount > 20:                                      # restart connection if stuck
                 ser.close()
                 ser.open()
         bnoData = 0
@@ -155,7 +128,7 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
             if np.size(oldLine) == frameLength:
                 bnoData = float(oldLine[frameLength - 2]) + float(oldLine[frameLength - 3]) \
                           + float(oldLine[frameLength - 4]) + float(oldLine[frameLength - 5])
-            if waitCount > 20:
+            if waitCount > 20:                                      # restart connection if stuck
                 ser.close()
                 ser.open()
         print("Recording...")
@@ -193,11 +166,30 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
                 windowCount = 0
                 dataOut = np.array(dataWindow)
                 for i in range(windowLength):
-                    dataOut[::, i] = dataOut[::, i]*windowFunction
-                plt.ion()
-                plt.clf()
-                plt.plot(dataOut[::, 10])
-                plt.pause(10**-12)
+                    dataOut[::, i] = applyWindow(data=dataOut[::, i], window=window, alpha=alpha)
+
+                #
+                # live plot data if required:
+                #
+
+                if plotNr is not None:
+                    if isinstance(plotNr, int):
+                        if 0 <= plotNr & plotNr <= frameLength:
+                            plt.ion()
+                            plt.clf()
+                            plt.plot(dataOut[::, plotNr])
+                            plt.pause(10**-15)
+                    if isinstance(plotNr, (list, tuple, np.ndarray)):
+                        plt.ion()
+                        plt.clf()
+                        for j in range(len(plotNr)):
+                            plt.plot(dataOut[::, plotNr[j]])
+                        plt.pause(10**-15)
+
+                #
+                # write data to queue:
+                #
+
                 if dataOutQueue is not None:
                     try:
                         dataOutQueue.put(dataOut)
@@ -207,4 +199,30 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
     return True
 
 
-receiveData()
+if __name__ == '__main__':
+    try:
+        fileName_ = raw_input("Enter file name: ")                      # start from terminal
+        n_ir_entered = 0
+        while n_ir_entered == 0:
+            n_ir = raw_input("Enter number of ir sensors: ")            # start from terminal
+            n_ir_entered = 1
+            try:
+                n_ir = int(n_ir)
+            except ValueError:
+                n_ir_entered = 0
+        n_force_entered = 0
+        while n_force_entered == 0:
+            n_force = raw_input("Enter number of force sensors: ")      # start from terminal
+            n_force_entered = 1
+            try:
+                n_force = int(n_force)
+            except ValueError:
+                n_force_entered = 0
+    except:
+        fileName_ = "test.txt"
+        n_force = 2
+        n_ir = 10
+    dirPath_ = ""
+    receiveData(numIr=10, numF=2, filePath="../", fileName=fileName_, port=None, baudRate=57600, windowWidth=100,
+                windowShift=10, window="tukey", alpha=0.1, dataOutQueue=None, plotNr=None)
+
