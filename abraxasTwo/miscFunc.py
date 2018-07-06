@@ -22,6 +22,9 @@ alpha           := Shape parameter of window function (not relevant for all). De
 samplingPeriod  := Giving the sampling period (in seconds) throws a plot of the window response in frequency domain.
                 Default None.
 
+Output:
+
+
 """
 import scipy.signal
 import numpy as np

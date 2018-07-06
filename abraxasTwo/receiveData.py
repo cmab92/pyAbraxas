@@ -44,7 +44,7 @@ windowShift := Determines the time shift between data windows in terms of sample
 
 window      := Choose a window function. See also miscFunc.py.
 
-alpha       := Shape parameter of window function (not relevant for all). Default 0.1.
+alpha       := Shape parameter of window function (relevant for only some of the window functions). Default 0.1.
 
 plotNr      := Number of data strings to be plotted. If None, live plotting is disabled. Default None.
 

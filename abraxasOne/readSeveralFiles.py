@@ -1,6 +1,8 @@
 import numpy as np
 import matplotlib.pyplot as plt
 from abraxasOne.loadAndClean import loadAndClean
+
+
 def readSeveralFiles(files, startTimes, stopTimes, path="", numberOfIrSensors=10, numberOfForceSensors=2, equalLength=True, checkData=True, useBno=False, interpBno=False, useForce=False, useIr=True, selectSensors=None):
     if equalLength:
         stopTimes = np.ones([len(startTimes)]) * np.min(stopTimes - startTimes) + startTimes
