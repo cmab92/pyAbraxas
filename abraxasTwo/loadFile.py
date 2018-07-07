@@ -1,9 +1,11 @@
 """
 cb, 06.07.2018
 
-Load raw data from .txt-file, clean errors and split sensor data.
+ - load raw data from .txt-file, clean errors and split sensor data.
 
-Detailed:
+ Detailed:
+ Load data from single .txt-file, ensure 0 < analogData < 1023, split data to infrared, force, quaternion, linear
+ acceleration and angular velocity data. Optionally interpolate bno data linearly (same axis as analog data).
 
 Inputs:
 fileName        := Name of target file.

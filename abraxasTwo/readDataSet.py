@@ -16,7 +16,6 @@ startTimes      := List or 1d-array with starting points (in samples) from which
                 respective file means the file with the respective index (len(startTimes) should be equal to
                 len(fileName)). Default [0, 0, ..., 0].
 
-
 stopTimes       := List or 1d-array with stopping points (in samples) until which the respective file is read, else
                 same as startTimes. Default [-1, -1, ..., -1].
 
@@ -108,6 +107,7 @@ if __name__ == '__main__':
     fileNames = ["igor.txt", "ankita.txt", "chris_asymm.txt", "chris_pos2.txt", "chris_c.txt", "ankita_pos2_lrRl.txt",
                  "igor2.txt"]
     filePath = "../"
-    readDataSet(fileNames=fileNames, filePath=filePath, nrIrSensors=10, nrFrSensors=2, selBnoData=[False, False, False],
-                checkData=True, equalLength=False, rawData=None)
+    dataSet = readDataSet(fileNames=fileNames, filePath=filePath, nrIrSensors=10, nrFrSensors=2,
+                          selBnoData=[False, False, False], checkData=True, equalLength=False, rawData=None)
+
 

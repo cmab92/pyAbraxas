@@ -24,29 +24,31 @@ cb, 27.06.2018
  Optionally a time axis is provided and received data is returned and written to a .txt-file.
 
 Inputs:
-numIr       := Number of infrared sensors. Default 10.
+numIr           := Number of infrared sensors. Default 10.
 
-numF        := Number of force sensors. Default 2.
+numF            := Number of force sensors. Default 2.
 
-filePath    := Path to .txt-file, in which data is stored (if not given, data is stored to the current working
-            parent directory). Default "/..".
+filePath        := Path to .txt-file, in which data is stored (if not given, data is stored to the current working
+                parent directory). Default "/..".
 
-fileName    := Name of .txt-file. The file is named by yymmddhhmm, if not given. File name is completed with
-            yymmddhhmm, if the input string is not ended by .txt. Defaut "".
+fileName        := Name of .txt-file. The file is named by yymmddhhmm, if not given. File name is completed with
+                yymmddhhmm, if the input string is not ended by .txt. Defaut "".
 
-port        := If no COM-port is specified, /dev/ttyUSB0 ... /dev/ttyUSB7 is checked.
+port            := If no COM-port is specified, /dev/ttyUSB0 ... /dev/ttyUSB7 is checked.
 
-baudRate    := Default 57600.
+baudRate        := Default 57600.
 
-windowWidth := Determines the width of the data window in terms of samples. Default 100.
+windowWidth     := Determines the width of the data window in terms of samples. Default 100.
 
-windowShift := Determines the time shift between data windows in terms of samples. Default 10.
+windowShift     := Determines the time shift between data windows in terms of samples. Default 10.
 
-window      := Choose a window function. See also miscFunc.py.
+window          := Choose a window function. See also miscFunc.py.
 
-alpha       := Shape parameter of window function (relevant for only some of the window functions). Default 0.1.
+alpha           := Shape parameter of window function (relevant for only some of the window functions). Default 0.1.
 
-plotNr      := Number of data strings to be plotted. If None, live plotting is disabled. Default None.
+dataWindowQueue := Queue object for handing over data windows.
+
+plotNr          := Number of data strings to be plotted. If None, live plotting is disabled. Default None.
 
  """
 
@@ -59,7 +61,7 @@ from abraxasTwo.miscFunc import applyWindow
 
 
 def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRate=57600, windowWidth=100,
-                windowShift=10, window="tukey", alpha=0.1, dataOutQueue=None, plotNr=None):
+                windowShift=10, window="tukey", alpha=0.1, dataWindowQueue=None, plotNr=None):
 
     #
     # find and connect COM port:
@@ -190,9 +192,9 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
                 # write data to queue:
                 #
 
-                if dataOutQueue is not None:
+                if dataWindowQueue is not None:
                     try:
-                        dataOutQueue.put(dataOut)
+                        dataWindowQueue.put(dataOut)
                     except AttributeError:
                         print("\n \n 'dataOutQueue' in function 'receiveData' is not a queue object...\n \n")
                         raise
@@ -224,5 +226,5 @@ if __name__ == '__main__':
         n_ir = 10
     dirPath_ = ""
     receiveData(numIr=10, numF=2, filePath="../", fileName=fileName_, port=None, baudRate=57600, windowWidth=100,
-                windowShift=10, window="tukey", alpha=0.1, dataOutQueue=None, plotNr=None)
+                windowShift=10, window="tukey", alpha=0.1, dataWindowQueue=None, plotNr=None)
 
