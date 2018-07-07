@@ -4,8 +4,11 @@ cb, 06.07.2018
  - load raw data from .txt-file, clean errors and split sensor data.
 
  Detailed:
- Load data from single .txt-file, ensure 0 < analogData < 1023, split data to infrared, force, quaternion, linear
+ Load data from single .txt-file, ensure 0 < analogData < 1023 (1), split data to infrared, force, quaternion, linear
  acceleration and angular velocity data. Optionally interpolate bno data linearly (same axis as analog data).
+
+ Important:
+ All data is normalized to range 0/1 or -1/1!
 
 Inputs:
 fileName        := Name of target file.
@@ -38,11 +41,13 @@ def loadFile(fileName, nrIrSensors, nrFrSensors, interpolateBno=True, tSample=0.
     irData = data[::, 0:nrIrSensors]
     irData[irData > 1023] = 1023
     irData[irData < 0] = 0
+    irData = irData/1023
 
     # force Data (clean transmission errors):
     forceData = 1023 - data[::, nrIrSensors:numberOfAnalogSensors]
     forceData[forceData > 1023] = 1023
     forceData[forceData < 0] = 0
+    forceData = forceData/1023
 
     # handle bno data (normalize):
     temp = data[data[::, cols-1] == 0]     # get lines with quatData
