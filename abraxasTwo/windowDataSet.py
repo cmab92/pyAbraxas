@@ -4,25 +4,30 @@ cb, 07.07.2018
  - slice data-set to windows and label
 
 Inputs:
-dataSet     := Input data-set given as dataSet[i][j, k], where i refers to the i-th file loaded, k indicates the sensor
-            and j is the "time"-index.
+dataSet         := Input data-set given as dataSet[i][j, k], where i refers to the i-th file loaded, k indicates the sensor
+                and j is the "time"-index.
 
-labels      := Labels for dataSet, given in the order of dataSet (dataSet[i] belongs to labels[i]).
+labels          := Labels for dataSet, given in the order of dataSet (dataSet[i] belongs to labels[i]).
 
-width       := Width of data windows. Default 100. Unit is number of samples.
+width           := Width of data windows. Default 100. Unit is number of samples.
 
-shift       := Specifies time shift between windows. Given in samples.
+shift           := Specifies time shift between windows. Given in samples.
 
-window      := Specifies window function. See abraxasTwo.miscFunc, applyWindow. Default 'tukey'.
+window          := Specifies window function. See abraxasTwo.miscFunc, applyWindow. Default 'tukey'.
 
-alpha       := Shape parameter for window function. See abraxasTwo.miscFunc, applyWindow. Default 0.1.
+alpha           := Shape parameter for window function. See abraxasTwo.miscFunc, applyWindow. Default 0.1.
 
-sampleT     := Enable window function check. Plots time function and frequency response of window function if the
-            sampling interval duration is given (in seconds). Default None.
+sampleT         := Enable window function check. Plots time function and frequency response of window function if the
+                sampling interval duration is given (in seconds). Default None.
 
-enaCheck    := Enable data check. Plots the data of dataSet[i]. Default False.
+enaCheck        := Enable data check. Plots the data of dataSet[i]. Default False.
 
-enaWindowC  := Enable window check. Plots the created data windows. Default False.
+enaWindowC      := Enable window check. Plots the created data windows. Default False.
+
+Outputs;
+windowedData    := Array with windowed Data. windowedData
+
+windowLabels    := Data labels for data windows. in order of dataWindow.
 
 """
 
@@ -79,4 +84,7 @@ if __name__ == '__main__':
     dataSet = readDataSet(fileNames=fileNames, filePath=filePath, nrIrSensors=10, nrFrSensors=2,
                           selBnoData=[True, True, True], checkData=False, equalLength=False, rawData=None)
 
-    dataWindows, windowLabels = windowDataSet(dataSet, labels=[0, 1, 2, 3, 4, 1, 0], width=100, shift=10)
+    dataWindows, windowLabels = windowDataSet(dataSet, labels=[0, 1, 2, 3, 4, 1, 0], width=1000, shift=10)
+    plt.plot(dataWindows[0][100:200, 0])
+    plt.show()
+

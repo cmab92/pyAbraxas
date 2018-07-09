@@ -18,6 +18,9 @@ wavelet         := Wavelet used for dwt. Default 'haar'.
 
 dataQueue       := Set true if dataWindow is a queue object. Default False.
 
+Output:
+featureVector   := Unscaled feature vector.
+
 """
 import numpy as np
 import pywt
