@@ -74,7 +74,7 @@ def readDataSet(fileNames, filePath, startTimes=None, stopTimes=None, nrIrSensor
     dataSet = []
     for i, element in enumerate(fileNames):
         irData, forceData, quatData, linAccData, angVecData = loadFile(element, nrIrSensors, nrFrSensors,
-                                                                           interpolateBno=True, dirPath=filePath)
+                                                                       interpolateBno=True, dirPath=filePath)
         dataSetTemp = []
         for j in range(len(selIrSensors)):
                 dataSetTemp.append(irData[int(selIrSensors[j])][int(startTimes[i]):int(stopTimes[i]), 1])

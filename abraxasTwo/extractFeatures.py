@@ -27,7 +27,8 @@ import pywt
 from statsmodels.robust import mad
 
 
-def extractFeatures(dataWindow, numCoeffs, numFreqs, wvltLvl1=False, statFeat=True, wavelet='haar', dataQueue=False):
+def extractFeatures(dataWindow, numCoeffs, numFreqs, wvltLvl1=False, statFeat=True, wavelet='haar', dataQueue=False,
+                    queueOut=None):
     if dataQueue is True:
         try:
             data = dataWindow.get()
@@ -125,5 +126,7 @@ def extractFeatures(dataWindow, numCoeffs, numFreqs, wvltLvl1=False, statFeat=Tr
                 for k in range(xCorrWavCoeffs):
                     featureVector.append(domCorrCoeffsAmp[k])
     featureVector = np.reshape(featureVector, np.size(featureVector))
+    if dataQueue is True:
+        queueOut.put(featureVector)
     return featureVector
 

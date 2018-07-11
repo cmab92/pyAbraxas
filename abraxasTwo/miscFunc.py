@@ -79,3 +79,33 @@ def applyWindow(data, window="tukey", alpha=0.1, samplingPeriod=None):
 
     return data*windowFunction
 
+"""
+cb, 10.07.2018
+
+ - plot matrix and its element values
+ 
+Input:
+matrix      := Matrix (m x n) to be plotted.
+
+title_      := Title of the resulting plot, when None no title is given. Default None.
+
+precision   := Precision of the element values.
+
+show        := Show matrix within function. Default True.
+"""
+
+
+def plotMatrixWithValues(matrix, title_=None, precision=3, show=True):
+    matrix = np.array(matrix)
+    xrange = np.size(matrix[::,0])
+    yrange = np.size(matrix[0,::])
+    fig, ax = plt.subplots()
+    ax.matshow(matrix, cmap=plt.cm.Blues)
+    for i in range(yrange):
+        for j in range(xrange):
+            c = np.round(matrix[j,i], precision)
+            ax.text(i, j, str(c), va='center', ha='center')
+    if title_!=None:
+        plt.title(title_)
+    if show:
+        plt.show()
