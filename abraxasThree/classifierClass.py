@@ -8,42 +8,52 @@ import serial
 import datetime
 import csv
 import pywt
+import random
 import scipy.signal
 import scipy.interpolate
 import multiprocessing
 import numpy as np
 import matplotlib.pyplot as plt
 from statsmodels.robust import mad
+from sklearn import svm
+from six.moves import cPickle
 
 
 class AbraxasClassifier:
 
-    def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, enaStatFeats,
-                 wavelet='haar', wvltLvl1=False, featNormMethod='stand'):
+    def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, kernel,
+                 enaStatFeats=True, wavelet='haar', wvltLvl1=False, featNormMethod='stand', trainFraction=2/3,
+                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10):
 
         # Hardware information and parameters
         self.__numIrSensors = numIrSensors
         self.__numFrSensors = numFrSensors
         self.__nrAnalogSensors = self.__numIrSensors + self.__numFrSensors
-        self.__frameLength = self.__nrAnalogSensors + 5     # 5 for bno data including index (received format)
-        self.__windowLength = self.__nrAnalogSensors + 10   # 10 is for reformatted bno data
-        self.__port = None                                # see function receive data
+        self.__frameLength = self.__nrAnalogSensors + 5         # 5 for bno data including index (received format)
+        self.__numOfSensorsAvailable = self.__nrAnalogSensors + 10  # 10 for bno
+        self.__port = None                                      # see function receive data
         self.__baudRate = 57600
         self.__sampleT = 0.0165
 
         # File sources and sinks
         self.__fileSinkName = ""
         self.__fileSinkPath = "../"
-        self.fileSourceName = []
-        self.fileSourcePath = []
-        self.fileSourceStartT = []
-        self.fileSourceStopT = []
-        self.fileLabels = []
+        self.__fileSourceName = []
+        self.__fileSourcePath = []
+        self.__fileSourceStartT = []
+        self.__fileSourceStopT = []
+        self.__fileLabels = []
 
         # Sensor selection
-        self.__selIrSensors = np.linspace(0, self.__numIrSensors - 1, self.__numIrSensors)    # select all ir sensors
-        self.__selFrSensors = np.linspace(0, self.__numFrSensors - 1, self.__numFrSensors)    # select all fr sensors
+        self.__selIrSensors = np.linspace(0, self.__numIrSensors - 1, self.__numIrSensors, dtype=int)  # select all ir
+        self.__selFrSensors = np.linspace(0, self.__numFrSensors - 1, self.__numFrSensors, dtype=int)  # select all fr
         self.__selBnoData = [True, True, True]   # select all bno data {quat, linacc, angvec}
+        self.__numIrUsed = numIrSensors
+        self.__numFrUsed = numFrSensors
+        self.__numBnoUsed = 10
+        self.__numOfSensorsUsed = self.__numFrUsed + self.__numIrUsed + self.__numBnoUsed
+        self.__indexSensorsUsed = np.linspace(0, self.__numOfSensorsUsed - 1, self.__numOfSensorsUsed, dtype=int)  # ...
+        # ... index referring to the original data-frame from serial interface
 
         # Constants and parameters
         self.__windowWidth = windowWidth
@@ -60,7 +70,14 @@ class AbraxasClassifier:
         self.__linAccNormFact = 2 ** 4
         self.__angVecNormFact = 2 ** 4
         self.__anaNormFact = 1023
+        self.__lineThresholdAfterNorm = lineThresholdAfterNorm  # not checked
         self.__normVal = None
+        self.__trainFraction = trainFraction
+        self.__kernel = kernel
+        self.__numberOfClasses = None
+        self.__numberWindowPerClass = None
+        self.__classSortTT = classSortTT
+        self.__randomSortTT = randomSortTT
 
         # Queues and processes
         self.__windowDataQueue = None     # queue for window data
@@ -69,22 +86,82 @@ class AbraxasClassifier:
         self.__extractFeaturesP = None
         self.__receiveDataP = None
 
+        # Data
+        self.__sourceData = None
+        self.__sourceTrainWindowData = None
+        self.__sourceTestWindowData = None
+        self.__sourceTrainLabel = None
+        self.__sourceTestLabel = None
+        self.__sourceTrainFeat = None
+
+        # Classifier
+        self.__trainedClassifier = None
+
     def setSampleT(self, value):
+
+        """
+        ...
+        :param value: sampleT does affect time and frequency axis only.
+        :return: -
+        """
+
         if isinstance(value, (int, float)):
             self.__sampleT = value
         else:
-            print("Give int or float for sampling interval duration.")
+            print("(setSampleT) Give int or float for sampling interval duration.")
 
     def setupSerialInterface(self, port, baudRate):
-        self.__port = port
-        self.__baudRate = baudRate
+
+        """
+        ...
+        :param port: serial port Name
+        :param baudRate: baud rate in baud/s
+        :return: -
+        """
+
+        if isinstance(port, str):
+            self.__port = port
+        elif isinstance(port, int):
+            self.__port = "/dev/ttyUSB" + str(port)
+        else:
+            print("(setupSerialInterface) Give str or port number (e. g. \'/dev/ttyUSB0\' or 0).")
+
+        if isinstance(baudRate, int):
+            self.__baudRate = baudRate
+        else:
+            print("(setupSerialInterface) Give int as baudrate.")
 
     def setFileSink(self, fileSinkName, fileSinkPath):
-        self.__fileSinkName = fileSinkName
-        self.__fileSinkPath = fileSinkPath
+
+        """
+        ...
+        :param fileSinkName: Name of the sink file, to which streamed data is stored. The file is named by yymmddhhmm,
+        if not given (""). File name is completed with yymmddhhmm, if the input string is not ended by .txt. Default
+        is "".
+        :param fileSinkPath: Path to .txt-file, in which data is stored (if not given, data is stored to the current
+        working parent directory). Default "/..".
+        :return: -
+        """
+
+        if isinstance(fileSinkName, str):
+            self.__fileSinkName = fileSinkName
+        else:
+            print("(setFileSink) Give a string as file sink name.")
+        if isinstance(fileSinkPath, str):
+            self.__fileSinkPath = fileSinkPath
+        else:
+            print("(setFileSink) Give a string as file sink path.")
 
     def setBnoNormFactor(self, factors):
-        print("Use with caution! Reasonable values: [2**14, 2**4, 2**4]")
+
+        """
+        ...
+        :param factors: Normalization factors for bno data. 1 quaternion is 2**14 LSB, hence default is 2**14. Factors
+        for linear acceleration and angular velocity are chosen empirically (default 2**4).
+        :return: -
+        """
+
+        print("(setBnoNormFactor) Use with caution! Reasonable values: [2**14, 2**4, 2**4]")
         if len(factors) == 3:
             for i in range(3):
                 if isinstance(factors[i], (int, float)):
@@ -95,19 +172,37 @@ class AbraxasClassifier:
                     elif i == 2:
                         self.__angVecNormFact = factors[i]
                 else:
-                    print("Give an int or float (!) array of length 3 with normalization values for {quat, linacc, "
-                          "angvec} raw data")
+                    print("(setBnoNormFactor) Give an int or float (!) array of length 3 with normalization values for "
+                          "{quat, linacc, angvec} raw data")
         else:
-            print("Give an array of length 3 with normalization values for {quat, linacc, angvec} raw data")
+            print("(setBnoNormFactor) Give an array of length 3 with normalization values for {quat, linacc, angvec} "
+                  "raw data")
 
     def setAnaNormFact(self, factor):
-        print("Use with caution! Reasonable value: 1023. When changed, check self.loadFile()!")
+
+        """
+        ...
+        :param factor:  Normalization factors for analog sensor data. Due to 10bit adc on atmega 2560: default 1023.
+        :return: -
+        """
+
+        print("(setAnaNormFact) Use with caution! Reasonable value: 1023. When changed, check self.loadFile()!")
         if isinstance(factor, (int, float)):
             self.__anaNormFact = factor
         else:
-            print("Give int or float as normalization factor for analog sensor values.")
+            print("(setAnaNormFact) Give int or float as normalization factor for analog sensor values.")
 
     def startPlotStreamData(self, sensorNr, opt=None):
+
+        """
+        Starts a process to plot data of selected sensors (sensorNr). This function takes data directly from the
+        receiveDataP via the self.__windowDataQueue (which is initialized if it is not already). Only data of chosen
+        sensors can be plotted. The self.__windowDataQueue is of size self.__windowWidth x self.__numOfSensorsUsed.
+        :param sensorNr: Single int or array, specifying the sensor indices to be plotted. The int does not refer to
+        the original sensor indices, but to the ones, resulting from the sensor selection!
+        :param opt: If "KILL" ends process. Default None.
+        :return: -
+        """
 
         def plotStreamDataF(plotSensorNr, fl):
             while True:
@@ -129,77 +224,114 @@ class AbraxasClassifier:
             self.__windowDataQueue = multiprocessing.Queue()
 
         if self.__plotStreamDataP is None:
-            self.__plotStreamDataP = multiprocessing.Process(target=plotStreamDataF, args=(sensorNr,
-                                                                                           self.__frameLength, ))
-            self.__plotStreamDataP.start()
-            print("Started stream-data plotting process... ")
+            if 0 <= sensorNr and sensorNr < self.__numOfSensorsUsed:
+                self.__plotStreamDataP = multiprocessing.Process(target=plotStreamDataF, args=(sensorNr,
+                                                                                               self.__frameLength, ))
+                self.__plotStreamDataP.start()
+                print("(startPlotStreamData) Started process... ")
+            else:
+                print("\n \n (startPlotStreamData) Invalid sensor number...  \n \n")
         else:
             if opt == "KILL":
                 self.__plotStreamDataP.terminate()
                 self.__plotStreamDataP = None
             else:
-                print("PlotStreamData-process already started!")
+                print("(startPlotStreamData) Process already started!")
 
-    def selectSensorSubset(self, selectedSensors, sensorType='ir'):
+    def selectSensorSubset(self, selectedSensors, sensorType):
         if sensorType == 'ir':
-            print("...ir, currently: " + str(self.__selIrSensors))
             if isinstance(selectedSensors, (list, np.ndarray)):
                 if len(selectedSensors) <= self.__numIrSensors:
                     self.__selIrSensors = selectedSensors
-                    print("...ir, update: " + str(self.__selIrSensors))
+                    self.__numIrUsed = len(selectedSensors)
+                    print("(selectSensorSubset) ...ir, used sensors: " + str(self.__selIrSensors))
                 else:
-                    print(str(len(selectedSensors)) + " selected Sensors, given number of infrared sensors is " +
+                    print("(selectSensorSubset) " + str(len(selectedSensors)) + " selected Sensors, given number of "
+                                                                                "infrared sensors is " +
                           str(self.__numIrSensors) + " !")
             else:
-                print("For infrared sensor selection give np.ndarray or list!")
+                print("(selectSensorSubset) For infrared sensor selection give np.ndarray or list!")
         elif sensorType == 'fr':
-            print("...fr, currently: " + str(self.__selFrSensors))
             if isinstance(selectedSensors, (list, np.ndarray)):
                 if len(selectedSensors) <= self.__numFrSensors:
                     self.__selFrSensors = selectedSensors
-                    print("...fr, update: " + str(self.__selIrSensors))
+                    self.__numFrUsed = len(selectedSensors)
+                    print("(selectSensorSubset) ...fr, used sensors: " + str(self.__selFrSensors))
                 else:
-                    print(str(len(selectedSensors)) + " selected Sensors, given number of infrared sensors is " +
+                    print("(selectSensorSubset) " + str(len(selectedSensors)) + " selected Sensors, given number of "
+                                                                                "infrared sensors is " +
                           str(self.__numFrSensors) + " !")
             else:
-                print("For infrared sensor selection give np.ndarray or list!")
+                print("(selectSensorSubset) For force sensor selection give np.ndarray or list!")
         elif sensorType == 'bno':
-            print("...bno, currently: " + str(self.__selBnoData))
+            self.__numBnoUsed = 0
             if isinstance(selectedSensors, (list, np.ndarray)):
                 if len(selectedSensors) == 3:
                     for i in range(3):
                         if isinstance(selectedSensors[i], bool):
                             self.__selBnoData[i] = selectedSensors[i]
+                            if selectedSensors[i]:
+                                if i == 0:
+                                    self.__numBnoUsed += 4
+                                else:
+                                    self.__numBnoUsed += 3
                         else:
-                            print("For bno data selection give boolean array, e. g. [True, True, True] to enable all "
+                            print("(selectSensorSubset) For bno data selection give boolean array, e. g. [True, True, "
+                                  "True] to enable all "
                                   "data (corresponding to  {quat, linacc, angvec}).")
 
-                    print("...bno, update: " + str(self.__selIrSensors))
+                    print("(selectSensorSubset) ...bno, used sensors: " + str(self.__selBnoData))
                 else:
-                    print("For bno data selection give boolean array of size 3 (!), e. g. [True, True, True] to enable "
+                    print("(selectSensorSubset) For bno data selection give boolean array of size 3 (!), e. g. [True, "
+                          "True, True] to enable "
                           "all data (corresponding to  {quat, linacc, angvec}).")
         else:
-            print("sensorType has to be either \'ir\' (default), \'fr\' or \’bno\'")
+            print("(selectSensorSubset) ensorType has to be either \'ir\' (default), \'fr\' or \’bno\'")
+
+        self.__numOfSensorsUsed = self.__numIrUsed + self.__numFrUsed + self.__numBnoUsed
+
+        self.__indexSensorsUsed = []
+        for i in range(self.__numIrUsed):
+            self.__indexSensorsUsed.append(self.__selIrSensors[i])
+        for i in range(self.__numFrUsed):
+            self.__indexSensorsUsed.append(self.__selFrSensors[i])
+        for i in range(3):
+            if self.__selBnoData[i]:
+                if i == 0:
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 1)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 2)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 3)
+                elif i == 1:
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 4)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 5)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 6)
+                else:
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 7)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 8)
+                    self.__indexSensorsUsed.append(self.__nrAnalogSensors + 9)
 
     def addDataFiles(self, fileSourceName, fileSourcePath, startTime=0, stopTime=10**9, label=None):
 
         if isinstance(fileSourceName, str) and isinstance(fileSourcePath, str) and \
                 isinstance(startTime, (int, float)) and isinstance(stopTime, (int, float)) and isinstance(label, int):
-            self.fileSourceName.append(fileSourceName)
-            self.fileSourcePath.append(fileSourcePath)
-            self.fileSourceStartT.append(startTime)
-            self.fileSourceStopT.append(stopTime)
-            self.fileLabels.append(label)
+            self.__fileSourceName.append(fileSourceName)
+            self.__fileSourcePath.append(fileSourcePath)
+            self.__fileSourceStartT.append(startTime)
+            self.__fileSourceStopT.append(stopTime)
+            self.__fileLabels.append(label)
         else:
-            print("File source name, path, start-time, stop-time or label are incorrect data-type or format!")
+            print("(addDataFiles) File source name, path, start-time, stop-time or label are incorrect data-type or "
+                  "format!")
+
+        self.__numberOfClasses = len(set(self.__fileLabels))
+        self.__numberWindowPerClass = np.zeros(self.__numberOfClasses)
 
     def startReceiveData(self, opt=None):
 
         def receiveDataF(outputQueue):
 
-            #
             # find and connect COM port:
-            #
 
             if self.__port is None:
                 for i in range(8):
@@ -216,11 +348,10 @@ class AbraxasClassifier:
             try:
                 dummy = ser.readline()
             except AttributeError:
-                print("\n \n COM-port connected? Baud rate correct? Connected to another process? \n \n ")
+                print("\n \n (startReceiveData) COM-port connected? Baud rate correct? Connected to another process? "
+                      "\n \n ")
 
-            #
             # setup .txt-file (this eventually updates self.__fileSinkName):
-            #
 
             dateAndTime = datetime.datetime.now()
             dateAndTime = str(dateAndTime.year) + str(dateAndTime.month) + str(dateAndTime.day) +\
@@ -235,14 +366,12 @@ class AbraxasClassifier:
                                 + str(datetime.datetime.now().minute) + "m" + str(datetime.datetime.now().second) + "s"
                                 + str(datetime.datetime.now().microsecond) + "us")
 
-                #
                 # format and write data:
-                #
 
                 q = [0, 0, 0, 0]                # init bno data (quaternion)
                 la = [0, 0, 0]                  # angular velocity
                 av = [0, 0, 0]                  # linear acceleration
-                dataWindow = np.zeros([self.__windowWidth, self.__windowLength])  # initialize window
+                dataWindow = np.zeros([self.__windowWidth, self.__numOfSensorsAvailable])  # initialize window
                 windowCount = 0  # counting samples until next window starts
 
                 oldLine = ser.readline()
@@ -264,7 +393,7 @@ class AbraxasClassifier:
                     if waitCount > 20:  # restart connection if stuck
                         ser.close()
                         ser.open()
-                print("Recording...")
+                print("(startReceiveData) Recording...")
                 while True:
                     try:
                         line = ser.readline().decode("utf-8").split(",")[:self.__frameLength]
@@ -286,7 +415,7 @@ class AbraxasClassifier:
 
                         line = np.concatenate([line[:(self.__numIrSensors + self.__numFrSensors)] / self.__anaNormFact,
                                                q, la, av])
-                        line[(line > 10) | (line < -10)] = 0  # threshold estimated (because of la, av)
+                        line[(line > self.__lineThresholdAfterNorm) | (line < -self.__lineThresholdAfterNorm)] = 0
                     except (KeyboardInterrupt, SystemExit, serial.SerialException):
                         writer.writerow("%" + "stop Time: " + str(datetime.datetime.now().hour) + "h"
                                         + str(datetime.datetime.now().minute) + "m"
@@ -299,11 +428,13 @@ class AbraxasClassifier:
                     if windowCount == self.__windowShift:
                         windowCount = 0
                         dataOut = np.array(dataWindow)
-                        for i in range(self.__windowLength):
-                            dataOut[::, i] = dataOut[::, i] * self.__windowFunction
+                        dataOutQ = np.zeros([self.__windowWidth, self.__numOfSensorsUsed])
+                        for i in range(self.__numOfSensorsUsed):
+                            dataOutQ[::, i] = dataOut[::, self.__indexSensorsUsed[i]] * self.__windowFunction
 
                         # write data to queue:
-                        outputQueue.put(dataOut)
+
+                        outputQueue.put(dataOutQ)
 
         if self.__windowDataQueue is None:
             self.__windowDataQueue = multiprocessing.Queue()
@@ -311,20 +442,20 @@ class AbraxasClassifier:
         if self.__receiveDataP is None:
             self.__receiveDataP = multiprocessing.Process(target=receiveDataF, args=(self.__windowDataQueue, ))
             self.__receiveDataP.start()
-            print("Started receiving process...")
+            print("(startReceiveData) Started receiving process...")
         else:
             if opt == "KILL":
                 self.__receiveDataP.terminate()
                 self.__receiveDataP = None
             else:
-                print("ReceiveData-process already started!")
+                print("(startReceiveData) ReceiveData-process already started!")
 
     def setWindowFunction(self, functionName, alpha):
 
         if isinstance(alpha, (int, float)):
             self.__windowAlpha = alpha
         else:
-            print("Give int or float for window shape parameter alpha.")
+            print("(setWindowFunction) Give int or float for window shape parameter alpha.")
 
         if isinstance(functionName, str):
             if functionName == 'tukey':
@@ -344,9 +475,9 @@ class AbraxasClassifier:
             elif functionName == 'gauss':
                 self.__windowFunction = scipy.signal.gaussian(self.__windowWidth, self.__windowAlpha)
             else:
-                print("Give proper function name.")
+                print("(setWindowFunction) Give proper function name.")
         else:
-            print("Give str as window function name.")
+            print("(setWindowFunction) Give str as window function name.")
 
     def loadFile(self, fileName, filePath):
 
@@ -499,20 +630,20 @@ class AbraxasClassifier:
 
     def readDataSet(self, checkData=False, equalLength=False):
 
-        if len(self.fileSourceName) == 0:
-            print("No file sources given.")
+        if len(self.__fileSourceName) == 0:
+            print("(readDataSet) No file sources given.")
         else:
-            startTimes = np.array(self.fileSourceStartT)
-            stopTimes = np.array(self.fileSourceStopT)
+            startTimes = np.array(self.__fileSourceStartT)
+            stopTimes = np.array(self.__fileSourceStopT)
             if equalLength:
                 stopTimes = np.ones([len(startTimes)]) * np.min(stopTimes - stopTimes) + startTimes
                 stopTimes = [int(x) for x in stopTimes]
-                startTimes = self.fileSourceStartT
+                startTimes = self.__fileSourceStartT
 
             dataSet = []
-            for i, element in enumerate(self.fileSourceName):
+            for i, element in enumerate(self.__fileSourceName):
                 irData, forceData, quatData, linAccData, angVecData = self.loadFile(fileName=element,
-                                                                                    filePath=self.fileSourcePath[i])
+                                                                                    filePath=self.__fileSourcePath[i])
                 dataSetTemp = []
                 for j in range(len(self.__selIrSensors)):
                     dataSetTemp.append(irData[int(self.__selIrSensors[j])][int(startTimes[i]):int(stopTimes[i]), 1])
@@ -531,14 +662,18 @@ class AbraxasClassifier:
                 dataSet.append(sensorData)
 
             if checkData:
-                for i, element in enumerate(self.fileSourceName):
+                for i, element in enumerate(self.__fileSourceName):
                     for j in range(len(dataSet[i][0, ::])):
                         plt.plot(dataSet[i][::, j], label=str(j))
-                        plt.title(self.fileSourceName[i])
+                        plt.title(self.__fileSourceName[i])
                     plt.legend()
                     plt.show()
 
-            return dataSet
+            self.__sourceData = np.array(dataSet)
+
+            self.windowSplitSourceDataTT()
+
+            return np.array(dataSet)
 
     def extractFeatures(self, data):
 
@@ -549,7 +684,7 @@ class AbraxasClassifier:
         coeffsAmp = []
         coeffsAmp1 = []
         if self.__numCoeffs != 0:
-            for i in range(self.__windowLength):
+            for i in range(self.__numOfSensorsUsed):
                 data[::, i] = data[::, i]
                 coeffs = pywt.wavedec(data[::, i], wavelet=self.__wavelet, mode='symmetric', level=1)
                 coeffs0 = coeffs[0]
@@ -587,7 +722,7 @@ class AbraxasClassifier:
         dominantFreqAmp = []
         dominantFreqPha = []
         if self.__numFreqs != 0:
-            for i in range(self.__windowLength):
+            for i in range(self.__numOfSensorsUsed):
                 data[::, i] = data[::, i]
                 spectrum = np.fft.fftshift(np.fft.fft(data[::, i]))[int(self.__windowWidth / 2):]
                 absSpectrum = np.abs(np.fft.fftshift(np.fft.fft(data[::, i])))[int(self.__windowWidth / 2):]
@@ -608,11 +743,11 @@ class AbraxasClassifier:
         # statistical features
         if self.__enaStatFeats:
             xCorrWavCoeffs = 5
-            for i in range(self.__windowLength):
+            for i in range(self.__numOfSensorsUsed):
                 featureVector.append(np.mean(data[::, i]))
                 featureVector.append(np.var(data[::, i]))
                 featureVector.append(mad(data[::, i]))
-                for j in range(self.__windowLength - i - 1):
+                for j in range(self.__numOfSensorsUsed - i - 1):
                     correlation = np.correlate(data[::, i], data[::, j + 1], mode='same') \
                                   / np.sum(data[::, i]) / np.size(data[::, i])
                     coeffs = pywt.wavedec(correlation, wavelet=self.__wavelet, mode='symmetric', level=0)
@@ -648,18 +783,22 @@ class AbraxasClassifier:
             self.__extractFeaturesP = multiprocessing.Process(target=extractFeaturesF, args=(self.__windowDataQueue,
                                                                                              self.__featureQueue))
             self.__extractFeaturesP.start()
-            print("Started feature extraction process...")
+            print("(initFeatureQueue) Started feature extraction process...")
         else:
             if opt == "KILL":
                 self.__extractFeaturesP.terminate()
                 self.__extractFeaturesP = None
             else:
-                print("Feature extraction-process already started!")
+                print("(initFeatureQueue) Feature extraction-process already started!")
 
-    def featureNormalization(self, features, initTrue=True):
-        if not initTrue:
+    def featureNormalization(self, features, initDone=True):
+
+        if not initDone:
+
+            features = np.array(features)
+
             if np.size(features) == len(features):
-                print("Single feature vector for normalization!?")
+                print("(featureNormalization) Single feature vector for normalization!?")
             if self.__featNormMethod == 'stand':
                 mue = []
                 sigma = []
@@ -693,85 +832,226 @@ class AbraxasClassifier:
                     features[::, i] = (features[::, i] - minVal[i]) / (maxVal[i] - minVal[i])
                 self.__normVal = np.array([minVal, maxVal])
             else:
-                print("Give proper str for feature normalization method (stand, minmax or mean)!")
+                print("(featureNormalization)Give proper str for feature normalization method (stand, minmax or mean)!")
+
             return features
         else:
+
             if self.__normVal is None:
-                print("Feature normalization not initialized yet! "
+                print("(featureNormalization) Feature normalization not initialized yet! "
                       "-> use self.initFeatureNormalization(trainingDataSet).")
             else:
                 if self.__featNormMethod == 'stand':
-                    mue = self.__normVal[::, 0]
-                    sigma = self.__normVal[::, 1]
+                    mue = self.__normVal[0, ::]
+                    sigma = self.__normVal[1, ::]
                     features = (features - mue) / sigma
                 elif self.__featNormMethod == 'mean':
-                    mue = self.__normVal[::, 0]
-                    minVal = self.__normVal[::, 1]
-                    maxVal = self.__normVal[::, 2]
+                    mue = self.__normVal[0, ::]
+                    minVal = self.__normVal[1, ::]
+                    maxVal = self.__normVal[2, ::]
                     features = (features - mue) / (maxVal - minVal)
                 elif self.__featNormMethod == 'minmax':
-                    minVal = self.__normVal[::, 0]
-                    maxVal = self.__normVal[::, 1]
+                    minVal = self.__normVal[0, ::]
+                    maxVal = self.__normVal[1, ::]
                     features = (features - minVal) / (maxVal - minVal)
                 else:
-                    print("Give proper str for feature normalization method (stand, minmax or mean)!")
+                    print("(featureNormalization)Give proper str for feature normalization method (stand, minmax or "
+                          "mean)!")
                 return features
 
-    def windowSourceData(self, dataSet, enaWindowC=False):
+    def windowSplitSourceDataTT(self, inputData=None, enaWindowC=False):
 
-        if len(dataSet) != len(self.fileLabels):
-            print("Dimension mismatch: labels < - > dataSet")
+        if inputData is None:
+            inputData = self.__sourceData
+
+        if len(inputData) != len(self.__fileLabels):
+            print("(windowSplitSourceDataTT) Dimension mismatch: labels < - > dataSet")
 
         windowedData = []
         windowLabels = []
-        for k in range(len(dataSet)):
+        for k in range(len(inputData)):
 
-            data = dataSet[k]
+            data = inputData[k]
 
             minDataLength = []
-            for i in range(self.__windowLength):
+            for i in range(self.__numOfSensorsUsed):
                 minDataLength.append(np.size(data[::, i]))
             minDataLength = np.min(minDataLength)
             tempNumWindows = int((minDataLength - self.__windowWidth) / self.__windowShift + 1)
             for i in range(tempNumWindows):
                 windowedDataTemp = []
-                for j in range(self.__windowLength):
+                for j in range(self.__numOfSensorsUsed):
                     dataTemp = data[i * self.__windowShift:(i * self.__windowShift + self.__windowWidth), j]
                     windowedDataTemp.append(dataTemp * self.__windowFunction)
                 windowedDataTemp = np.transpose(windowedDataTemp)
                 windowedData.append(windowedDataTemp)
-                windowLabels.append(self.fileLabels[k])
+                windowLabels.append(self.__fileLabels[k])
                 if enaWindowC:
                     plt.plot(windowedDataTemp)
-                    plt.title("Label:=" + str(self.fileLabels[k]))
+                    plt.title("Label:=" + str(self.__fileLabels[k]))
                     plt.show()
+
+        testData = []
+        trainingData = []
+        testLabels = []
+        trainingLabels = []
+
+        for i in range(len(windowedData)):
+            self.__numberWindowPerClass[windowLabels[i]] += 1
+
+        classCount = np.zeros(np.shape(self.__numberWindowPerClass))
+
+        if self.__classSortTT:
+            for i in range(len(windowedData)):
+                if classCount[windowLabels[i]]/(self.__numberWindowPerClass[windowLabels[i]] - 1) < \
+                        self.__trainFraction:
+                    trainingData.append(windowedData[i])
+                    trainingLabels.append(windowLabels[i])
+                    classCount[windowLabels[i]] += 1
+                else:
+                    testData.append(windowedData[i])
+                    testLabels.append(windowLabels[i])
+        elif self.__randomSortTT:
+            index = np.linspace(0, len(windowedData)-1, len(windowedData))
+            random.shuffle(index)
+            for i in range(len(windowedData)):
+                if i/(len(windowedData) - 2) < self.__trainFraction:
+                    trainingData.append(windowedData[index[i]])
+                    trainingLabels.append(windowLabels[index[i]])
+                else:
+                    testData.append(windowedData[index[i]])
+                    testLabels.append(windowLabels[index[i]])
+        else:
+            print("(windowSplitSourceDataTT) Either classSortTT or randomSortTT has to be True (classSort gives "
+                  "trainFraction of each class as training data; randomSort takes arbitrary samples, hence classes "
+                  "may not be trained...). ")
+
+        self.__sourceTrainWindowData = trainingData
+        self.__sourceTrainLabel = trainingLabels
+        self.__sourceTestWindowData = testData
+        self.__sourceTestLabel = testLabels
+
+        print("(windowSplitSourceDataTT) Input or source data is windowed and split to test and training data "
+              "(ratio: ", str(self.__trainFraction), ").")
         return windowedData, windowLabels
 
-    def splitTrainTest(self):
-        pass
+    def initFeatNormalization(self, inputData=None, dumbName=None):
 
-    def initFeatNormalization(self, dataSet):
+        if inputData is None:
+            inputData = self.__sourceTrainWindowData
 
-        dataWindows, windowLabels = self.windowSourceData(dataSet)
+        if dumbName is None:
+            dumbName = "normValDumb.pkl"
+
         windowFeatures = []
-        for i in range(len(dataWindows)):
-            windowFeatures.append(self.extractFeatures(dataWindows[i]))
+        for i in range(len(inputData)):
+            windowFeatures.append(self.extractFeatures(inputData[i]))
 
-        windowFeatures = self.featureNormalization(features=windowFeatures, initTrue=False)
+        self.__sourceTrainFeat = self.featureNormalization(features=windowFeatures, initDone=False)
 
+        with open(dumbName, 'wb') as normValDumb:
+            cPickle.dump(self.__normVal, normValDumb)
+
+    def trainClassifier(self, classifier=None):
+
+        if classifier is None:
+            classifier = svm.SVC(kernel=self.__kernel)
+
+        classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
+
+        self.__trainedClassifier = classifier
+
+    def testClassifier(self, inputData=None, classifier=None):
+
+        if classifier is None:
+            classifier = self.__trainedClassifier
+            if self.__trainedClassifier is None:
+                print("(testClassifier) No classifier trained yet!")
+
+        if inputData is None:
+            inputData = self.__sourceTestWindowData
+
+        occurrenceCount = np.zeros(self.__numberOfClasses)
+        confMat = np.zeros([self.__numberOfClasses, self.__numberOfClasses])
+
+        for i in range(len(inputData)):
+            normedFeatVec = self.featureNormalization(self.extractFeatures(inputData[i]))
+            prediction = classifier.predict(normedFeatVec.reshape(1, -1))
+            occurrenceCount[int(self.__sourceTestLabel[i])] += 1
+            confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
+
+        for i in range(self.__numberOfClasses):
+            confMat[::, i] = confMat[::, i] / occurrenceCount[i]
+
+        self.plotMatrixWithValues(confMat)
+
+    def dumpClassifier(self, dumbName=None, classifier=None):
+
+        if dumbName is None:
+            dumbName = "classifierDumb.pkl"
+
+        if classifier is None:
+            classifier = self.__trainedClassifier
+            if self.__trainedClassifier is None:
+                print("(dumpClassifier) No classifier trained yet!")
+
+        with open(dumbName, 'wb') as classifierDumb:
+            cPickle.dump(dumbName, classifierDumb)
+
+    @staticmethod
+    def plotMatrixWithValues(matrix, title_=None, precision=3, show=True):
+        matrix = np.array(matrix)
+        xrange = np.size(matrix[::, 0])
+        yrange = np.size(matrix[0, ::])
+        fig, ax = plt.subplots()
+        ax.matshow(matrix, cmap=plt.cm.Blues)
+        for i in range(yrange):
+            for j in range(xrange):
+                c = np.round(matrix[j, i], precision)
+                ax.text(i, j, str(c), va='center', ha='center')
+        if title_ is not None:
+            plt.title(title_)
+        if show:
+            plt.show()
 
 
 if __name__ == '__main__':
 
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=10, numCoeffs=10,
-                          enaStatFeats=True)
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numFreqs=10, numCoeffs=10,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=2/3)
 
-    a.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
+    a.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
+    a.selectSensorSubset(selectedSensors=[], sensorType='ir')
+    a.selectSensorSubset(selectedSensors=[], sensorType='fr')
 
-    a.startPlotStreamData(sensorNr=0)
+    '''
+    a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0)
+    a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
+    a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
+    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=3)
+    a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=4)
+    a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
+    a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
+    a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=4000, label=5)
+    a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=100, stopTime=4000, label=6)
+    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=7000, label=7)
+    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=8)
+    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=4)
+
+    a.readDataSet(checkData=False)
+
+    a.initFeatNormalization()
+
+    clf = svm.SVC()
+
+    a.trainClassifier(classifier=clf)
+
+    a.testClassifier()
+    '''
+
+    # a.dumpClassifier()
 
     a.startReceiveData()
 
-
-
+    a.startPlotStreamData(sensorNr=0)
 
