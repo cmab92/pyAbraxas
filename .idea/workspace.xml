@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/abraxasThree/classifierClass.py" line="968" />
+    <bookmark url="file://$PROJECT_DIR$/abraxasThree/classifierClass.py" line="960" />
   </component>
   <component name="ChangeListManager">
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
@@ -23,7 +23,7 @@
       <file leaf-file-name="receiveData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="249">
+            <state>
               <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="31" selection-end-column="49" />
             </state>
           </provider>
@@ -44,8 +44,8 @@
       <file leaf-file-name="trainDumbSVC.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/trainDumbSVC.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="239">
-              <caret line="16" selection-start-line="16" selection-end-line="18" selection-end-column="39" />
+            <state relative-caret-position="444">
+              <caret line="111" selection-start-line="111" selection-end-line="114" />
               <folding>
                 <element signature="e#69#87#0" expanded="true" />
               </folding>
@@ -56,32 +56,45 @@
       <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="419">
-              <caret line="1055" column="37" selection-start-line="1055" selection-start-column="37" selection-end-line="1055" selection-end-column="37" />
+            <state relative-caret-position="789">
+              <caret line="1332" column="36" selection-start-line="1332" selection-start-column="36" selection-end-line="1332" selection-end-column="36" />
               <folding>
                 <element signature="e#49#62#0" expanded="true" />
-                <element signature="e#3555#3851#0" />
-                <element signature="e#3935#4458#0" />
-                <element signature="e#4525#4869#0" />
-                <element signature="e#5397#6238#0" />
-                <element signature="e#6540#6849#0" />
-                <element signature="e#9214#12818#0" />
-                <element signature="e#9165#9860#0" />
-                <element signature="e#14488#21208#0" />
-                <element signature="e#15786#17104#0" />
-                <element signature="e#17159#23309#0" />
-                <element signature="e#23354#24353#0" />
-                <element signature="e#24427#26624#0" />
-                <element signature="e#26672#31394#0" />
-                <element signature="e#31447#32490#0" />
-                <element signature="e#33222#36290#0" />
-                <element signature="e#36518#38782#0" />
-                <element signature="e#41679#42177#0" />
-                <element signature="e#38766#38963#0" />
-                <element signature="e#39198#40347#0" />
-                <element signature="e#41584#41836#0" />
-                <element signature="e#40691#41162#0" />
+                <element signature="e#747#3896#0" />
+                <element signature="e#3940#4271#0" />
+                <element signature="e#4334#4947#0" />
+                <element signature="e#5013#5891#0" />
+                <element signature="e#5943#7157#0" />
+                <element signature="e#7206#7688#0" />
+                <element signature="e#10044#15045#0" />
+                <element signature="e#15157#16649#0" />
+                <element signature="e#23758#25799#0" />
+                <element signature="e#25854#32530#0" />
+                <element signature="e#32575#33685#0" />
+                <element signature="e#33759#36482#0" />
+                <element signature="e#36530#41431#0" />
+                <element signature="e#41471#42900#0" />
+                <element signature="e#42863#47925#0" />
+                <element signature="e#45952#49289#0" />
+                <element signature="e#51413#51803#0" />
+                <element signature="e#51899#53434#0" />
+                <element signature="e#52213#52978#0" />
+                <element signature="e#52965#53555#0" />
+                <element signature="e#54240#54589#0" />
+                <element signature="e#54659#55019#0" />
+                <element signature="e#47547#54538#0" />
+                <element signature="e#54633#57161#0" />
+                <element signature="e#53745#54574#0" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="readDataSet.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxasTwo/readDataSet.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="42" selection-start-line="40" selection-start-column="19" selection-end-line="42" />
             </state>
           </provider>
         </entry>
@@ -89,8 +102,8 @@
       <file leaf-file-name="extractFeatures.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/extractFeatures.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="104">
-              <caret line="14" column="106" selection-start-line="14" selection-start-column="106" selection-end-line="14" selection-end-column="106" />
+            <state relative-caret-position="90">
+              <caret line="6" column="80" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="80" />
             </state>
           </provider>
         </entry>
@@ -98,8 +111,8 @@
       <file leaf-file-name="threadingTest.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/threadingTest.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1800">
-              <caret line="129" column="18" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="18" />
+            <state relative-caret-position="119">
+              <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
               <folding>
                 <element signature="e#0#22#0" expanded="true" />
               </folding>
@@ -110,8 +123,8 @@
       <file leaf-file-name="miscFunc.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/miscFunc.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="300">
-              <caret line="97" selection-start-line="97" selection-end-line="111" />
+            <state relative-caret-position="870">
+              <caret line="93" column="57" selection-start-line="84" selection-start-column="4" selection-end-line="93" selection-end-column="57" />
             </state>
           </provider>
         </entry>
@@ -119,17 +132,8 @@
       <file leaf-file-name="normalize.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasTwo/normalize.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-315">
+            <state>
               <caret column="3" selection-start-column="3" selection-end-column="3" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="windowDataSet.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/abraxasTwo/windowDataSet.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1095">
-              <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
             </state>
           </provider>
         </entry>
@@ -145,9 +149,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.plotStreamDataP</find>
-      <find>self.receiveDataP</find>
-      <find>self.quatNormFact</find>
       <find>self.linAccNormFact</find>
       <find>self.angVecNormFact</find>
       <find>self.anaNormFact</find>
@@ -175,6 +176,9 @@
       <find>self.__sampleT</find>
       <find>avail</find>
       <find>__numOfSensorsAvailable</find>
+      <find>self</find>
+      <find>ratio</find>
+      <find>__featureQueue</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -243,7 +247,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -256,15 +259,11 @@
               <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
               <item name="abraxasThree" type="462c0819:PsiDirectoryNode" />
             </path>
-            <path>
-              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
-              <item name="abraxasTwo" type="462c0819:PsiDirectoryNode" />
-            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -670,7 +669,14 @@
       <option name="project" value="LOCAL" />
       <updated>1531326031600</updated>
     </task>
-    <option name="localTasksCounter" value="33" />
+    <task id="LOCAL-00033" summary="abraxas3">
+      <created>1531407188159</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1531407188159</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -680,9 +686,10 @@
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50026953" side_tool="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.32991803" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32889345" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49973047" visible="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973047" weight="0.3944672" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -693,26 +700,25 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32991803" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973047" visible="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" weight="0.3944672" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" weight="0.32991803" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32991803" />
       <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32889345" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50026953" side_tool="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Version Control" order="10" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info id="Favorites" order="2" side_tool="true" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -747,11 +753,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="33" />
+      <option name="time" value="39" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/gaitAnaForUserIdentification.py" />
     <entry file="file://$PROJECT_DIR$/abraxasOne/plotFeatures.py" />
     <entry file="file://$PROJECT_DIR$/abraxasOne/helperFunctions.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -819,13 +824,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
           <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="34" column="37" selection-start-line="34" selection-start-column="37" selection-end-line="34" selection-end-column="37" />
         </state>
       </provider>
     </entry>
@@ -949,41 +947,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/readDataSet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="59" column="22" selection-start-line="59" selection-start-column="20" selection-end-line="59" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/loadFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="32" selection-start-line="32" selection-end-line="182" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/abraxasTwo/windowDataSet.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1095">
           <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadingTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1800">
-          <caret line="129" column="18" selection-start-line="129" selection-start-column="4" selection-end-line="129" selection-end-column="18" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/miscFunc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="300">
-          <caret line="97" selection-start-line="97" selection-end-line="111" />
         </state>
       </provider>
     </entry>
@@ -994,13 +961,87 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/20187111410.txt">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/20187111410.txt" />
+    <entry file="file://$PROJECT_DIR$/abraxasTwo/normalize.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="3" selection-start-column="3" selection-end-column="3" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CLeVerOne.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="184">
+          <caret line="38" column="35" lean-forward="true" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="31" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.5/multiprocessing/process.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="92" selection-start-line="92" selection-end-line="92" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" lean-forward="true" selection-start-line="10" selection-end-line="10" />
+          <folding>
+            <element signature="e#1#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasTwo/loadFile.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasTwo/readDataSet.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" selection-start-line="40" selection-start-column="19" selection-end-line="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/h5py/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="188">
+          <caret line="35" selection-start-line="35" selection-end-line="35" />
+        </state>
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasTwo/extractFeatures.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="14" column="106" selection-start-line="14" selection-start-column="106" selection-end-line="14" selection-end-column="106" />
+        <state relative-caret-position="90">
+          <caret line="6" column="80" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasTwo/miscFunc.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="870">
+          <caret line="93" column="57" selection-start-line="84" selection-start-column="4" selection-end-line="93" selection-end-column="57" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasTwo/trainDumbSVC.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="111" selection-start-line="111" selection-end-line="114" />
+          <folding>
+            <element signature="e#69#87#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1014,71 +1055,47 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/normalize.py">
+    <entry file="file://$PROJECT_DIR$/threadingTest.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-315">
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/trainDumbSVC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="239">
-          <caret line="16" selection-start-line="16" selection-end-line="18" selection-end-column="39" />
+        <state relative-caret-position="119">
+          <caret line="88" column="36" lean-forward="true" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
           <folding>
-            <element signature="e#69#87#0" expanded="true" />
+            <element signature="e#0#22#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CLeVerOne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="38" column="35" lean-forward="true" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="249">
-          <caret line="30" column="19" selection-start-line="30" selection-start-column="19" selection-end-line="31" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python3.5/multiprocessing/process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="92" selection-start-line="92" selection-end-line="92" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="419">
-          <caret line="1055" column="37" selection-start-line="1055" selection-start-column="37" selection-end-line="1055" selection-end-column="37" />
+        <state relative-caret-position="789">
+          <caret line="1332" column="36" selection-start-line="1332" selection-start-column="36" selection-end-line="1332" selection-end-column="36" />
           <folding>
             <element signature="e#49#62#0" expanded="true" />
-            <element signature="e#3555#3851#0" />
-            <element signature="e#3935#4458#0" />
-            <element signature="e#4525#4869#0" />
-            <element signature="e#5397#6238#0" />
-            <element signature="e#6540#6849#0" />
-            <element signature="e#9214#12818#0" />
-            <element signature="e#9165#9860#0" />
-            <element signature="e#14488#21208#0" />
-            <element signature="e#15786#17104#0" />
-            <element signature="e#17159#23309#0" />
-            <element signature="e#23354#24353#0" />
-            <element signature="e#24427#26624#0" />
-            <element signature="e#26672#31394#0" />
-            <element signature="e#31447#32490#0" />
-            <element signature="e#33222#36290#0" />
-            <element signature="e#36518#38782#0" />
-            <element signature="e#41679#42177#0" />
-            <element signature="e#38766#38963#0" />
-            <element signature="e#39198#40347#0" />
-            <element signature="e#41584#41836#0" />
-            <element signature="e#40691#41162#0" />
+            <element signature="e#747#3896#0" />
+            <element signature="e#3940#4271#0" />
+            <element signature="e#4334#4947#0" />
+            <element signature="e#5013#5891#0" />
+            <element signature="e#5943#7157#0" />
+            <element signature="e#7206#7688#0" />
+            <element signature="e#10044#15045#0" />
+            <element signature="e#15157#16649#0" />
+            <element signature="e#23758#25799#0" />
+            <element signature="e#25854#32530#0" />
+            <element signature="e#32575#33685#0" />
+            <element signature="e#33759#36482#0" />
+            <element signature="e#36530#41431#0" />
+            <element signature="e#41471#42900#0" />
+            <element signature="e#42863#47925#0" />
+            <element signature="e#45952#49289#0" />
+            <element signature="e#51413#51803#0" />
+            <element signature="e#51899#53434#0" />
+            <element signature="e#52213#52978#0" />
+            <element signature="e#52965#53555#0" />
+            <element signature="e#54240#54589#0" />
+            <element signature="e#54659#55019#0" />
+            <element signature="e#47547#54538#0" />
+            <element signature="e#54633#57161#0" />
+            <element signature="e#53745#54574#0" />
           </folding>
         </state>
       </provider>
