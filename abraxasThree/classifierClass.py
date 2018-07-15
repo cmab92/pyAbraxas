@@ -22,7 +22,7 @@ from six.moves import cPickle
 class AbraxasClassifier:
 
     def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, kernel,
-                 enaStatFeats=True, wavelet='haar', wvltLvl1=False, featNormMethod='stand', trainFraction=2/3,
+                 enaStatFeats=True, wavelet='haar', wvltLvl1=False, featNormMethod='stand', trainFraction=0.66,
                  classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10):
 
         # Hardware information and parameters
@@ -41,7 +41,8 @@ class AbraxasClassifier:
         self.__fileSourceName = []
         self.__fileSourcePath = []
         self.__fileSourceStartT = []
-        self.__fileSourceStopT = []
+        self.__fileSourceStopT = [](selectSensorSubset) ...bno, used sensors: [False, False, False]
+
         self.__fileLabels = []
 
         # Sensor selection
@@ -1290,11 +1291,11 @@ class AbraxasClassifier:
 
 if __name__ == '__main__':
 
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=100, numFreqs=15, numCoeffs=15,
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=5, numCoeffs=5,
                           enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=0.5, wvltLvl1=True,
-                          randomSortTT=True, classSortTT=False)
+                          randomSortTT=False, classSortTT=True)
 
-    a.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
+    a.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
 
     # add files:
 
@@ -1304,20 +1305,20 @@ if __name__ == '__main__':
     a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
     a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
 
-    a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
+    # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
     a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
     a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
 
     a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=3)
 
     a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=4000, label=4)
-    a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=100, stopTime=4000, label=4)
+    # a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=100, stopTime=4000, label=4)
 
     # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=7000, label=5)
 
     a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=5)
 
-    a.readDataSet(equalLength=False)
+    a.readDataSet(equalLength=False, checkData=True)
 
     a.initFeatNormalization()
 
@@ -1330,6 +1331,6 @@ if __name__ == '__main__':
 
     a.testClassifier()
 
-    a.startPlotStreamData(sensorNr=0)
+    # a.startPlotStreamData(sensorNr=0)
 
-    a.startLiveClassification()
+    # a.startLiveClassification()
