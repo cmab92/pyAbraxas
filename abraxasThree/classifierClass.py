@@ -1044,6 +1044,7 @@ class AbraxasClassifier:
 
         windowFeatures = []
         for i in range(len(inputData)):
+            print("(initFeatNormalization) Progress feature extraction: " + str(100*i/(len(inputData))) + "%")
             windowFeatures.append(self.extractFeatures(inputData[i]))
 
         self.__sourceTrainFeat = self.featureNormalization(features=windowFeatures, initDone=False)
@@ -1148,8 +1149,10 @@ class AbraxasClassifier:
             try:
                 dummy = ser.readline()
             except AttributeError:
-                print("\n \n (startReceiveData) COM-port connected? Baud rate correct? Connected to another process? "
+                print("\n \n (startReceiveData) No serial interface!! COM-port connected? Baud rate correct? Connected "
+                      "to another process? "
                       "\n \n ")
+                return False
 
             # setup .txt-file (this eventually updates self.__fileSinkName):
 
@@ -1236,13 +1239,12 @@ class AbraxasClassifier:
 
                         outputQueue.put(dataOutQ)
 
-        if self.__windowDataQueue is None:
-            self.__windowDataQueue = multiprocessing.Queue()
-
-        if self.__windowDataQueue is None:
-            self.__windowDataQueue = multiprocessing.Queue()
-
         if self.__receiveDataP is None and str(opt) != "KILL":
+            if self.__windowDataQueue is None:
+                self.__windowDataQueue = multiprocessing.Queue()
+
+            if self.__windowDataQueue is None:
+                self.__windowDataQueue = multiprocessing.Queue()
             self.__receiveDataP = multiprocessing.Process(target=receiveDataF, args=(self.__windowDataQueue, ))
             self.__receiveDataP.start()
             print("(startReceiveData) Started receiving process...")
@@ -1409,7 +1411,7 @@ class AbraxasClassifier:
 
 if __name__ == '__main__':
 
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=5, numFreqs=5, numCoeffs=5,
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=200, windowShift=200, numFreqs=5, numCoeffs=5,
                           enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, wvltLvl1=False,
                           randomSortTT=False, classSortTT=True)
 
@@ -1452,12 +1454,16 @@ if __name__ == '__main__':
 
     a.readDataSet(equalLength=False, checkData=False)
 
-    # a.initFeatNormalization(dumpName="oneClassNorm.pkl")
+    print("Data read....")
+
+    # a.initFeatNormalization(dumpName="test.pkl")
     a.loadDumpNormParam(dumpName="oneClassNorm")
+
+    # print("Check")
 
     # clf = svm.OneClassSVM(kernel='rbf')
     # a.trainClassifier(classifier=clf)
-    # a.dumpClassifier(dumpName="oneClassClf")
+    # a.dumpClassifier(dumpName="test")
 
     a.loadDumpClassifier(dumpName="oneClassClf.pkl")
 
