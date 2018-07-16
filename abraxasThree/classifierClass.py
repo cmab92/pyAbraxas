@@ -41,7 +41,7 @@ class AbraxasClassifier:
         self.__fileSourceName = []
         self.__fileSourcePath = []
         self.__fileSourceStartT = []
-        self.__fileSourceStopT = [](selectSensorSubset) ...bno, used sensors: [False, False, False]
+        self.__fileSourceStopT = []
 
         self.__fileLabels = []
 
@@ -95,6 +95,7 @@ class AbraxasClassifier:
         self.__sourceTrainLabel = None
         self.__sourceTestLabel = None
         self.__sourceTrainFeat = None
+        self.__className = []
 
         # Classifier
         self.__trainedClassifier = None
@@ -325,6 +326,15 @@ class AbraxasClassifier:
 
         self.__numberOfClasses = len(set(self.__fileLabels))
         self.__numberWindowPerClass = np.zeros(self.__numberOfClasses)
+
+        newClass = True
+        for i in range(self.__numberOfClasses - 1):
+            if label == self.__fileLabels[i]:
+                newClass = False
+
+        if newClass is True:
+            self.__className.append(fileSourceName[:-4])
+
 
     def setWindowFunction(self, functionName, alpha):
 
@@ -601,6 +611,7 @@ class AbraxasClassifier:
         """
 
         featureVector = []
+        np.seterr(all='raise')
 
         # wavelet features:
 
@@ -654,7 +665,10 @@ class AbraxasClassifier:
                 reS = np.real(spectrum[absSpectrum.argsort()[-self.__numFreqs:]])
                 imS = np.imag(spectrum[absSpectrum.argsort()[-self.__numFreqs:]])
                 dominantFreqAmp.append(np.sqrt(reS ** 2 + imS ** 2))
-                dominantFreqPha.append(np.arctan(imS / reS) + 0.01 * reS)
+                try:
+                    dominantFreqPha.append(np.arctan(imS / reS))
+                except FloatingPointError:
+                    dominantFreqPha.append(0)
                 dominantFreqVal.append(freqAxis[absSpectrum.argsort()[-self.__numFreqs:]])
                 for j in range(np.size(dominantFreqVal[i]) - 1):
                     temp = dominantFreqVal
@@ -695,7 +709,7 @@ class AbraxasClassifier:
     def initFeatureQueue(self, opt=None):
 
         """
-        Data queue, processing feature data for live classification.
+        Data queue, processing feature data for live classification. Initialization by classifier.
         :param opt:  If "KILL" ends process. Default None.
         :return: writes to:
          - self.__windowDataQueue
@@ -713,7 +727,7 @@ class AbraxasClassifier:
         if self.__windowDataQueue is None:
             self.__windowDataQueue = multiprocessing.Queue()
 
-        if self.__featureQueue in None:
+        if self.__featureQueue is None:
             self.__featureQueue = multiprocessing.Queue()
 
         if self.__extractFeaturesP is None:
@@ -858,6 +872,9 @@ class AbraxasClassifier:
 
         if inputData is None:
             inputData = self.__sourceData
+            if self.__sourceData is None:
+                print("(windowSplitSourceDataTT) No source data specified yet.")
+                return False
 
         if len(inputData) != len(self.__fileLabels):
             print("(windowSplitSourceDataTT) Dimension mismatch: labels < - > dataSet")
@@ -898,7 +915,7 @@ class AbraxasClassifier:
 
         if self.__classSortTT and not self.__randomSortTT:
             for i in range(len(windowedData)):
-                if classCount[windowLabels[i]]/(self.__numberWindowPerClass[windowLabels[i]] - 1) < \
+                if ((classCount[windowLabels[i]])/(self.__numberWindowPerClass[windowLabels[i]] - 1)) < \
                         self.__trainFraction:
                     trainingData.append(windowedData[i])
                     trainingLabels.append(windowLabels[i])
@@ -956,10 +973,13 @@ class AbraxasClassifier:
         :return: -
         """
 
+        np.seterr(all='raise')
+
         if classifier is None:
             classifier = self.__trainedClassifier
             if self.__trainedClassifier is None:
                 print("(testClassifier) No classifier trained yet!")
+                return False
 
         if inputData is None:
             inputData = self.__sourceTestWindowData
@@ -974,8 +994,13 @@ class AbraxasClassifier:
             confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
 
         for i in range(self.__numberOfClasses):
-            confMat[::, i] = confMat[::, i] / occurrenceCount[i]
-            print("(testClassifier) For class " + str(i) + ") the number of test samples/windows is "
+            try:
+                confMat[::, i] = confMat[::, i] / occurrenceCount[i]
+            except FloatingPointError:
+                print("(testClassifier) Seems like class " + str(i) + " was not trained. Consider classSort as True or "
+                                                                      "smaller fraction of training data "
+                                                                      "(self.__trainFraction).")
+            print("(testClassifier) For class " + str(i) + " the number of test samples/windows is "
                   + str(occurrenceCount[i]))
 
         print("(testClassifier) The overall error is " + str(100 - np.sum(np.diag(confMat))/self.__numberOfClasses*100)
@@ -995,6 +1020,9 @@ class AbraxasClassifier:
 
         if inputData is None:
             inputData = self.__sourceTrainWindowData
+            if self.__sourceTrainWindowData is None:
+                print("(initFeatNormalization) No training data specified yet.")
+                return False
 
         if dumbName is None:
             dumbName = "normValDumb.pkl"
@@ -1061,7 +1089,7 @@ class AbraxasClassifier:
     def startReceiveData(self, opt=None):
 
         """
-        Start process to receive serial data. Write data to file and to multiprocessing.Queue.
+        Start process to receive serial data via com port. Write data to file and to multiprocessing.Queue.
         :param opt: If "KILL" ends process. Default None.
         :return: writes to:
          - self.__port
@@ -1181,6 +1209,9 @@ class AbraxasClassifier:
         if self.__windowDataQueue is None:
             self.__windowDataQueue = multiprocessing.Queue()
 
+        if self.__windowDataQueue is None:
+            self.__windowDataQueue = multiprocessing.Queue()
+
         if self.__receiveDataP is None:
             self.__receiveDataP = multiprocessing.Process(target=receiveDataF, args=(self.__windowDataQueue, ))
             self.__receiveDataP.start()
@@ -1241,26 +1272,34 @@ class AbraxasClassifier:
 
     def startLiveClassification(self, opt=None):
 
-        def liveClassificationF(classifier=self.__trainedClassifier, featureQ=self.__featureQueue):
+        def liveClassificationF(classifier, featureQ):
 
             while True:
                 features = featureQ.get()
                 pred = classifier.predict(features.reshape(1, -1))
-                print("(liveClassification) Classification: " + str(pred))
+                print("(liveClassification) Classification: " + self.__className[int(pred)])
 
-        self.startReceiveData()
-        self.initFeatureQueue()
+        if self.__receiveDataP is None:
+            self.startReceiveData()
+
+        if self.__extractFeaturesP is None:
+            self.initFeatureQueue()
 
         if self.__liveClassificationP is None:
-            self.__liveClassificationP = multiprocessing.Process(target=liveClassificationF, args=())
-            self.__liveClassificationP.start()
-            print("(liveClassification) Started live classification process...")
+            if self.__trainedClassifier is None:
+                print("(startLiveClassification) No classfier trained yet.")
+                return False
+            else:
+                self.__liveClassificationP = multiprocessing.Process(target=liveClassificationF,
+                                                                     args=(self.__trainedClassifier, self.__featureQueue))
+                self.__liveClassificationP.start()
+                print("(startLiveClassification) Started live classification process...")
         else:
             if opt == "KILL":
                 self.__liveClassificationP.terminate()
                 self.__liveClassificationP = None
             else:
-                print("(liveClassification) live classification-process already started!")
+                print("(startLiveClassification) live classification-process already started!")
 
     @staticmethod
     def plotMatrixWithValues(matrix, title_=None, precision=3, show=True):
@@ -1291,8 +1330,8 @@ class AbraxasClassifier:
 
 if __name__ == '__main__':
 
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=5, numCoeffs=5,
-                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=0.5, wvltLvl1=True,
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=15, numCoeffs=15,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, wvltLvl1=True,
                           randomSortTT=False, classSortTT=True)
 
     a.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
@@ -1303,11 +1342,11 @@ if __name__ == '__main__':
     a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
 
     a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
-    a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
+    # a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
 
     # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
-    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
     a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
+    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
 
     a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=3)
 
@@ -1318,19 +1357,21 @@ if __name__ == '__main__':
 
     a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=5)
 
-    a.readDataSet(equalLength=False, checkData=True)
+    a.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
 
-    a.initFeatNormalization()
+    a.readDataSet(equalLength=False, checkData=False)
 
-    clf = svm.SVC(kernel='sigmoid')
-    a.trainClassifier(classifier=clf)
+    # a.initFeatNormalization()
+    a.loadDumpNormParam()
+
+    # clf = svm.SVC(kernel='sigmoid')
+    # a.trainClassifier(classifier=clf)
     # a.dumpClassifier()
 
-    # a.loadDumpNormParam()
-    # a.loadDumpClassifier()
+    a.loadDumpClassifier()
 
-    a.testClassifier()
+    # a.testClassifier()
 
     # a.startPlotStreamData(sensorNr=0)
 
-    # a.startLiveClassification()
+    a.startLiveClassification()
