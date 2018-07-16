@@ -295,7 +295,7 @@ class AbraxasClassifier:
                     self.__indexSensorsUsed.append(self.__nrAnalogSensors + 8)
                     self.__indexSensorsUsed.append(self.__nrAnalogSensors + 9)
 
-    def addDataFiles(self, fileSourceName, fileSourcePath, startTime=0, stopTime=10**9, label=None):
+    def addDataFiles(self, fileSourceName, fileSourcePath, startTime=0, stopTime=10**9, label=None, className=None):
 
         """
         Add a source file to the dataset. Given inputs are stored in arrays.
@@ -304,6 +304,7 @@ class AbraxasClassifier:
         :param startTime: Time (in samples) from which the data in the file is read.
         :param stopTime:Time (in samples) until which the data in the file is read.
         :param label: Label of the file.
+        :param className: Class name displayed by some functions (self.__liveClassification).
         :return: writes to:
          - self.__fileSourceName
          - self.__fileSourcePath
@@ -311,6 +312,7 @@ class AbraxasClassifier:
          - self.__fileSourceStopT
          - self.__fileLabels
          - self.__numberOfClasses
+         - self.__className
          - self.__numberWindowPerClass (init)
         """
 
@@ -334,8 +336,10 @@ class AbraxasClassifier:
                 newClass = False
 
         if newClass is True:
-            self.__className.append(fileSourceName[:-4])
-
+            if isinstance(className, str):
+                self.__className.append(className)
+            else:
+                self.__className.append(self.__fileSourceName[:-4])
 
     def setWindowFunction(self, functionName, alpha):
 
@@ -669,7 +673,9 @@ class AbraxasClassifier:
                 try:
                     dominantFreqPha.append(np.arctan(imS / reS))
                 except FloatingPointError:
-                    dominantFreqPha.append(0)
+                    temp = np.arctan(imS / reS)
+                    temp[reS == 0] = 0
+                    dominantFreqPha.append(temp)
                 dominantFreqVal.append(freqAxis[absSpectrum.argsort()[-self.__numFreqs:]])
                 for j in range(np.size(dominantFreqVal[i]) - 1):
                     temp = dominantFreqVal
@@ -774,7 +780,7 @@ class AbraxasClassifier:
                     try:
                         features[::, i] = (features[::, i] - mue[i]) / sigma[i]
                     except FloatingPointError:
-                        sigma[i] = 10**2
+                        sigma[i] = 1
                         features[::, i] = (features[::, i] - mue[i]) / sigma[i]
                 self.__normVal = np.array([mue, sigma])
             elif self.__featNormMethod == 'mean':
@@ -786,11 +792,11 @@ class AbraxasClassifier:
                     minVal.append(np.min(features[::, i]))
                     maxVal.append(np.max(features[::, i]))
                     if (maxVal[i] - minVal[i]) == 0:
-                        maxVal[i] = np.abs(minVal[i] * 10 ** 6)
+                        maxVal[i] = np.abs(minVal[i] + 1)
                     try:
                         features[::, i] = (features[::, i] - mue[i]) / (maxVal[i] - minVal[i])
                     except FloatingPointError:
-                        maxVal[i] = minVal[i] + 10**2
+                        maxVal[i] = minVal[i] + 1
                         features[::, i] = (features[::, i] - mue[i]) / (maxVal[i] - minVal[i])
                 self.__normVal = np.array([mue, minVal, maxVal])
             elif self.__featNormMethod == 'minmax':
@@ -800,11 +806,11 @@ class AbraxasClassifier:
                     minVal.append(np.min(features[::, i]))
                     maxVal.append(np.max(features[::, i]))
                     if (maxVal[i] - minVal[i]) == 0:
-                        maxVal[i] = np.abs(minVal[i] * 10 ** 6)
+                        maxVal[i] = np.abs(minVal[i] + 1)
                     try:
                         features[::, i] = (features[::, i] - minVal[i]) / (maxVal[i] - minVal[i])
                     except FloatingPointError:
-                        maxVal[i] = minVal[i] + 10**2
+                        maxVal[i] = minVal[i] + 1
                         features[::, i] = (features[::, i] - minVal[i]) / (maxVal[i] - minVal[i])
                 self.__normVal = np.array([minVal, maxVal])
             else:
@@ -949,7 +955,7 @@ class AbraxasClassifier:
               + str(self.__classSortTT) + ".")
         return windowedData, windowLabels
 
-    def trainClassifier(self, classifier=None):
+    def trainClassifier(self, classifier=None, oneClass=False):
 
         """
         Train classifier with source training data.
@@ -961,7 +967,10 @@ class AbraxasClassifier:
         if classifier is None:
             classifier = svm.SVC(kernel=self.__kernel)
 
-        classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
+        if oneClass is False:
+            classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
+        else:
+            classifier.fit(self.__sourceTrainFeat)
 
         self.__trainedClassifier = classifier
 
@@ -1009,12 +1018,12 @@ class AbraxasClassifier:
 
         self.plotMatrixWithValues(confMat)
 
-    def initFeatNormalization(self, inputData=None, dumbName=None):
+    def initFeatNormalization(self, inputData=None, dumpName=None):
 
         """
         Initialize feature normalization and dumps normalization parameters.
         :param inputData: If None using source training data.
-        :param dumbName: Name of parameter dump.
+        :param dumpName: Name of parameter dump.
         :return: writes to:
          - self.__sourceTrainFeat
         """
@@ -1025,8 +1034,13 @@ class AbraxasClassifier:
                 print("(initFeatNormalization) No training data specified yet.")
                 return False
 
-        if dumbName is None:
-            dumbName = "normValDumb.pkl"
+        if isinstance(dumpName, str):
+            if str(dumpName[(len(dumpName) - 4):]) == ".pkl":
+                dumpName = dumpName
+            else:
+                dumpName = dumpName + ".pkl"
+        else:
+            dumpName = "normValDump.pkl"
 
         windowFeatures = []
         for i in range(len(inputData)):
@@ -1034,58 +1048,73 @@ class AbraxasClassifier:
 
         self.__sourceTrainFeat = self.featureNormalization(features=windowFeatures, initDone=False)
 
-        with open(dumbName, 'wb') as normValDumb:
-            cPickle.dump(self.__normVal, normValDumb)
+        with open(dumpName, 'wb') as normValDump:
+            cPickle.dump(self.__normVal, normValDump)
 
     def dumpClassifier(self, dumpName=None, classifier=None):
 
         """
         Dumps (trained) classifier.
-        :param dumpName: Give name for dump. Default "classifierDumb.pkl".
+        :param dumpName: Give name for dump. Default "classifierDump.pkl".
         :param classifier: If None uses self.__trainedClassifier.
         :return: -
         """
 
-        if dumpName is None:
-            dumpName = "classifierDumb.pkl"
+        if isinstance(dumpName, str):
+            if str(dumpName[(len(dumpName) - 4):]) == ".pkl":
+                dumpName = dumpName
+            else:
+                dumpName = dumpName + ".pkl"
+        else:
+            dumpName = "classifierDump.pkl"
 
         if classifier is None:
             classifier = self.__trainedClassifier
             if self.__trainedClassifier is None:
                 print("(dumpClassifier) No classifier trained yet!")
 
-        with open(dumpName, 'wb') as classifierDumb:
-            cPickle.dump(classifier, classifierDumb)
+        with open(dumpName, 'wb') as classifierDump:
+            cPickle.dump(classifier, classifierDump)
 
     def loadDumpClassifier(self, dumpName=None):
 
         """
         Load dumped Classifier.
-        :param dumpName: Default "classifierDumb.pkl".
+        :param dumpName: Default "classifierDump.pkl".
         :return: writes to:
          - self.__trainedClassifier
         """
 
-        if dumpName is None:
-            dumpName = "classifierDumb.pkl"
+        if isinstance(dumpName, str):
+            if str(dumpName[(len(dumpName) - 4):]) == ".pkl":
+                dumpName = dumpName
+            else:
+                dumpName = dumpName + ".pkl"
+        else:
+            dumpName = "classifierDump.pkl"
 
-        with open(dumpName, 'rb') as classifierDumb:
-            self.__trainedClassifier = cPickle.load(classifierDumb)
+        with open(dumpName, 'rb') as classifierDump:
+            self.__trainedClassifier = cPickle.load(classifierDump)
 
     def loadDumpNormParam(self, dumpName=None):
 
         """
         Load dumped normalization parameters.
-        :param dumpName: Default "normValDumb.pkl".
+        :param dumpName: Default "normValDump.pkl".
         :return: writes to:
          - self.__normVal
         """
 
-        if dumpName is None:
-            dumpName = "normValDumb.pkl"
+        if isinstance(dumpName, str):
+            if str(dumpName[(len(dumpName) - 4):]) == ".pkl":
+                dumpName = dumpName
+            else:
+                dumpName = dumpName + ".pkl"
+        else:
+            dumpName = "normValDump.pkl"
 
-        with open(dumpName, 'rb') as normValDumb:
-            self.__normVal = cPickle.load(normValDumb)
+        with open(dumpName, 'rb') as normValDump:
+            self.__normVal = cPickle.load(normValDump)
 
     def startReceiveData(self, opt=None):
 
@@ -1213,14 +1242,18 @@ class AbraxasClassifier:
         if self.__windowDataQueue is None:
             self.__windowDataQueue = multiprocessing.Queue()
 
-        if self.__receiveDataP is None:
+        if self.__receiveDataP is None and str(opt) != "KILL":
             self.__receiveDataP = multiprocessing.Process(target=receiveDataF, args=(self.__windowDataQueue, ))
             self.__receiveDataP.start()
             print("(startReceiveData) Started receiving process...")
         else:
-            if opt == "KILL":
-                self.__receiveDataP.terminate()
-                self.__receiveDataP = None
+            if str(opt) == "KILL":
+                if self.__receiveDataP is not None:
+                    self.__receiveDataP.terminate()
+                    self.__receiveDataP = None
+                    print("(startReceiveData) Terminated receiving process...")
+                else:
+                    print("(startReceiveData) Receiving process already down...")
             else:
                 print("(startReceiveData) ReceiveData-process already started!")
 
@@ -1236,7 +1269,7 @@ class AbraxasClassifier:
         :return: -
         """
 
-        def plotStreamDataF(plotSensorNr, fl):
+        def plotStreamDataF(plotSensorNr, fl, inputQueue):
 
             while True:
                 data = self.__windowDataQueue.get()
@@ -1253,21 +1286,27 @@ class AbraxasClassifier:
                         plt.plot(data[::, plotSensorNr[j]])
                     plt.pause(10 ** -15)
 
-        if self.__windowDataQueue is None:
-            self.__windowDataQueue = multiprocessing.Queue()
-
-        if self.__plotStreamDataP is None:
+        if self.__plotStreamDataP is None and opt != "KILL":
             if 0 <= sensorNr < self.__numOfSensorsUsed:
+
+                if self.__windowDataQueue is None:
+                    self.__windowDataQueue = multiprocessing.Queue()
+
                 self.__plotStreamDataP = multiprocessing.Process(target=plotStreamDataF, args=(sensorNr,
-                                                                                               self.__frameLength))
+                                                                                               self.__frameLength,
+                                                                                               self.__windowDataQueue))
                 self.__plotStreamDataP.start()
                 print("(startPlotStreamData) Started process... ")
             else:
                 print("\n \n (startPlotStreamData) Invalid sensor number...  \n \n")
         else:
             if opt == "KILL":
-                self.__plotStreamDataP.terminate()
-                self.__plotStreamDataP = None
+                if self.__plotStreamDataP is not None:
+                    self.__plotStreamDataP.terminate()
+                    self.__plotStreamDataP = None
+                    print("(startPlotStreamData) Process terminated!")
+                else:
+                    print("(startPlotStreamData) Process already down.")
             else:
                 print("(startPlotStreamData) Process already started!")
 
@@ -1280,27 +1319,66 @@ class AbraxasClassifier:
                 pred = classifier.predict(features.reshape(1, -1))
                 print("(liveClassification) Classification: " + self.__className[int(pred)])
 
-        if self.__receiveDataP is None:
-            self.startReceiveData()
-
-        if self.__extractFeaturesP is None:
-            self.initFeatureQueue()
-
-        if self.__liveClassificationP is None:
+        if self.__liveClassificationP is None and opt != "KILL":
             if self.__trainedClassifier is None:
                 print("(startLiveClassification) No classfier trained yet.")
                 return False
             else:
+                if self.__receiveDataP is None:
+                    self.startReceiveData()
+
+                if self.__extractFeaturesP is None:
+                    self.initFeatureQueue()
                 self.__liveClassificationP = multiprocessing.Process(target=liveClassificationF,
-                                                                     args=(self.__trainedClassifier, self.__featureQueue))
+                                                                     args=(self.__trainedClassifier,
+                                                                           self.__featureQueue))
                 self.__liveClassificationP.start()
-                print("(startLiveClassification) Started live classification process...")
+                print("(startLiveClassification) Started live-classification process...")
         else:
             if opt == "KILL":
-                self.__liveClassificationP.terminate()
-                self.__liveClassificationP = None
+                if self.__liveClassificationP is not None:
+                    self.__liveClassificationP.terminate()
+                    self.__liveClassificationP = None
+                    print("(startLiveClassification) Terminated process.")
+                else:
+                    print("(startLiveClassification) Process is already down.")
             else:
-                print("(startLiveClassification) live classification-process already started!")
+                print("(startLiveClassification) Process already started!")
+
+    def startOneClass(self, opt=None):
+
+        def liveClassificationF(classifier, featureQ):
+
+            while True:
+                features = featureQ.get()
+                pred = classifier.predict(features.reshape(1, -1))
+                print("(liveOneClassification) Classification: " + str(pred))
+
+        if self.__liveClassificationP is None and opt != "KILL":
+            if self.__trainedClassifier is None:
+                print("(startOneClass) No classfier trained yet.")
+                return False
+            else:
+                if self.__receiveDataP is None:
+                    self.startReceiveData()
+
+                if self.__extractFeaturesP is None:
+                    self.initFeatureQueue()
+                self.__liveClassificationP = multiprocessing.Process(target=liveClassificationF,
+                                                                     args=(self.__trainedClassifier,
+                                                                           self.__featureQueue))
+                self.__liveClassificationP.start()
+                print("(startOneClass) Started live-classification process...")
+        else:
+            if opt == "KILL":
+                if self.__liveClassificationP is not None:
+                    self.__liveClassificationP.terminate()
+                    self.__liveClassificationP = None
+                    print("(startLiveClassification) Terminated process.")
+                else:
+                    print("(startOneClass) Process is already down.")
+            else:
+                print("(startOneClass) Process already started!")
 
     @staticmethod
     def plotMatrixWithValues(matrix, title_=None, precision=3, show=True):
@@ -1331,48 +1409,60 @@ class AbraxasClassifier:
 
 if __name__ == '__main__':
 
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=15, numCoeffs=15,
-                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, wvltLvl1=True,
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=5, numFreqs=5, numCoeffs=5,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, wvltLvl1=False,
                           randomSortTT=False, classSortTT=True)
 
     a.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
+    # a.selectSensorSubset(selectedSensors=[], sensorType='ir')
 
     # add files:
+    # a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3500, stopTime=3800, label=1,
+    #               className="not walking")
+    # a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=200, stopTime=500, label=1)
+    # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=1470, stopTime=1570, label=1)
+    # a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=0, stopTime=150, label=1)
+    # a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=4000, stopTime=4300, label=1)
+    # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=7600, stopTime=8600, label=1)
+    # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=0, stopTime=300, label=1)
+    # a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=0, stopTime=1000, label=1)
+    # a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=7000, stopTime=8000, label=1)
+    # a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=5100, stopTime=6000, label=1)
 
-    a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0)
+    a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0,
+                   className="walking")
     a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
 
-    a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
-    # a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
+    a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=0)
+    a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=0)
 
-    # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
-    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
-    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
+    a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=0)
+    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=0)
+    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=0)
 
-    a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=3)
+    a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=0)
 
-    a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=4000, label=4)
-    # a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=100, stopTime=4000, label=4)
+    a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=4000, label=0)
 
-    # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=7000, label=5)
+    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=7000, label=0)
 
-    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=5)
+    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=0)
 
     a.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
 
     a.readDataSet(equalLength=False, checkData=False)
 
-    # a.initFeatNormalization()
-    a.loadDumpNormParam()
+    # a.initFeatNormalization(dumpName="oneClassNorm.pkl")
+    a.loadDumpNormParam(dumpName="oneClassNorm")
 
-    # clf = svm.SVC(kernel='sigmoid')
+    # clf = svm.OneClassSVM(kernel='rbf')
     # a.trainClassifier(classifier=clf)
-    # a.dumpClassifier()
+    # a.dumpClassifier(dumpName="oneClassClf")
 
-    a.loadDumpClassifier()
+    a.loadDumpClassifier(dumpName="oneClassClf.pkl")
 
-    # a.testClassifier()
+    # a.startPlotStreamData(sensorNr=0)
 
-    a.startPlotStreamData(sensorNr=0)
+    a.startOneClass()
 
-    a.startLiveClassification()
+
