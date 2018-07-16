@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """
 cb, 11.07.2018
 
@@ -1372,6 +1373,6 @@ if __name__ == '__main__':
 
     # a.testClassifier()
 
-    # a.startPlotStreamData(sensorNr=0)
+    a.startPlotStreamData(sensorNr=0)
 
     a.startLiveClassification()
