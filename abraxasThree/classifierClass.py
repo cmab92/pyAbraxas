@@ -968,6 +968,8 @@ class AbraxasClassifier:
         if classifier is None:
             classifier = svm.SVC(kernel=self.__kernel)
 
+        print(np.size(self.__sourceTrainFeat[0, ::]))
+        print(np.size(self.__sourceTrainFeat[::, 0]))
         classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
 
         self.__trainedClassifier = classifier
@@ -995,10 +997,18 @@ class AbraxasClassifier:
         occurrenceCount = np.zeros(self.__numberOfClasses)
         confMat = np.zeros([self.__numberOfClasses, self.__numberOfClasses])
 
+        # features = []
+        # for i in range(len(inputData)):
+        #     features.append(self.extractFeatures(inputData[i]))
+
+        # normedFeat = self.featureNormalization(features)
+        # prediction = classifier.predict(normedFeat)
+
         for i in range(len(inputData)):
             print("(testClassifier) Progress: " + str(i*100/len(inputData)) + "%")
             normedFeatVec = self.featureNormalization(self.extractFeatures(inputData[i]))
             prediction = classifier.predict(normedFeatVec.reshape(1, -1))
+            print(np.size(normedFeatVec.reshape(1, -1)))
             occurrenceCount[int(self.__sourceTestLabel[i])] += 1
             confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
 
@@ -1416,7 +1426,7 @@ if __name__ == '__main__':
     """
 
     # gait classification:
-    # """
+    """
     b = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=150, windowShift=50, numFreqs=10, numCoeffs=5,
                           enaStatFeats=False, featNormMethod='stand', kernel=0, trainFraction=2/3, waveletLvl1=False,
                           randomSortTT=False, classSortTT=True)
@@ -1476,5 +1486,49 @@ if __name__ == '__main__':
     b.testClassifier()
 
     # b.startLiveClassification()
+    """
+
+    # xbg:
+    # """
+    xg = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=150, windowShift=50, numFreqs=10, numCoeffs=10,
+                          enaStatFeats=True, featNormMethod='stand', kernel=0, trainFraction=2/3, waveletLvl1=False,
+                          randomSortTT=False, classSortTT=True)
+
+    xg.setWindowFunction(functionName='tukey', alpha=0.9)
+    # a.plotWindowFunction()
+
+    xg.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
+    # xg.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
+
+    xg.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0,
+                   className="walking")
+    xg.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
+
+    xg.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
+    xg.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
+
+    xg.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
+    xg.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
+    xg.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
+
+    xg.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=3)
+
+    xg.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=3300, label=4)
+
+    xg.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=6000, label=5)
+
+    xg.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=6)
+
+    xg.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
+
+    xg.readDataSet(equalLength=False, checkData=False)
+
+    xg.initFeatNormalization()
+
+    from xgboost import XGBClassifier
+
+    clf = XGBClassifier()
+    xg.trainClassifier(classifier=clf)
+    xg.testClassifier()
     # """
 
