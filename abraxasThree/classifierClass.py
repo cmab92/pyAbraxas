@@ -76,8 +76,8 @@ class AbraxasClassifier:
         self.__normVal = None
         self.__trainFraction = trainFraction
         self.__kernel = kernel
-        self.__numberOfClasses = None
-        self.__numberWindowPerClass = None
+        self.__numberOfClasses = 0
+        self.__numberWindowPerClass = 0
         self.__classSortTT = classSortTT
         self.__randomSortTT = randomSortTT
 
@@ -313,19 +313,19 @@ class AbraxasClassifier:
             print("(addDataFiles) File source name, path, start-time, stop-time or label are incorrect data-type or "
                   "format!")
 
-        self.__numberOfClasses = len(set(self.__fileLabels))
-        self.__numberWindowPerClass = np.zeros(self.__numberOfClasses)
-
         newClass = True
-        for i in range(self.__numberOfClasses - 1):
+        for i in range(len(self.__fileLabels)-1):
             if label == self.__fileLabels[i]:
                 newClass = False
+
+        self.__numberOfClasses = len(set(self.__fileLabels))
+        self.__numberWindowPerClass = np.zeros(self.__numberOfClasses)
 
         if newClass is True:
             if isinstance(className, str):
                 self.__className.append(className)
             else:
-                self.__className.append(self.__fileSourceName[:-4])
+                self.__className.append(fileSourceName[:-4])
 
     def setWindowFunction(self, functionName, alpha):
 
@@ -663,8 +663,11 @@ class AbraxasClassifier:
                 try:
                     dominantFreqPha.append(np.arctan(imS / reS))
                 except FloatingPointError:
-                    temp = np.arctan(imS / reS)
+                    temp = reS
+                    temp[reS == 0] = 1
                     temp[reS == 0] = 0
+                    temp2 = np.arctan(imS / temp)
+                    temp2[reS == 0] = 0
                     dominantFreqPha.append(temp)
                 dominantFreqVal.append(freqAxis[absSpectrum.argsort()[-self.__numFreqs:]])
                 for j in range(np.size(dominantFreqVal[i]) - 1):
@@ -772,7 +775,7 @@ class AbraxasClassifier:
                     try:
                         features[::, i] = (features[::, i] - mue[i]) / sigma[i]
                     except FloatingPointError:
-                        sigma[i] = 1
+                        sigma[i] = 10**3
                         features[::, i] = (features[::, i] - mue[i]) / sigma[i]
                 self.__normVal = np.array([mue, sigma])
             elif self.__featNormMethod == 'mean':
@@ -788,7 +791,7 @@ class AbraxasClassifier:
                     try:
                         features[::, i] = (features[::, i] - mue[i]) / (maxVal[i] - minVal[i])
                     except FloatingPointError:
-                        maxVal[i] = minVal[i] + 1
+                        maxVal[i] = minVal[i] + 10**3
                         features[::, i] = (features[::, i] - mue[i]) / (maxVal[i] - minVal[i])
                 self.__normVal = np.array([mue, minVal, maxVal])
             elif self.__featNormMethod == 'minmax':
@@ -802,16 +805,17 @@ class AbraxasClassifier:
                     try:
                         features[::, i] = (features[::, i] - minVal[i]) / (maxVal[i] - minVal[i])
                     except FloatingPointError:
-                        maxVal[i] = minVal[i] + 1
+                        maxVal[i] = minVal[i] + 10**3
                         features[::, i] = (features[::, i] - minVal[i]) / (maxVal[i] - minVal[i])
                 self.__normVal = np.array([minVal, maxVal])
+            elif self.__featNormMethod == 'none':
+                pass
             else:
                 print("(featureNormalization)Give proper str for feature normalization method (stand, minmax or mean)!")
 
             return features
         else:
-
-            if self.__normVal is None:
+            if self.__normVal is None and self.__featNormMethod != 'none':
                 print("(featureNormalization) Feature normalization not initialized yet! "
                       "-> use self.initFeatureNormalization(trainingDataSet).")
             else:
@@ -822,10 +826,10 @@ class AbraxasClassifier:
                         features = (features - mue) / sigma
                     except FloatingPointError:
                         for i in range(len(features)):
-                            try:
-                                features[i] = (features[i] - mue[i]) / sigma[i]
-                            except FloatingPointError:
-                                features[i] = 0
+                            # try:
+                            features[i] = (features[i] - mue[i]) / sigma[i]
+                            # except FloatingPointError:
+                            #     features[i] = 0
                 elif self.__featNormMethod == 'mean':
                     mue = self.__normVal[0, ::]
                     minVal = self.__normVal[1, ::]
@@ -849,6 +853,8 @@ class AbraxasClassifier:
                                 features[i] = (features[i] - minVal[i]) / (maxVal[i] - minVal[i])
                             except FloatingPointError:
                                 features[i] = 0
+                elif self.__featNormMethod == 'none':
+                    pass
                 else:
                     print("(featureNormalization)Give proper str for feature normalization method (stand, minmax or "
                           "mean)!")
@@ -1157,7 +1163,7 @@ class AbraxasClassifier:
             outputFile = open(self.__fileSinkPath + self.__fileSinkName, "w")
 
             with open(file=self.__fileSinkPath + self.__fileSinkName, mode="w"):
-                writer = csv.writer(outputFile, delimiter=" ")
+                writer = csv.writer(outputFile, delimiter=",")
                 writer.writerow("%" + "start Time: " + str(datetime.datetime.now().hour) + "h"
                                 + str(datetime.datetime.now().minute) + "m" + str(datetime.datetime.now().second) + "s"
                                 + str(datetime.datetime.now().microsecond) + "us")
@@ -1173,9 +1179,7 @@ class AbraxasClassifier:
                 oldLine = ser.readline()
                 waitCount = 0
                 while np.size(oldLine) != self.__frameLength:  # wait for complete line
-                    oldLine = ser.readline()
-                    oldLine = oldLine.decode("utf-8")
-                    oldLine = oldLine.split(",")[:self.__frameLength]
+                    oldLine = ser.readline().decode("utf-8").split(",")[:self.__frameLength]
                     if waitCount > 20:  # restart connection if stuck
                         ser.close()
                         ser.open()
@@ -1370,10 +1374,13 @@ class AbraxasClassifier:
 if __name__ == '__main__':
 
     # user identification:
-
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=50, numFreqs=1, numCoeffs=0,
-                          enaStatFeats=False, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=False,
+    """
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=50, numFreqs=5, numCoeffs=5,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=True,
                           randomSortTT=False, classSortTT=True)
+
+    a.setWindowFunction(functionName='tukey', alpha=0.9)
+    # a.plotWindowFunction()
 
     a.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
     # a.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
@@ -1406,18 +1413,22 @@ if __name__ == '__main__':
     clf = svm.SVC(kernel='rbf')
     a.trainClassifier(classifier=clf)
     a.testClassifier()
-
+    """
 
     # gait classification:
-    """
-    b = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=25, numCoeffs=25,
-                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1/3, waveletLvl1=False,
+    # """
+    b = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=150, windowShift=50, numFreqs=10, numCoeffs=5,
+                          enaStatFeats=False, featNormMethod='stand', kernel=0, trainFraction=2/3, waveletLvl1=False,
                           randomSortTT=False, classSortTT=True)
 
-    b.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
-    # a.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
+    b.setWindowFunction(functionName='tukey', alpha=0.99)
+    # b.plotWindowFunction()
 
-    b.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0,
+    b.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
+    # b.selectSensorSubset(selectedSensors=[], sensorType='fr')
+    # b.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
+
+    b.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=1500, label=0,
                    className="walking")
     b.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
 
@@ -1426,35 +1437,44 @@ if __name__ == '__main__':
 
     b.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=0)
     b.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=0)
-    b.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=0)
+    b.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=300, stopTime=1700, label=0)
 
     b.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=0)
 
     b.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=3300, label=0)
 
-    b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=6000, label=0)
+    b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=0)
 
     b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=0)
 
-    b.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3500, stopTime=3800, label=1,
+    b.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3550, stopTime=3800, label=1,
                    className="not walking")
-    b.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=200, stopTime=500, label=1)
-    b.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=1470, stopTime=1570, label=1)
+    b.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=300, stopTime=500, label=1)
     b.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=0, stopTime=150, label=1)
-    b.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=4000, stopTime=4300, label=1)
+    b.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=4100, stopTime=4300, label=1)
     b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=7600, stopTime=8600, label=1)
     b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=0, stopTime=300, label=1)
     b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=0, stopTime=1000, label=1)
-    b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=7000, stopTime=8000, label=1)
-    b.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=5100, stopTime=6000, label=1)
+    b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=7100, stopTime=8000, label=1)
+    b.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=5200, stopTime=6000, label=1)
+    b.addDataFiles(fileSourceName="novcc.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=1)
+    b.addDataFiles(fileSourceName="nowalk.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=1)
+    b.addDataFiles(fileSourceName="nowalk2.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=1)
+    b.addDataFiles(fileSourceName="nowalk3.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=1)
 
-    b.readDataSet()
+    b.readDataSet(checkData=False)
 
-    b.initFeatNormalization(dumpName="gaitNormParam")
-
+    b.initFeatNormalization(dumpName="test")
+    # b.loadDumpNormParam(dumpName="gaitNormParam")
     clf = svm.SVC(kernel='rbf')
     b.trainClassifier(clf)
-    b.dumpClassifier(dumpName="gaitClf")
+    # b.dumpClassifier(dumpName="gaitClf")
+
+    b.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
+
+    # b.loadDumpClassifier(dumpName="gaitClf")
     b.testClassifier()
-    """
+
+    # b.startLiveClassification()
+    # """
 

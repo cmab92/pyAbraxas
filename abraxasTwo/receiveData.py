@@ -97,7 +97,7 @@ def receiveData(numIr=10, numF=2, filePath="../", fileName="", port=None, baudRa
         fileName = str(str(fileName) + dateAndTime + ".txt")
     outputFile = open(filePath + fileName, "w")
     with open(file=filePath + fileName, mode="w"):
-        writer = csv.writer(outputFile, delimiter=" ")
+        writer = csv.writer(outputFile, delimiter=",")
         writer.writerow("%" + "start Time: " + str(datetime.datetime.now().hour) + "h"
                         + str(datetime.datetime.now().minute) + "m" + str(datetime.datetime.now().second) + "s"
                         + str(datetime.datetime.now().microsecond) + "us")
