@@ -23,7 +23,7 @@ from six.moves import cPickle
 class AbraxasClassifier:
 
     def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, kernel,
-                 enaStatFeats=True, wavelet='haar', wvltLvl1=False, featNormMethod='stand', trainFraction=0.66,
+                 enaStatFeats=True, wavelet='haar', waveletLvl1=False, featNormMethod='stand', trainFraction=0.66,
                  classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10):
 
         # Hardware information and parameters
@@ -64,7 +64,7 @@ class AbraxasClassifier:
         self.__numFreqs = numFreqs
         self.__enaStatFeats = enaStatFeats
         self.__wavelet = wavelet
-        self.__wvltLvl1 = wvltLvl1
+        self.__waveletLvl1 = waveletLvl1
         self.__featNormMethod = featNormMethod
         self.__windowAlpha = 0.1
         self.__windowFunction = scipy.signal.tukey(self.__windowWidth, self.__windowAlpha)
@@ -101,24 +101,10 @@ class AbraxasClassifier:
         # Classifier
         self.__trainedClassifier = None
 
-    def setSampleT(self, value):
-
-        """
-        ...
-        :param value: sampleT does affect time and frequency axis only.
-        :return: writes to:
-         - self.__sampleT
-        """
-
-        if isinstance(value, (int, float)):
-            self.__sampleT = value
-        else:
-            print("(setSampleT) Give int or float for sampling interval duration.")
-
     def setupSerialInterface(self, port, baudRate):
 
         """
-        ...
+        Needed for explicit setup of serial interface.
         :param port: serial port Name
         :param baudRate: baud rate in baud/s
         :return: writes to:
@@ -141,7 +127,7 @@ class AbraxasClassifier:
     def setFileSink(self, fileSinkName, fileSinkPath):
 
         """
-        ...
+        Setup file sink name and path, other than default.
         :param fileSinkName: Name of the sink file, to which streamed data is stored. The file is named by yymmddhhmm,
         if not given (""). File name is completed with yymmddhhmm, if the input string is not ended by .txt. Default
         is "".
@@ -164,7 +150,7 @@ class AbraxasClassifier:
     def setBnoNormFactor(self, factors):
 
         """
-        ...
+        For convenience and in order not to forget those factors.
         :param factors: Normalization factors for bno data. 1 quaternion is 2**14 LSB, hence default is 2**14. Factors
         for linear acceleration and angular velocity are chosen empirically (default 2**4).
         :return: writes to:
@@ -193,7 +179,7 @@ class AbraxasClassifier:
     def setAnaNormFact(self, factor):
 
         """
-        ...
+        For convenience and in order not to forget those factors.
         :param factor:  Normalization factors for analog sensor data. Due to 10bit adc on atmega 2560: default 1023.
         :return: -
         """
@@ -344,7 +330,7 @@ class AbraxasClassifier:
     def setWindowFunction(self, functionName, alpha):
 
         """
-        
+        Set window function and parameter. Extra function, to emphasize if changed.
         :param functionName: Chooses a window function of the following (https://en.wikipedia.org/wiki/Window_function):
         tukey -> tukey window (flattened cosine)
         rect -> rectangular window
@@ -394,6 +380,7 @@ class AbraxasClassifier:
         Load data from single .txt-file, ensure 0 < analogData < 1023 (1), split data to infrared, force, quaternion,
         linear acceleration and angular velocity data. Also interpolate bno data linearly (same axis as analog data).
         Consider self.__angVecNormFact, self,__linAccNormFact, self.__quatNormFact, self.__anaNormFact!
+
         :param fileName:
         :param filePath:
         :return: irData, forceData, quatData, linAccData and angVecData. Each as an np.ndarray with time axis.
@@ -527,7 +514,7 @@ class AbraxasClassifier:
     def plotWindowFunction(self):
 
         """
-        Simply plot time function and spectrum of window function.
+        Simply plot time function and spectrum of window function. Only for convenience.
         :return: -
         """
 
@@ -565,6 +552,7 @@ class AbraxasClassifier:
 
         if len(self.__fileSourceName) == 0:
             print("(readDataSet) No file sources given.")
+            return False
         else:
             startTimes = np.array(self.__fileSourceStartT)
             stopTimes = np.array(self.__fileSourceStopT)
@@ -646,7 +634,7 @@ class AbraxasClassifier:
                     temp = coeffsAmp
                     featureVector.append(temp[i][j])
                 # first level
-                if self.__wvltLvl1:
+                if self.__waveletLvl1:
                     if np.max(coeffs1) == 0:
                         coeffsVal1.append(np.zeros(self.__numCoeffs))
                     else:
@@ -657,12 +645,14 @@ class AbraxasClassifier:
                     for j in range(np.size(coeffsAmp1[i])):
                         temp = coeffsAmp1
                         featureVector.append(temp[i][j])
+
         # fourier features:
-        freqAxis = np.linspace(-1, 1, int(self.__windowWidth))
+
         dominantFreqVal = []
         dominantFreqAmp = []
         dominantFreqPha = []
         if self.__numFreqs != 0:
+            freqAxis = np.linspace(-1, 1, int(self.__windowWidth))
             for i in range(self.__numOfSensorsUsed):
                 data[::, i] = data[::, i]
                 spectrum = np.fft.fftshift(np.fft.fft(data[::, i]))[int(self.__windowWidth / 2):]
@@ -686,7 +676,9 @@ class AbraxasClassifier:
                 for j in range(np.size(dominantFreqPha[i])):
                     temp = dominantFreqPha
                     featureVector.append(temp[i][j])
-        # statistical features
+
+        # statistical features:
+
         if self.__enaStatFeats:
             xCorrWavCoeffs = 5
             for i in range(self.__numOfSensorsUsed):
@@ -862,7 +854,7 @@ class AbraxasClassifier:
                           "mean)!")
                 return features
 
-    def windowSplitSourceDataTT(self, inputData=None, enaWindowC=False):
+    def windowSplitSourceDataTT(self, inputData=None, inputLabels=None, enaWindowC=False):
 
         """
         Split source data-set to test and training data.
@@ -883,7 +875,10 @@ class AbraxasClassifier:
                 print("(windowSplitSourceDataTT) No source data specified yet.")
                 return False
 
-        if len(inputData) != len(self.__fileLabels):
+        if inputLabels is None:
+            inputLabels = self.__fileLabels
+
+        if len(inputData) != len(inputLabels):
             print("(windowSplitSourceDataTT) Dimension mismatch: labels < - > dataSet")
 
         windowedData = []
@@ -904,10 +899,10 @@ class AbraxasClassifier:
                     windowedDataTemp.append(dataTemp * self.__windowFunction)
                 windowedDataTemp = np.transpose(windowedDataTemp)
                 windowedData.append(windowedDataTemp)
-                windowLabels.append(self.__fileLabels[k])
+                windowLabels.append(inputLabels[k])
                 if enaWindowC:
                     plt.plot(windowedDataTemp)
-                    plt.title("Label:=" + str(self.__fileLabels[k]))
+                    plt.title("Label:=" + str(inputLabels[k]))
                     plt.show()
 
         testData = []
@@ -922,7 +917,7 @@ class AbraxasClassifier:
 
         if self.__classSortTT and not self.__randomSortTT:
             for i in range(len(windowedData)):
-                if ((classCount[windowLabels[i]])/(self.__numberWindowPerClass[windowLabels[i]] - 1)) < \
+                if (classCount[windowLabels[i]]/(self.__numberWindowPerClass[windowLabels[i]] - 1)) < \
                         self.__trainFraction:
                     trainingData.append(windowedData[i])
                     trainingLabels.append(windowLabels[i])
@@ -955,7 +950,7 @@ class AbraxasClassifier:
               + str(self.__classSortTT) + ".")
         return windowedData, windowLabels
 
-    def trainClassifier(self, classifier=None, oneClass=False):
+    def trainClassifier(self, classifier=None):
 
         """
         Train classifier with source training data.
@@ -967,10 +962,7 @@ class AbraxasClassifier:
         if classifier is None:
             classifier = svm.SVC(kernel=self.__kernel)
 
-        if oneClass is False:
-            classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
-        else:
-            classifier.fit(self.__sourceTrainFeat)
+        classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
 
         self.__trainedClassifier = classifier
 
@@ -998,6 +990,7 @@ class AbraxasClassifier:
         confMat = np.zeros([self.__numberOfClasses, self.__numberOfClasses])
 
         for i in range(len(inputData)):
+            print("(testClassifier) Progress: " + str(i*100/len(inputData)) + "%")
             normedFeatVec = self.featureNormalization(self.extractFeatures(inputData[i]))
             prediction = classifier.predict(normedFeatVec.reshape(1, -1))
             occurrenceCount[int(self.__sourceTestLabel[i])] += 1
@@ -1008,8 +1001,8 @@ class AbraxasClassifier:
                 confMat[::, i] = confMat[::, i] / occurrenceCount[i]
             except FloatingPointError:
                 print("(testClassifier) Seems like class " + str(i) + " was not trained. Consider classSort as True or "
-                                                                      "smaller fraction of training data "
-                                                                      "(self.__trainFraction).")
+                                                                      "smaller fraction of training data (trainFraction"
+                                                                      " = " + str(self.__trainFraction) + ").")
             print("(testClassifier) For class " + str(i) + " the number of test samples/windows is "
                   + str(occurrenceCount[i]))
 
@@ -1347,43 +1340,8 @@ class AbraxasClassifier:
             else:
                 print("(startLiveClassification) Process already started!")
 
-    def startOneClass(self, opt=None):
-
-        def liveClassificationF(classifier, featureQ):
-
-            while True:
-                features = featureQ.get()
-                pred = classifier.predict(features.reshape(1, -1))
-                print("(liveOneClassification) Classification: " + str(pred))
-
-        if self.__liveClassificationP is None and opt != "KILL":
-            if self.__trainedClassifier is None:
-                print("(startOneClass) No classfier trained yet.")
-                return False
-            else:
-                if self.__receiveDataP is None:
-                    self.startReceiveData()
-
-                if self.__extractFeaturesP is None:
-                    self.initFeatureQueue()
-                self.__liveClassificationP = multiprocessing.Process(target=liveClassificationF,
-                                                                     args=(self.__trainedClassifier,
-                                                                           self.__featureQueue))
-                self.__liveClassificationP.start()
-                print("(startOneClass) Started live-classification process...")
-        else:
-            if opt == "KILL":
-                if self.__liveClassificationP is not None:
-                    self.__liveClassificationP.terminate()
-                    self.__liveClassificationP = None
-                    print("(startLiveClassification) Terminated process.")
-                else:
-                    print("(startOneClass) Process is already down.")
-            else:
-                print("(startOneClass) Process already started!")
-
     @staticmethod
-    def plotMatrixWithValues(matrix, title_=None, precision=3, show=True):
+    def plotMatrixWithValues(matrix, labels=None, title_=None, precision=3, show=True):
 
         """
         Plot matrix and its element values
@@ -1411,64 +1369,92 @@ class AbraxasClassifier:
 
 if __name__ == '__main__':
 
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=200, windowShift=200, numFreqs=5, numCoeffs=5,
-                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, wvltLvl1=False,
+    # user identification:
+
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=50, numFreqs=1, numCoeffs=0,
+                          enaStatFeats=False, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=False,
                           randomSortTT=False, classSortTT=True)
 
-    a.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
-    # a.selectSensorSubset(selectedSensors=[], sensorType='ir')
-
-    # add files:
-    # a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3500, stopTime=3800, label=1,
-    #               className="not walking")
-    # a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=200, stopTime=500, label=1)
-    # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=1470, stopTime=1570, label=1)
-    # a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=0, stopTime=150, label=1)
-    # a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=4000, stopTime=4300, label=1)
-    # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=7600, stopTime=8600, label=1)
-    # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=0, stopTime=300, label=1)
-    # a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=0, stopTime=1000, label=1)
-    # a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=7000, stopTime=8000, label=1)
-    # a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=5100, stopTime=6000, label=1)
+    a.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
+    # a.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
 
     a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0,
                    className="walking")
     a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
 
-    a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=0)
-    a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=0)
+    a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
+    a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
 
-    a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=0)
-    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=0)
-    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=0)
+    a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
+    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
+    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
 
-    a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=0)
+    a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=3)
 
-    a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=4000, label=0)
+    a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=3300, label=4)
 
-    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=7000, label=0)
+    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=6000, label=5)
 
-    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=0)
+    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=6)
 
     a.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
 
     a.readDataSet(equalLength=False, checkData=False)
 
-    print("Data read....")
+    a.initFeatNormalization()
 
-    # a.initFeatNormalization(dumpName="test.pkl")
-    a.loadDumpNormParam(dumpName="oneClassNorm")
+    clf = svm.SVC(kernel='rbf')
+    a.trainClassifier(classifier=clf)
+    a.testClassifier()
 
-    # print("Check")
 
-    # clf = svm.OneClassSVM(kernel='rbf')
-    # a.trainClassifier(classifier=clf)
-    # a.dumpClassifier(dumpName="test")
+    # gait classification:
+    """
+    b = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=25, numCoeffs=25,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1/3, waveletLvl1=False,
+                          randomSortTT=False, classSortTT=True)
 
-    a.loadDumpClassifier(dumpName="oneClassClf.pkl")
+    b.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
+    # a.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
 
-    # a.startPlotStreamData(sensorNr=0)
+    b.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0,
+                   className="walking")
+    b.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
 
-    a.startOneClass()
+    b.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=0)
+    b.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=0)
 
+    b.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=0)
+    b.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=0)
+    b.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=0)
+
+    b.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=0)
+
+    b.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=3300, label=0)
+
+    b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=6000, label=0)
+
+    b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=0)
+
+    b.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3500, stopTime=3800, label=1,
+                   className="not walking")
+    b.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=200, stopTime=500, label=1)
+    b.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=1470, stopTime=1570, label=1)
+    b.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=0, stopTime=150, label=1)
+    b.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=4000, stopTime=4300, label=1)
+    b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=7600, stopTime=8600, label=1)
+    b.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=0, stopTime=300, label=1)
+    b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=0, stopTime=1000, label=1)
+    b.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=7000, stopTime=8000, label=1)
+    b.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=5100, stopTime=6000, label=1)
+
+    b.readDataSet()
+
+    b.initFeatNormalization(dumpName="gaitNormParam")
+
+    clf = svm.SVC(kernel='rbf')
+    b.trainClassifier(clf)
+    b.dumpClassifier(dumpName="gaitClf")
+    b.testClassifier()
+    """
 
