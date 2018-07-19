@@ -1405,26 +1405,42 @@ if __name__ == '__main__':
     a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
 
     # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
-    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
-    # a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
+    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2,
+                   className="chris")
+    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
 
     a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=3)
 
     a.addDataFiles(fileSourceName="markus.txt", fileSourcePath="../", startTime=500, stopTime=3300, label=4)
 
-    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=6000, label=5)
+    # a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=500, stopTime=6000, label=5)
 
-    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=6)
+    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=5)
+
+    a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3550, stopTime=3800, label=6,
+                   className="not walking")
+    a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=300, stopTime=500, label=6)
+    a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=0, stopTime=150, label=6)
+    a.addDataFiles(fileSourceName="markusSchnell.txt", fileSourcePath="../", startTime=4100, stopTime=4300, label=6)
+    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=7600, stopTime=8600, label=6)
+    a.addDataFiles(fileSourceName="stefan.txt", fileSourcePath="../", startTime=0, stopTime=300, label=6)
+    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=0, stopTime=1000, label=6)
+    a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=7100, stopTime=8000, label=6)
+    a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=5200, stopTime=6000, label=6)
+    a.addDataFiles(fileSourceName="novcc.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=6)
+    a.addDataFiles(fileSourceName="nowalk.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=6)
+    a.addDataFiles(fileSourceName="nowalk2.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=6)
+    a.addDataFiles(fileSourceName="nowalk3.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=6)
 
     a.readDataSet(equalLength=False, checkData=False)
 
-    # a.initFeatNormalization(dumpName="featAndSerNormParam")
+    a.initFeatNormalization(dumpName="featAndSerNormParam")
 
-    # clf = svm.SVC(kernel='rbf')
-    # a.trainClassifier(classifier=clf)
+    clf = svm.SVC(kernel='rbf')
+    a.trainClassifier(classifier=clf)
     a.loadDumpNormParam(dumpName="featAndSerNormParam")
     a.loadDumpClassifier("featAndSerClf")
-    # a.dumpClassifier(dumpName="featAndSerClf")
+    a.dumpClassifier(dumpName="featAndSerClf")
     a.testClassifier()
 
     a.setFileSink(fileSinkName="chris", fileSinkPath="../")
