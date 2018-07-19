@@ -704,6 +704,11 @@ class AbraxasClassifier:
                     for k in range(xCorrWavCoeffs):
                         featureVector.append(domCorrCoeffsAmp[k])
 
+        if True:
+            for i in range(self.__numOfSensorsUsed):
+                for j in range(self.__windowWidth):
+                    featureVector.append(data[j, i])
+
         featureVector = np.reshape(featureVector, np.size(featureVector))
 
         return featureVector
@@ -1382,9 +1387,9 @@ class AbraxasClassifier:
 if __name__ == '__main__':
 
     # user identification:
-    """
-    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=50, numFreqs=5, numCoeffs=5,
-                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=True,
+    # """
+    a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=15, numFreqs=3, numCoeffs=15,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, waveletLvl1=True,
                           randomSortTT=False, classSortTT=True)
 
     a.setWindowFunction(functionName='tukey', alpha=0.9)
@@ -1393,8 +1398,7 @@ if __name__ == '__main__':
     a.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
     # a.selectSensorSubset(selectedSensors=[0, 2, 4, 6, 8], sensorType='ir')
 
-    a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0,
-                   className="walking")
+    a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=100, stopTime=2900, label=0)
     a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=0)
 
     a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1)
@@ -1402,7 +1406,7 @@ if __name__ == '__main__':
 
     # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
     a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
-    a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
+    # a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
 
     a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=3)
 
@@ -1412,16 +1416,17 @@ if __name__ == '__main__':
 
     a.addDataFiles(fileSourceName="ben.txt", fileSourcePath="../", startTime=2000, stopTime=6000, label=6)
 
-    a.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
-
     a.readDataSet(equalLength=False, checkData=False)
 
-    a.initFeatNormalization()
+    # a.initFeatNormalization(dumpName="featAndSerNormParam")
 
-    clf = svm.SVC(kernel='rbf')
-    a.trainClassifier(classifier=clf)
+    # clf = svm.SVC(kernel='rbf')
+    # a.trainClassifier(classifier=clf)
+    a.loadDumpNormParam(dumpName="featAndSerNormParam")
+    a.loadDumpClassifier("featAndSerClf")
+    # a.dumpClassifier(dumpName="featAndSerClf")
     a.testClassifier()
-    """
+    # """
 
     # gait classification:
     """
@@ -1470,13 +1475,13 @@ if __name__ == '__main__':
     b.addDataFiles(fileSourceName="nowalk2.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=1)
     b.addDataFiles(fileSourceName="nowalk3.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=1)
 
-    b.readDataSet(checkData=False)
+    b.readDataSet(checkData=False, equalLength=False)
 
-    b.initFeatNormalization(dumpName="test")
+    b.initFeatNormalization(dumpName="gaitNormParam")
     # b.loadDumpNormParam(dumpName="gaitNormParam")
     clf = svm.SVC(kernel='rbf')
     b.trainClassifier(clf)
-    # b.dumpClassifier(dumpName="gaitClf")
+    b.dumpClassifier(dumpName="gaitClf")
 
     b.setFileSink(fileSinkName="test.txt", fileSinkPath="../")
 
@@ -1487,7 +1492,7 @@ if __name__ == '__main__':
     """
 
     # xbg:
-    # """
+    """
     xg = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=150, windowShift=50, numFreqs=5, numCoeffs=60,
                            enaStatFeats=True, featNormMethod='none', kernel=0, trainFraction=2/3, waveletLvl1=True,
                            randomSortTT=False, classSortTT=True)
@@ -1528,5 +1533,5 @@ if __name__ == '__main__':
     clf = XGBClassifier()
     xg.trainClassifier(classifier=clf)
     xg.testClassifier()
-    # """
+    """
 
