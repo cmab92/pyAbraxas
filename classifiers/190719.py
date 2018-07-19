@@ -31,9 +31,9 @@ a.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200,
 a.addDataFiles(fileSourceName="ankita_pos2_lrRl.txt", fileSourcePath="../", startTime=150, stopTime=2500, label=1)
 
 # a.addDataFiles(fileSourceName="chris_asymm.txt", fileSourcePath="../", startTime=200, stopTime=1400, label=2)
-a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2,
+a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2,
                className="chris")
-a.addDataFiles(fileSourceName="chris_pos2.txt", fileSourcePath="../", startTime=100, stopTime=1700, label=2)
+a.addDataFiles(fileSourceName="chris1.txt", fileSourcePath="../", startTime=500, stopTime=5000, label=2)
 
 a.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=3)
 
@@ -46,20 +46,20 @@ a.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, 
 
 a.readDataSet(equalLength=False, checkData=False)
 
-a.initFeatNormalization(dumpName="featAndSerNormParam")
-a.loadDumpNormParam(dumpName="featAndSerNormParam")
 
-useDump = False
+useDump = True
+
 if useDump:
-    a.loadDumpClassifier("featAndSerClf")
-    a.testClassifier()
+    a.loadDumpNormParam(dumpName="dataOnly")
+    clf = a.loadDumpClassifier("dataOnly")
+    a.testClassifier(classifier=clf)
     a.setFileSink(fileSinkName="chris", fileSinkPath="../")
     a.startLiveClassification()
 else:
+    a.initFeatNormalization(dumpName="dataOnly")
     from sklearn import svm
     clf = svm.SVC(kernel='rbf')
     a.trainClassifier(classifier=clf)
-    a.dumpClassifier(dumpName="featAndSerClf")
+    a.dumpClassifier(dumpName="dataOnly")
     a.testClassifier()
-
 
