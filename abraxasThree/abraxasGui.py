@@ -3,6 +3,8 @@ cb, 16.07.2018
 
  - gui for classifier, for easier labeling
 """
+import sys
+sys.path.append("../")
 from abraxasThree.classifierClass import AbraxasClassifier
 
 
@@ -38,7 +40,7 @@ def quitApp():
 if __name__ == '__main__':
 
     a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=10, numFreqs=15, numCoeffs=15,
-                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, wvltLvl1=True,
+                          enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=1, waveletLvl1=True,
                           randomSortTT=False, classSortTT=True)
 
     from tkinter import *

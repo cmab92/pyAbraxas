@@ -1,3 +1,6 @@
+import os 
+import sys
+sys.path.append('../')
 from abraxasThree.classifierClass import AbraxasClassifier
 
 # user identification:
