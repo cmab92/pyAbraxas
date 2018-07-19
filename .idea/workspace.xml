@@ -4,6 +4,8 @@
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/abraxasThree/classifierClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/classifierClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasThree/featAndSerClf.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/featAndSerClf.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasThree/featAndSerNormParam.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/featAndSerNormParam.pkl" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -20,8 +22,8 @@
       <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="1430" column="30" selection-start-line="1430" selection-start-column="30" selection-end-line="1430" selection-end-column="30" />
+            <state relative-caret-position="315">
+              <caret line="1444" column="41" selection-start-line="1444" selection-start-column="41" selection-end-line="1444" selection-end-column="41" />
               <folding>
                 <element signature="e#24#72#1" />
                 <element signature="e#689#3911#0" />
@@ -258,9 +260,7 @@
                 <element signature="e#62576#62924#1" />
                 <element signature="e#63163#63304#0" />
                 <element signature="e#63203#63304#0" />
-                <element signature="e#65621#69392#1" />
                 <element signature="e#66045#66104#0" />
-                <element signature="e#69354#71478#1" />
               </folding>
             </state>
           </provider>
@@ -277,8 +277,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.__</find>
-      <find>__sourceTrainData</find>
       <find>self.__windowLength</find>
       <find>__selIrSensors__selIrSensors</find>
       <find>__selIrSensors</find>
@@ -307,6 +305,8 @@
       <find>__sourceTestWindowData</find>
       <find>wvltLvl1</find>
       <find>elf.__className</find>
+      <find>label=7</find>
+      <find>b.addDataFiles</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -875,7 +875,21 @@
       <option name="project" value="LOCAL" />
       <updated>1531988652475</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="abraxas3">
+      <created>1531988768752</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1531988768752</updated>
+    </task>
+    <task id="LOCAL-00045" summary="abraxas3">
+      <created>1531989622652</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1531989622652</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1239,8 +1253,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="1430" column="30" selection-start-line="1430" selection-start-column="30" selection-end-line="1430" selection-end-column="30" />
+        <state relative-caret-position="315">
+          <caret line="1444" column="41" selection-start-line="1444" selection-start-column="41" selection-end-line="1444" selection-end-column="41" />
           <folding>
             <element signature="e#24#72#1" />
             <element signature="e#689#3911#0" />
@@ -1477,9 +1491,7 @@
             <element signature="e#62576#62924#1" />
             <element signature="e#63163#63304#0" />
             <element signature="e#63203#63304#0" />
-            <element signature="e#65621#69392#1" />
             <element signature="e#66045#66104#0" />
-            <element signature="e#69354#71478#1" />
           </folding>
         </state>
       </provider>
