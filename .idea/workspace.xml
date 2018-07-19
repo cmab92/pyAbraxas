@@ -2,10 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/classifiers/190719.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/abraxasThree/classifierClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/classifierClass.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/abraxasThree/featAndSerClf.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/featAndSerClf.pkl" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/abraxasThree/featAndSerNormParam.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/featAndSerNormParam.pkl" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -19,11 +18,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="1444" column="41" selection-start-line="1444" selection-start-column="41" selection-end-line="1444" selection-end-column="41" />
+            <state relative-caret-position="163">
+              <caret line="1386" column="26" selection-start-line="1386" selection-start-column="26" selection-end-line="1386" selection-end-column="26" />
               <folding>
                 <element signature="e#24#72#1" />
                 <element signature="e#689#3911#0" />
@@ -266,6 +265,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="190719.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/classifiers/190719.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="300">
+              <caret line="20" column="101" lean-forward="true" selection-start-line="20" selection-start-column="101" selection-end-line="20" selection-end-column="101" />
+            </state>
+          </provider>
+        </entry>
+      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -362,6 +370,7 @@
         <option value="$PROJECT_DIR$/abraxasThree/abraxasGui.py" />
         <option value="$PROJECT_DIR$/abraxasTwo/receiveData.py" />
         <option value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
+        <option value="$PROJECT_DIR$/classifiers/190719.py" />
       </list>
     </option>
   </component>
@@ -388,6 +397,11 @@
               <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
               <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
               <item name="abraxasThree" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
+              <item name="classifiers" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -418,7 +432,25 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.classifierClass">
+  <component name="RunManager" selected="Python.190719">
+    <configuration name="190719" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyAbraxas" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/classifiers" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/classifiers/190719.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -491,24 +523,6 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="normalize" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/abraxasTwo" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/abraxasTwo/normalize.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
     <configuration name="trainDumbSVC" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pyAbraxas" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -549,17 +563,17 @@
     <list>
       <item itemvalue="Python.anomalySV" />
       <item itemvalue="Python.trainDumbSVC" />
-      <item itemvalue="Python.normalize" />
       <item itemvalue="Python.classifierClass" />
       <item itemvalue="Python.abraxasGui" />
+      <item itemvalue="Python.190719" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.190719" />
         <item itemvalue="Python.classifierClass" />
         <item itemvalue="Python.abraxasGui" />
         <item itemvalue="Python.trainDumbSVC" />
         <item itemvalue="Python.anomalySV" />
-        <item itemvalue="Python.normalize" />
       </list>
     </recent_temporary>
   </component>
@@ -889,7 +903,14 @@
       <option name="project" value="LOCAL" />
       <updated>1531989622652</updated>
     </task>
-    <option name="localTasksCounter" value="46" />
+    <task id="LOCAL-00046" summary="abraxas3">
+      <created>1531989992034</created>
+      <option name="number" value="00046" />
+      <option name="presentableId" value="LOCAL-00046" />
+      <option name="project" value="LOCAL" />
+      <updated>1531989992034</updated>
+    </task>
+    <option name="localTasksCounter" value="47" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -898,10 +919,10 @@
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.50026953" side_tool="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5008086" side_tool="true" visible="true" weight="0.3944672" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32889345" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49973047" visible="true" weight="0.3944672" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49919137" visible="true" weight="0.3944672" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -970,13 +991,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/testCleVer.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1227">
-          <caret line="89" column="30" lean-forward="true" selection-start-line="89" selection-start-column="30" selection-end-line="89" selection-end-column="30" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/d1.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1" />
@@ -1253,8 +1267,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="1444" column="41" selection-start-line="1444" selection-start-column="41" selection-end-line="1444" selection-end-column="41" />
+        <state relative-caret-position="163">
+          <caret line="1386" column="26" selection-start-line="1386" selection-start-column="26" selection-end-line="1386" selection-end-column="26" />
           <folding>
             <element signature="e#24#72#1" />
             <element signature="e#689#3911#0" />
@@ -1493,6 +1507,13 @@
             <element signature="e#63203#63304#0" />
             <element signature="e#66045#66104#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classifiers/190719.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="101" lean-forward="true" selection-start-line="20" selection-start-column="101" selection-end-line="20" selection-end-column="101" />
         </state>
       </provider>
     </entry>
