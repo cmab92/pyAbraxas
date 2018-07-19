@@ -1426,6 +1426,9 @@ if __name__ == '__main__':
     a.loadDumpClassifier("featAndSerClf")
     # a.dumpClassifier(dumpName="featAndSerClf")
     a.testClassifier()
+
+    a.setFileSink(fileSinkName="chris", fileSinkPath="../")
+    a.startLiveClassification()
     # """
 
     # gait classification:
