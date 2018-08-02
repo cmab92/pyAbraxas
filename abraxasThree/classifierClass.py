@@ -22,9 +22,9 @@ from six.moves import cPickle
 
 class AbraxasClassifier:
 
-    def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, kernel,
+    def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, kernel='rbf',
                  enaStatFeats=True, wavelet='haar', waveletLvl1=False, featNormMethod='stand', trainFraction=0.66,
-                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10):
+                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10, enaRawFeats=False):
 
         # Hardware information and parameters
         self.__numIrSensors = numIrSensors
@@ -63,6 +63,7 @@ class AbraxasClassifier:
         self.__numCoeffs = numCoeffs
         self.__numFreqs = numFreqs
         self.__enaStatFeats = enaStatFeats
+        self.__enaRawFeats = enaRawFeats
         self.__wavelet = wavelet
         self.__waveletLvl1 = waveletLvl1
         self.__featNormMethod = featNormMethod
@@ -704,7 +705,7 @@ class AbraxasClassifier:
                     for k in range(xCorrWavCoeffs):
                         featureVector.append(domCorrCoeffsAmp[k])
 
-        if True:
+        if self.__enaRawFeats:
             for i in range(self.__numOfSensorsUsed):
                 for j in range(self.__windowWidth):
                     featureVector.append(data[j, i])
@@ -776,11 +777,11 @@ class AbraxasClassifier:
                     mue.append(np.mean(features[::, i]))
                     sigma.append(np.std(features[::, i]))
                     if sigma[i] == 0:
-                        sigma[i] = np.mean(features[0, i]) * 10 ** 6 + 10 ** 6
+                        sigma[i] = 0 # np.mean(features[0, i]) * 10 ** 6 + 10 ** 6
                     try:
                         features[::, i] = (features[::, i] - mue[i]) / sigma[i]
                     except FloatingPointError:
-                        sigma[i] = 10**3
+                        sigma[i] = 10**6
                         features[::, i] = (features[::, i] - mue[i]) / sigma[i]
                 self.__normVal = np.array([mue, sigma])
             elif self.__featNormMethod == 'mean':
@@ -870,6 +871,7 @@ class AbraxasClassifier:
         """
         Split source data-set to test and training data.
         :param inputData: If None the source data is used.
+        :param inputLabels: If None the source file labels are used.
         :param enaWindowC: If True plots data windows.
         :return: The whole windowed data-set with labels as windowedData, windowLabels.
         Writes to:
@@ -1063,6 +1065,8 @@ class AbraxasClassifier:
 
         with open(dumpName, 'wb') as normValDump:
             cPickle.dump(self.__normVal, normValDump)
+
+        return windowFeatures
 
     def dumpClassifier(self, dumpName=None, classifier=None):
 

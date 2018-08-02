@@ -64,3 +64,20 @@ def writeDataToCsvFile(data, fileName="test.dat", path=""):
     data = {'time': np.linspace(0,241,242), 'val': data}
     output_df = pd.DataFrame(data=data)
     output_df.to_csv(path+fileName, sep=' ', index=False, header=False)
+
+def writeMatrixToCsvFile(data, fileName="test.dat", path="", matrix=True):
+    import csv
+    data = np.array(data)
+    outputFile = open(path + fileName, "w")
+    with open(file=path + fileName, mode="w"):
+        writer = csv.writer(outputFile, delimiter=' ')
+        if matrix:
+            for i in range(np.size(data[::, 0])):
+                for j in range(np.size(data[0, ::])):
+                    dataString = str(i), str(j), str(np.round(data[i, j], 5))
+                    writer.writerow(dataString)
+                writer.writerow('')
+        else:
+            for i in range(np.size(data[::, 0])):
+                dataString = str(np.round(data[i, 0], 5)), str(np.round(data[i, 1], 5))
+                writer.writerow(dataString)

@@ -2,8 +2,25 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/chris2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chrisOut.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/chrisOut2.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/misc/densitiesRABE.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/misc/kernelDensityEstimator.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/misc/normValDump.pkl" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscAlgs/dtw01.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscAlgs/dtw02_sinc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscAlgs/dtwRABE.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tscAlgs/dtwRABE02.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasOne/gaussFilter.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasOne/gaussFilter.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasOne/helperFunctions.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasOne/helperFunctions.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasThree/classifierClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/classifierClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chrisOut20187191426.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/chrisOut220187191430.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/christopher20187191423.txt" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/classifiers/190719.py" beforeDir="false" afterPath="$PROJECT_DIR$/classifiers/190719.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classifiers/dataOnly.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/classifiers/dataOnly.pkl" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,11 +34,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="190719.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="13530">
+              <caret line="914" selection-start-line="914" selection-end-line="914" />
+              <folding>
+                <element signature="e#24#72#1" />
+                <element signature="e#73#86#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="densitiesRABE.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="231">
+              <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
+              <folding>
+                <element signature="e#0#18#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="190719.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/classifiers/190719.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+            <state relative-caret-position="225">
+              <caret line="16" selection-start-line="16" selection-end-line="56" selection-end-column="103" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="kernelDensityEstimator.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/misc/kernelDensityEstimator.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="315">
+              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -37,13 +91,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.__windowLength</find>
-      <find>__selIrSensors__selIrSensors</find>
-      <find>__selIrSensors</find>
-      <find>__numOfSensorsUsed</find>
-      <find>self.__featNormMethod</find>
-      <find>class</find>
-      <find>self.fileSourceName</find>
       <find>self.fileSourcePath</find>
       <find>self.fileSourceStartT</find>
       <find>self.fileSourceStopT</find>
@@ -67,6 +114,13 @@
       <find>elf.__className</find>
       <find>label=7</find>
       <find>b.addDataFiles</find>
+      <find>ankita</find>
+      <find>igor</find>
+      <find>igorBase</find>
+      <find>ankitaBase</find>
+      <find>igorDistance</find>
+      <find>ankitaDistance</find>
+      <find>feature</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -76,13 +130,8 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/test.py" />
-        <option value="$PROJECT_DIR$/writeDataToCsvFile.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/gaussFilter.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/visualization.py" />
         <option value="$PROJECT_DIR$/abraxasOne/plotFeatures.py" />
         <option value="$PROJECT_DIR$/variableSelectionSVM.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/helperFunctions.py" />
         <option value="$PROJECT_DIR$/abraxasOne/sliceAndWindow.py" />
         <option value="$PROJECT_DIR$/d2_ts.py" />
         <option value="$PROJECT_DIR$/createDataSet.py" />
@@ -121,16 +170,25 @@
         <option value="$PROJECT_DIR$/abraxasTwo/trainDumbSVC.py" />
         <option value="$PROJECT_DIR$/abraxasThree/abraxasGui.py" />
         <option value="$PROJECT_DIR$/abraxasTwo/receiveData.py" />
-        <option value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
         <option value="$PROJECT_DIR$/classifiers/190719.py" />
+        <option value="$PROJECT_DIR$/algs.py" />
+        <option value="$PROJECT_DIR$/abraxasOne/helperFunctions.py" />
+        <option value="$PROJECT_DIR$/tscAlgs/dtw02_sinc.py" />
+        <option value="$PROJECT_DIR$/abraxasOne/gaussFilter.py" />
+        <option value="$PROJECT_DIR$/tscAlgs/dtw01.py" />
+        <option value="$PROJECT_DIR$/tscAlgs/dtwRABE02.py" />
+        <option value="$PROJECT_DIR$/tscAlgs/dtwRABE.py" />
+        <option value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
+        <option value="$PROJECT_DIR$/misc/kernelDensityEstimator.py" />
+        <option value="$PROJECT_DIR$/misc/densitiesRABE.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="204" />
-    <option name="y" value="492" />
-    <option name="width" value="1843" />
-    <option name="height" value="924" />
+    <option name="x" value="65" />
+    <option name="y" value="-4" />
+    <option name="width" value="1855" />
+    <option name="height" value="1084" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -155,6 +213,11 @@
               <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
               <item name="classifiers" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
+              <item name="misc" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -162,14 +225,16 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="ToolWindowRun.ShowToolbar" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/lib64" />
-    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tscAlgs" />
+      <recent name="$PROJECT_DIR$/abraxasOne" />
       <recent name="$PROJECT_DIR$/abraxasTwo" />
       <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/abraxasOne" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -184,25 +249,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.190719">
-    <configuration name="190719" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/classifiers" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/classifiers/190719.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.densitiesRABE">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -216,42 +263,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <module name="" />
       <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="abraxasGui" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/abraxasThree" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/abraxasThree/abraxasGui.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="anomalySV" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/abraxasTwo" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/abraxasTwo/anomalySV.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -275,7 +286,7 @@
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
     </configuration>
-    <configuration name="trainDumbSVC" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="densitiesRABE" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pyAbraxas" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -283,11 +294,65 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/abraxasTwo" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/misc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/abraxasTwo/trainDumbSVC.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/misc/densitiesRABE.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="dtwRABE" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyAbraxas" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tscAlgs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tscAlgs/dtwRABE.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="dtwRABE02" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyAbraxas" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tscAlgs" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tscAlgs/dtwRABE02.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+    </configuration>
+    <configuration name="kernelDensityEstimator" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyAbraxas" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/misc" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/misc/kernelDensityEstimator.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -313,19 +378,19 @@
       <method />
     </configuration>
     <list>
-      <item itemvalue="Python.anomalySV" />
-      <item itemvalue="Python.trainDumbSVC" />
+      <item itemvalue="Python.dtwRABE" />
+      <item itemvalue="Python.dtwRABE02" />
+      <item itemvalue="Python.kernelDensityEstimator" />
+      <item itemvalue="Python.densitiesRABE" />
       <item itemvalue="Python.classifierClass" />
-      <item itemvalue="Python.abraxasGui" />
-      <item itemvalue="Python.190719" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.190719" />
+        <item itemvalue="Python.densitiesRABE" />
         <item itemvalue="Python.classifierClass" />
-        <item itemvalue="Python.abraxasGui" />
-        <item itemvalue="Python.trainDumbSVC" />
-        <item itemvalue="Python.anomalySV" />
+        <item itemvalue="Python.kernelDensityEstimator" />
+        <item itemvalue="Python.dtwRABE" />
+        <item itemvalue="Python.dtwRABE02" />
       </list>
     </recent_temporary>
   </component>
@@ -674,14 +739,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="64" y="-11" width="1857" height="1092" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.5013477" side_tool="true" visible="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51105124" side_tool="true" weight="0.28483605" />
       <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32889345" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49865228" visible="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4889488" weight="0.28483605" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
@@ -692,26 +756,26 @@
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32991803" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.32991803" />
     </layout>
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49973047" visible="true" weight="0.3944672" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4889488" visible="true" weight="0.28483605" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50026953" side_tool="true" weight="0.3944672" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Terminal" order="9" />
+      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.51105124" side_tool="true" visible="true" weight="0.28483605" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.32991803" />
-      <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32889345" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.32991803" />
+      <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="8" type="SLIDING" weight="0.32889345" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -746,72 +810,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="82" />
+      <option name="time" value="84" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/d1.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="479">
-          <caret line="131" column="29" selection-end-line="1039" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="40" selection-start-line="9" selection-end-line="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/splitDataTrainTest.py" />
-    <entry file="file://$PROJECT_DIR$/abraxasOne/streamData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="33" column="35" selection-start-line="33" selection-start-column="35" selection-end-line="34" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/liveClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="83" column="67" selection-start-line="83" selection-start-column="67" selection-end-line="83" selection-end-column="67" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasOne/splitDataTrainTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="150">
-          <caret line="10" column="16" lean-forward="true" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasOne/readSerialPort.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1350">
-          <caret line="80" column="16" selection-start-line="80" selection-start-column="16" selection-end-line="80" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/kNNdtw.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3582">
-          <caret line="18" lean-forward="true" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/deepSpaceCommunication.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="513">
-          <caret line="40" selection-start-line="40" selection-end-line="40" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/abraxasOne/loadAndClean.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
@@ -953,9 +955,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-          <folding>
-            <element signature="e#50#72#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -965,9 +964,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1305">
           <caret line="91" column="17" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
-          <folding>
-            <element signature="e#69#87#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1024,118 +1020,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
+    <entry file="file://$PROJECT_DIR$/algs.py" />
+    <entry file="file://$PROJECT_DIR$/tscAlgs/dtwSin.txt" />
+    <entry file="file://$PROJECT_DIR$/tscAlgs/dtw02_sinc.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="1012" selection-start-line="1012" selection-end-line="1012" />
-          <folding>
-            <element signature="e#24#72#1" />
-            <element signature="e#689#3911#0" />
-            <element signature="e#2208#2278#0" />
-            <element signature="e#3974#4630#0" />
-            <element signature="e#3974#4205#1" />
-            <element signature="e#4696#5621#0" />
-            <element signature="e#4696#5278#1" />
-            <element signature="e#5673#6941#0" />
-            <element signature="e#5673#6090#1" />
-            <element signature="e#6227#6778#0" />
-            <element signature="e#6262#6778#0" />
-            <element signature="e#6323#6574#0" />
-            <element signature="e#6617#6778#0" />
-            <element signature="e#6623#6777#0" />
-            <element signature="e#6805#6941#0" />
-            <element signature="e#6811#6940#0" />
-            <element signature="e#6990#7526#0" />
-            <element signature="e#6990#7207#1" />
-            <element signature="e#7600#12601#0" />
-            <element signature="e#7600#8340#1" />
-            <element signature="e#8385#9140#0" />
-            <element signature="e#8453#9021#0" />
-            <element signature="e#8521#8717#0" />
-            <element signature="e#8760#9021#0" />
-            <element signature="e#8820#8960#0" />
-            <element signature="e#9186#9938#0" />
-            <element signature="e#9254#9822#0" />
-            <element signature="e#9322#9518#0" />
-            <element signature="e#9561#9822#0" />
-            <element signature="e#9621#9761#0" />
-            <element signature="e#9985#11207#0" />
-            <element signature="e#10087#11207#0" />
-            <element signature="e#10137#10932#0" />
-            <element signature="e#10180#10833#0" />
-            <element signature="e#10249#10540#0" />
-            <element signature="e#10374#10540#0" />
-            <element signature="e#10599#10833#0" />
-            <element signature="e#10605#10832#0" />
-            <element signature="e#10975#11207#0" />
-            <element signature="e#10981#11206#0" />
-            <element signature="e#11713#12601#0" />
-            <element signature="e#11754#12601#0" />
-            <element signature="e#11785#12076#0" />
-            <element signature="e#12126#12342#0" />
-            <element signature="e#12385#12601#0" />
-            <element signature="e#12729#14700#0" />
-            <element signature="e#12729#13580#1" />
-            <element signature="e#13798#14049#0" />
-            <element signature="e#14076#14210#0" />
-            <element signature="e#14082#14209#0" />
-            <element signature="e#14298#14364#0" />
-            <element signature="e#14540#14700#0" />
-            <element signature="e#14765#16881#0" />
-            <element signature="e#14765#15493#1" />
-            <element signature="e#15740#16792#0" />
-            <element signature="e#16936#23613#0" />
-            <element signature="e#16936#17453#1" />
-            <element signature="e#19349#20296#0" />
-            <element signature="e#19666#20239#0" />
-            <element signature="e#19989#20239#0" />
-            <element signature="e#20380#21331#0" />
-            <element signature="e#20699#21272#0" />
-            <element signature="e#21022#21272#0" />
-            <element signature="e#21419#22370#0" />
-            <element signature="e#21738#22311#0" />
-            <element signature="e#22061#22311#0" />
-            <element signature="e#22495#22628#0" />
-            <element signature="e#22726#22862#0" />
-            <element signature="e#22945#23082#0" />
-            <element signature="e#23166#23303#0" />
-            <element signature="e#23387#23522#0" />
-            <element signature="e#23658#24790#0" />
-            <element signature="e#23658#23781#1" />
-            <element signature="e#24864#27612#0" />
-            <element signature="e#24864#25311#1" />
-            <element signature="e#25369#25439#0" />
-            <element signature="e#25466#27612#0" />
-            <element signature="e#25614#25807#0" />
-            <element signature="e#25913#27134#0" />
-            <element signature="e#26565#26680#0" />
-            <element signature="e#26742#26859#0" />
-            <element signature="e#26921#27038#0" />
-            <element signature="e#27178#27479#0" />
-            <element signature="e#27250#27479#0" />
-            <element signature="e#27314#27415#0" />
-            <element signature="e#27660#27856#1" />
-            <element signature="e#28086#29804#0" />
-            <element signature="e#28143#29804#0" />
-            <element signature="e#28963#29032#0" />
-            <element signature="e#29108#29177#0" />
-            <element signature="e#29267#29804#0" />
-            <element signature="e#29571#29645#0" />
-            <element signature="e#29730#29804#0" />
-            <element signature="e#29967#31499#0" />
-            <element signature="e#30091#31499#0" />
-            <element signature="e#30706#30933#0" />
-            <element signature="e#31110#31185#0" />
-            <element signature="e#31267#31342#0" />
-            <element signature="e#31424#31499#0" />
-          </folding>
+        <state relative-caret-position="330">
+          <caret line="27" column="21" lean-forward="true" selection-start-line="27" selection-start-column="21" selection-end-line="27" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasOne/gaussFilter.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasOne/helperFunctions.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="523">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tscAlgs/dtw01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="71" column="2" selection-start-line="71" selection-start-column="2" selection-end-line="71" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tscAlgs/dtwRABE02.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="24" column="46" lean-forward="true" selection-start-line="24" selection-start-column="46" selection-end-line="24" selection-end-column="46" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tscAlgs/dtwRABE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="51" column="73" lean-forward="true" selection-start-line="51" selection-start-column="73" selection-end-line="51" selection-end-column="73" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/classifiers/190719.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="49" column="14" selection-start-line="49" selection-start-column="14" selection-end-line="49" selection-end-column="14" />
+        <state relative-caret-position="225">
+          <caret line="16" selection-start-line="16" selection-end-line="56" selection-end-column="103" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/misc/kernelDensityEstimator.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="315">
+          <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="13530">
+          <caret line="914" selection-start-line="914" selection-end-line="914" />
+          <folding>
+            <element signature="e#24#72#1" />
+            <element signature="e#73#86#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="55" column="71" selection-start-line="55" selection-start-column="71" selection-end-line="55" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
