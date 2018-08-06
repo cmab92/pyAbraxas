@@ -5,15 +5,16 @@ from abraxasThree.classifierClass import AbraxasClassifier
 
 # user identification:
 
-a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numFreqs=1, numCoeffs=1,
+a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numFreqs=1, numCoeffs=15,
                       enaStatFeats=True, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=True,
-                      randomSortTT=False, classSortTT=True)
+                      randomSortTT=False, classSortTT=True, corrPeaks=1, enaRawFeats=False)
 
-a.setWindowFunction(functionName='tukey', alpha=0.9)
+a.setWindowFunction(functionName='tukey', alpha=0.1)
 # a.plotWindowFunction()
 
 a.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
-a.selectSensorSubset(selectedSensors=[0, 1, 2, 4, 6, 7, 8], sensorType='ir')
+# a.selectSensorSubset(selectedSensors=[0, 1, 2, 3], sensorType='ir')
+# a.selectSensorSubset(selectedSensors=[0, 1], sensorType='fr')
 
 a.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3550, stopTime=3800, label=0,
                className="not walking")
@@ -62,16 +63,16 @@ a.readDataSet(equalLength=False, checkData=False)
 useDump = False
 
 if useDump:
-    a.loadDumpNormParam(dumpName="dataOnly")
-    clf = a.loadDumpClassifier("dataOnly")
+    a.loadDumpNormParam(dumpName="DecisionTreeClassifier")
+    clf = a.loadDumpClassifier("DecisionTreeClassifier")
     a.testClassifier(classifier=clf)
     a.setFileSink(fileSinkName="chris", fileSinkPath="../")
     a.startLiveClassification()
 else:
-    a.initFeatNormalization(dumpName="dataOnly")
-    from sklearn import svm
-    clf = svm.SVC(kernel='rbf')
+    a.initFeatNormalization(dumpName="DecisionTreeClassifier")
+    from sklearn.tree import DecisionTreeClassifier
+    clf = DecisionTreeClassifier()
     a.trainClassifier(classifier=clf)
-    a.dumpClassifier(dumpName="dataOnly")
+    a.dumpClassifier(dumpName="DecisionTreeClassifier")
     a.testClassifier()
 

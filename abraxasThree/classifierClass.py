@@ -24,7 +24,7 @@ class AbraxasClassifier:
 
     def __init__(self, numIrSensors, numFrSensors, windowWidth, windowShift, numCoeffs, numFreqs, kernel='rbf',
                  enaStatFeats=True, wavelet='haar', waveletLvl1=False, featNormMethod='stand', trainFraction=0.66,
-                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10, enaRawFeats=False):
+                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10, enaRawFeats=False, corrPeaks=5):
 
         # Hardware information and parameters
         self.__numIrSensors = numIrSensors
@@ -61,6 +61,7 @@ class AbraxasClassifier:
         self.__windowWidth = windowWidth
         self.__windowShift = windowShift
         self.__numCoeffs = numCoeffs
+        self.__corrPeaks = corrPeaks
         self.__numFreqs = numFreqs
         self.__enaStatFeats = enaStatFeats
         self.__enaRawFeats = enaRawFeats
@@ -98,6 +99,7 @@ class AbraxasClassifier:
         self.__sourceTestLabel = None
         self.__sourceTrainFeat = None
         self.__className = []
+        self.__featureOfVariable = None
 
         # Classifier
         self.__trainedClassifier = None
@@ -586,7 +588,8 @@ class AbraxasClassifier:
                 for i, element in enumerate(self.__fileSourceName):
                     for j in range(len(dataSet[i][0, ::])):
                         plt.plot(dataSet[i][::, j], label=str(j))
-                        plt.title(self.__fileSourceName[i])
+                        title = "File: " + self.__fileSourceName[i] + ", Label: " + self.__className[self.__fileLabels[i]]
+                        plt.title(title)
                     plt.legend()
                     plt.show()
 
@@ -605,6 +608,7 @@ class AbraxasClassifier:
         """
 
         featureVector = []
+        featureOfVariable = []
         np.seterr(all='raise')
 
         # wavelet features:
@@ -631,9 +635,11 @@ class AbraxasClassifier:
                 for j in range(np.size(coeffsVal[i])):
                     temp = coeffsVal
                     featureVector.append(temp[i][j])
+                    featureOfVariable.append(i)
                 for j in range(np.size(coeffsAmp[i])):
                     temp = coeffsAmp
                     featureVector.append(temp[i][j])
+                    featureOfVariable.append(i)
                 # first level
                 if self.__waveletLvl1:
                     if np.max(coeffs1) == 0:
@@ -643,9 +649,11 @@ class AbraxasClassifier:
                     for j in range(np.size(coeffsVal1[i])):
                         temp = coeffsVal1
                         featureVector.append(temp[i][j])
+                        featureOfVariable.append(i)
                     for j in range(np.size(coeffsAmp1[i])):
                         temp = coeffsAmp1
                         featureVector.append(temp[i][j])
+                        featureOfVariable.append(i)
 
         # fourier features:
 
@@ -674,45 +682,59 @@ class AbraxasClassifier:
                 for j in range(np.size(dominantFreqVal[i]) - 1):
                     temp = dominantFreqVal
                     featureVector.append(temp[i][j])
+                    featureOfVariable.append(i)
                 for j in range(np.size(dominantFreqAmp[i])):
                     temp = dominantFreqAmp
                     featureVector.append(temp[i][j])
+                    featureOfVariable.append(i)
                 for j in range(np.size(dominantFreqPha[i])):
                     temp = dominantFreqPha
                     featureVector.append(temp[i][j])
+                    featureOfVariable.append(i)
 
         # statistical features:
 
         if self.__enaStatFeats:
-            xCorrWavCoeffs = 5
             for i in range(self.__numOfSensorsUsed):
                 featureVector.append(np.mean(data[::, i]))
+                featureOfVariable.append(i)
                 featureVector.append(np.var(data[::, i]))
+                featureOfVariable.append(i)
                 featureVector.append(mad(data[::, i]))
-                for j in range(self.__numOfSensorsUsed - i - 1):
-                    correlation = np.correlate(data[::, i], data[::, j + 1], mode='same') \
-                                  / np.sum(data[::, i]) / np.size(data[::, i])
-                    coeffs = pywt.wavedec(correlation, wavelet=self.__wavelet, mode='symmetric', level=0)
-                    coeffs0 = coeffs[0]
-                    translationAxis = np.linspace(-1, 1, np.size(coeffs0))
-                    domCorrCoeffsAmp = coeffs0[coeffs0.argsort()[-xCorrWavCoeffs:]]
-                    if np.max(coeffs0) == 0:
-                        domCorrCoeffsVal = np.zeros(xCorrWavCoeffs)
-                    else:
-                        domCorrCoeffsVal = translationAxis[coeffs0.argsort()[-xCorrWavCoeffs:]]
-                    for k in range(xCorrWavCoeffs):
-                        featureVector.append(domCorrCoeffsVal[k])
-                    for k in range(xCorrWavCoeffs):
-                        featureVector.append(domCorrCoeffsAmp[k])
+                featureOfVariable.append(i)
+                if self.__corrPeaks != 0:
+                    for j in range(self.__numOfSensorsUsed - i - 1):
+                        correlation = np.correlate(data[::, i], data[::, j + 1], mode='same') \
+                                      / np.sum(data[::, i]) / np.size(data[::, i])
+                        coeffs = pywt.wavedec(correlation, wavelet=self.__wavelet, mode='symmetric', level=0)
+                        coeffs0 = coeffs[0]
+                        translationAxis = np.linspace(-1, 1, np.size(coeffs0))
+                        domCorrCoeffsAmp = coeffs0[coeffs0.argsort()[-self.__corrPeaks:]]
+                        if np.max(coeffs0) == 0:
+                            domCorrCoeffsVal = np.zeros(self.__corrPeaks)
+                        else:
+                            domCorrCoeffsVal = translationAxis[coeffs0.argsort()[-self.__corrPeaks:]]
+                        for k in range(self.__corrPeaks):
+                            featureVector.append(domCorrCoeffsVal[k])
+                            featureOfVariable.append(i)
+                        for k in range(self.__corrPeaks):
+                            featureVector.append(domCorrCoeffsAmp[k])
+                            featureOfVariable.append(i)
 
         if self.__enaRawFeats:
             for i in range(self.__numOfSensorsUsed):
                 for j in range(self.__windowWidth):
                     featureVector.append(data[j, i])
+                    featureOfVariable.append(i)
 
         featureVector = np.reshape(featureVector, np.size(featureVector))
+        featureOfVariable = np.reshape(featureOfVariable, np.size(featureOfVariable))
+        self.__featureOfVariable = featureOfVariable
 
         return featureVector
+
+    def returnFeatureIndices(self):
+        return self.__featureOfVariable
 
     def initFeatureQueue(self, opt=None):
 
@@ -1113,6 +1135,8 @@ class AbraxasClassifier:
         with open(dumpName, 'rb') as classifierDump:
             self.__trainedClassifier = cPickle.load(classifierDump)
 
+        return self.__trainedClassifier
+
     def loadDumpNormParam(self, dumpName=None):
 
         """
@@ -1196,8 +1220,11 @@ class AbraxasClassifier:
                 oldLine = ser.readline()
                 waitCount = 0
                 while np.size(oldLine) != self.__frameLength:  # wait for complete line
-                    oldLine = ser.readline().decode("utf-8").split(",")[:self.__frameLength]
-                    if waitCount > 20:  # restart connection if stuck
+                    try:
+                        oldLine = ser.readline().decode("utf-8").split(",")[:self.__frameLength]
+                    except UnicodeDecodeError:
+                        waitCount += 1
+                    if waitCount > 100:  # restart connection if stuck
                         ser.close()
                         ser.open()
                 bnoData = 0
@@ -1211,6 +1238,7 @@ class AbraxasClassifier:
                         ser.close()
                         ser.open()
                 print("(startReceiveData) Recording...")
+                dummy = ser.readline()
                 while True:
                     try:
                         line = ser.readline().decode("utf-8").split(",")[:self.__frameLength]
@@ -1303,7 +1331,7 @@ class AbraxasClassifier:
                     plt.pause(10 ** -15)
 
         if self.__plotStreamDataP is None and opt != "KILL":
-            if 0 <= sensorNr < self.__numOfSensorsUsed:
+            if np.sum((0 > np.array(sensorNr))+(np.array(sensorNr) > self.__numOfSensorsUsed)) == 0:
 
                 if self.__windowDataQueue is None:
                     self.__windowDataQueue = multiprocessing.Queue()
