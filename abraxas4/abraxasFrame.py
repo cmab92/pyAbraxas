@@ -26,7 +26,8 @@ class AbraxasFrame:
 
     def __init__(self, numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numCoeffs=0, numFreqs=0,
                  enaStatFeats=False, wavelet='haar', waveletLvl1=False, featNormMethod='stand', trainFraction=0.66,
-                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10, enaRawFeats=False, corrPeaks=2):
+                 classSortTT=True, randomSortTT=False, lineThresholdAfterNorm=10, enaRawFeats=False, corrPeaks=2,
+                 statStages=4):
 
         # Hardware information and parameters
         self.__numIrSensors = numIrSensors
@@ -64,6 +65,7 @@ class AbraxasFrame:
         self.__windowShift = windowShift
         self.__numCoeffs = numCoeffs
         self.__corrPeaks = corrPeaks
+        self.__statStages = statStages
         self.__numFreqs = numFreqs
         self.__enaStatFeats = enaStatFeats
         self.__enaRawFeats = enaRawFeats
@@ -621,7 +623,7 @@ class AbraxasFrame:
         coeffsAmp1 = []
         if self.__numCoeffs != 0:
             for i in range(self.__numOfSensorsUsed):
-                data[::, i] = data[::, i]
+                # data[::, i] = data[::, i]
                 coeffs = pywt.wavedec(data[::, i], wavelet=self.__wavelet, mode='symmetric', level=1)
                 coeffs0 = coeffs[0]
                 coeffs1 = coeffs[1]
@@ -665,7 +667,7 @@ class AbraxasFrame:
         if self.__numFreqs != 0:
             freqAxis = np.linspace(-1, 1, int(self.__windowWidth))
             for i in range(self.__numOfSensorsUsed):
-                data[::, i] = data[::, i]
+                # data[::, i] = data[::, i]
                 spectrum = np.fft.fftshift(np.fft.fft(data[::, i]))[int(self.__windowWidth / 2):]
                 absSpectrum = np.abs(np.fft.fftshift(np.fft.fft(data[::, i])))[int(self.__windowWidth / 2):]
                 reS = np.real(spectrum[absSpectrum.argsort()[-self.__numFreqs:]])
@@ -698,30 +700,37 @@ class AbraxasFrame:
 
         if self.__enaStatFeats:
             for i in range(self.__numOfSensorsUsed):
-                featureVector.append(np.mean(data[::, i]))
-                featureOfVariable.append(i)
-                featureVector.append(np.var(data[::, i]))
-                featureOfVariable.append(i)
-                featureVector.append(mad(data[::, i]))
-                featureOfVariable.append(i)
-                if self.__corrPeaks != 0:
-                    for j in range(self.__numOfSensorsUsed - i - 1):
-                        correlation = np.correlate(data[::, i], data[::, j + 1], mode='same') \
-                                      / np.sum(data[::, i]) / np.size(data[::, i])
-                        coeffs = pywt.wavedec(correlation, wavelet=self.__wavelet, mode='symmetric', level=0)
-                        coeffs0 = coeffs[0]
-                        translationAxis = np.linspace(-1, 1, np.size(coeffs0))
-                        domCorrCoeffsAmp = coeffs0[coeffs0.argsort()[-self.__corrPeaks:]]
-                        if np.max(coeffs0) == 0:
-                            domCorrCoeffsVal = np.zeros(self.__corrPeaks)
-                        else:
-                            domCorrCoeffsVal = translationAxis[coeffs0.argsort()[-self.__corrPeaks:]]
-                        for k in range(self.__corrPeaks):
-                            featureVector.append(domCorrCoeffsVal[k])
+                for j in range(self.__statStages):
+                    intervalWidth = int(self.__windowWidth/(2**j))
+                    if intervalWidth>1:
+                        numIntervals = int(self.__windowWidth/intervalWidth)
+                        for k in range(numIntervals):
+                            #featureVector.append(np.mean(data[k*intervalWidth:(k+1)*intervalWidth, i]))
+                            #featureOfVariable.append(i)
+                            featureVector.append(np.var(data[k*intervalWidth:(k+1)*intervalWidth, i]))
                             featureOfVariable.append(i)
-                        for k in range(self.__corrPeaks):
-                            featureVector.append(domCorrCoeffsAmp[k])
+                            featureVector.append(mad(data[k*intervalWidth:(k+1)*intervalWidth, i]))
                             featureOfVariable.append(i)
+
+        if self.__corrPeaks != 0:
+            for i in range(self.__numOfSensorsUsed):
+                for j in range(self.__numOfSensorsUsed - i - 1):
+                    correlation = np.correlate(data[::, i], data[::, j + 1], mode='same') \
+                                  / np.sum(data[::, i]) / np.size(data[::, i])
+                    coeffs = pywt.wavedec(correlation, wavelet=self.__wavelet, mode='symmetric', level=0)
+                    coeffs0 = coeffs[0]
+                    translationAxis = np.linspace(-1, 1, np.size(coeffs0))
+                    domCorrCoeffsAmp = coeffs0[coeffs0.argsort()[-self.__corrPeaks:]]
+                    if np.max(coeffs0) == 0:
+                        domCorrCoeffsVal = np.zeros(self.__corrPeaks)
+                    else:
+                        domCorrCoeffsVal = translationAxis[coeffs0.argsort()[-self.__corrPeaks:]]
+                    for k in range(self.__corrPeaks):
+                        featureVector.append(domCorrCoeffsVal[k])
+                        featureOfVariable.append(i)
+                    for k in range(self.__corrPeaks):
+                        featureVector.append(domCorrCoeffsAmp[k])
+                        featureOfVariable.append(i)
 
         if self.__enaRawFeats:
             for i in range(self.__numOfSensorsUsed):
@@ -987,7 +996,7 @@ class AbraxasFrame:
               + str(self.__classSortTT) + ".")
         return windowedData, windowLabels
 
-    def trainClassifier(self, classifier, supervised=True):
+    def trainClassifier(self, classifier, supervised=True, inputData=None):
 
         """
         Train input classifier with source training data.
@@ -995,14 +1004,21 @@ class AbraxasFrame:
         :return: writes to:
          - self.__trainedClassifier
         """
-        if supervised:
-            classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
+        if inputData is None:
+            if supervised:
+                classifier.fit(self.__sourceTrainFeat, self.__sourceTrainLabel)
+            else:
+                classifier.fit(self.__sourceTrainFeat)
         else:
-            classifier.fit(self.__sourceTrainFeat)
+            if supervised:
+                classifier.fit(inputData[0], inputData[1])
+            else:
+                classifier.fit(inputData)
 
         self.__trainedClassifier = classifier
+        return classifier
 
-    def testClassifier(self, inputData=None, classifier=None):
+    def testClassifier(self, inputData=None, classifier=None, supervised=True):
 
         """
         Test classifier and plot confusion matrix.
@@ -1022,47 +1038,57 @@ class AbraxasFrame:
         if inputData is None:
             inputData = self.__sourceTestWindowData
 
-        occurrenceCount = np.zeros(self.__numberOfClasses)
-        confMat = np.zeros([self.__numberOfClasses, self.__numberOfClasses])
+        if supervised is True:
+            occurrenceCount = np.zeros(self.__numberOfClasses)
+            confMat = np.zeros([self.__numberOfClasses, self.__numberOfClasses])
 
-        preds = []
-        labels = []
-        if self.__sourceTestFeat is None:
+            preds = []
+            labels = []
+            if self.__sourceTestFeat is None:
+                for i in range(len(inputData)):
+                    print("(testClassifier) Progress: " + str(i*100/len(inputData)) + "%")
+                    normedFeatVec = self.featureNormalization(self.extractFeatures(inputData[i]))
+                    prediction = classifier.predict(normedFeatVec.reshape(1, -1))
+                    occurrenceCount[int(self.__sourceTestLabel[i])] += 1
+                    confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
+                    preds.append(prediction)
+            else:
+                print(self.__sourceTestLabel)
+                for i in range(len(self.__sourceTestFeat)):
+                    print("(testClassifier) Progress: " + str(i*100/len(self.__sourceTestFeat)) + "%")
+                    normedFeatVec = self.__sourceTestFeat[i]
+                    prediction = classifier.predict(normedFeatVec.reshape(1, -1))
+                    occurrenceCount[int(self.__sourceTestLabel[i])] += 1
+                    confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
+                    preds.append(prediction)
+
+            for i in range(self.__numberOfClasses):
+                try:
+                    confMat[::, i] = confMat[::, i] / occurrenceCount[i]
+                except FloatingPointError:
+                    print("(testClassifier) Seems like class " + str(i) + " was not trained. Consider classSort as True or "
+                                                                          "smaller fraction of training data (trainFraction"
+                                                                          " = " + str(self.__trainFraction) + ").")
+                print("(testClassifier) For class " + str(i) + " the number of test samples/windows is "
+                      + str(occurrenceCount[i]))
+
+            print("(testClassifier) The overall error is " + str(100 - np.sum(np.diag(confMat))/self.__numberOfClasses*100)
+                  + "%.")
+
+            from sklearn.metrics import accuracy_score
+            accuracy = accuracy_score(self.__sourceTestLabel, preds)
+            print("(testClassifier) Accuracy score (sklearn): ", accuracy, "(differs ???)")
+
+            self.plotMatrixWithValues(confMat)
+        else:
+            preds = []
             for i in range(len(inputData)):
-                print("(testClassifier) Progress: " + str(i*100/len(inputData)) + "%")
+                print("(testClassifier, unsupervised) Progress: " + str(i*100/len(inputData)) + "%")
                 normedFeatVec = self.featureNormalization(self.extractFeatures(inputData[i]))
                 prediction = classifier.predict(normedFeatVec.reshape(1, -1))
-                occurrenceCount[int(self.__sourceTestLabel[i])] += 1
-                confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
-                preds.append(prediction)
-        else:
-            print(self.__sourceTestLabel)
-            for i in range(len(self.__sourceTestFeat)):
-                print("(testClassifier) Progress: " + str(i*100/len(self.__sourceTestFeat)) + "%")
-                normedFeatVec = self.__sourceTestFeat[i]
-                prediction = classifier.predict(normedFeatVec.reshape(1, -1))
-                occurrenceCount[int(self.__sourceTestLabel[i])] += 1
-                confMat[int(prediction), int(self.__sourceTestLabel[i])] += 1
                 preds.append(prediction)
 
-        for i in range(self.__numberOfClasses):
-            try:
-                confMat[::, i] = confMat[::, i] / occurrenceCount[i]
-            except FloatingPointError:
-                print("(testClassifier) Seems like class " + str(i) + " was not trained. Consider classSort as True or "
-                                                                      "smaller fraction of training data (trainFraction"
-                                                                      " = " + str(self.__trainFraction) + ").")
-            print("(testClassifier) For class " + str(i) + " the number of test samples/windows is "
-                  + str(occurrenceCount[i]))
-
-        print("(testClassifier) The overall error is " + str(100 - np.sum(np.diag(confMat))/self.__numberOfClasses*100)
-              + "%.")
-
-        from sklearn.metrics import accuracy_score
-        accuracy = accuracy_score(self.__sourceTestLabel, preds)
-        print("(testClassifier) Accuracy score (sklearn): ", accuracy, "(differs ???)")
-
-        self.plotMatrixWithValues(confMat)
+            return preds
 
     def initFeatNormalization(self, inputData=None, dumpName=None):
 
@@ -1191,7 +1217,7 @@ class AbraxasFrame:
                         ser = serial.Serial(port=self.__port, baudrate=self.__baudRate)
                         break
                     except serial.SerialException:
-                        if i == 7:
+                        if i >= 7:
                             ser = None
                         continue
             else:
@@ -1473,6 +1499,8 @@ class AbraxasFrame:
         with open(dumpName, 'wb') as teTrDataDump:
             cPickle.dump(teTrData, teTrDataDump)
 
+        return teTrData
+
     def loadTeTrDump(self, dumpName=None):
 
         """
@@ -1500,7 +1528,7 @@ class AbraxasFrame:
 
         self.__numberOfClasses = len(set(self.__sourceTrainLabel))
 
-        return self.__sourceData
+        return teTrData
 
     @staticmethod
     def plotMatrixWithValues(matrix, labels=None, title_=None, precision=3, show=True):
