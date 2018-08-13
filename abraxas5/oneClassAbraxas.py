@@ -19,7 +19,7 @@ oc.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=
 oc.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=5360, stopTime=5460, label=1)
 oc.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=13600, stopTime=13700, label=1)
 oc.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=14350, stopTime=14550, label=1)
-oc.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=20300, stopTime=20400, label=1)
+oc.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcekPath="../", startTime=20300, stopTime=20400, label=1)
 
 oc.readDataSet(equalLength=False, checkData=False)
 oc.dumpTeTrData(dumpName="anomaly.pkl")
