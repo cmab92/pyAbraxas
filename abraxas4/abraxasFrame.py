@@ -85,6 +85,7 @@ class AbraxasFrame:
         self.__numberWindowPerClass = 0
         self.__classSortTT = classSortTT
         self.__randomSortTT = randomSortTT
+        self.__windowFunctionName = "tukey"
 
         # Queues and processes
         self.__windowDataQueue = None     # queue for window data
@@ -360,21 +361,32 @@ class AbraxasFrame:
             print("(setWindowFunction) Give int or float for window shape parameter alpha.")
 
         if isinstance(functionName, str):
+            self.__windowFunctionName = functionName
             if functionName == 'tukey':
                 self.__windowFunction = scipy.signal.tukey(self.__windowWidth, self.__windowAlpha)
             elif functionName == 'rect':
                 self.__windowFunction = np.ones(self.__windowWidth)
             elif functionName == 'bart':
                 self.__windowFunction = np.bartlett(self.__windowWidth)
+            elif functionName == 'bartlett':
+                self.__windowFunction = np.bartlett(self.__windowWidth)
             elif functionName == 'black':
                 self.__windowFunction = np.blackman(self.__windowWidth)
+            elif functionName == 'blackman':
+                self.__windowFunction = np.blackman(self.__windowWidth)
             elif functionName == 'ham':
+                self.__windowFunction = np.hamming(self.__windowWidth)
+            elif functionName == 'hamm':
+                self.__windowFunction = np.hamming(self.__windowWidth)
+            elif functionName == 'hamming':
                 self.__windowFunction = np.hamming(self.__windowWidth)
             elif functionName == 'hann':
                 self.__windowFunction = np.hanning(self.__windowWidth)
             elif functionName == 'kaiser':
                 self.__windowFunction = np.kaiser(self.__windowWidth, self.__windowAlpha)
             elif functionName == 'gauss':
+                self.__windowFunction = scipy.signal.gaussian(self.__windowWidth, self.__windowAlpha)
+            elif functionName == 'gaussian':
                 self.__windowFunction = scipy.signal.gaussian(self.__windowWidth, self.__windowAlpha)
             else:
                 print("(setWindowFunction) Give proper function name.")
@@ -527,7 +539,8 @@ class AbraxasFrame:
 
         timeAxis = np.linspace(0, self.__windowWidth * self.__sampleT, self.__windowWidth)
         plt.plot(timeAxis, self.__windowFunction)
-        plt.title('Time Function of ' + str(self.__windowFunction) + ' window')
+        plt.title('Time Function of ' + str(self.__windowFunctionName) + ' Window (Boundary Val:= ' +
+                  str(np.round(self.__windowFunction[-1], 3)) + ', alpha:= ' + str(self.__windowAlpha) + ' )')
         plt.xlabel('t in s')
         plt.ylabel('Amplitude')
         plt.grid()
@@ -539,7 +552,7 @@ class AbraxasFrame:
         plt.plot(freqAxis, windowFreqResponse[int(self.__windowWidth):])
         plt.xlim(0, )
         plt.ylim(-120, )
-        plt.title("Frequency Response of chosen Window (" + str(self.__windowFunction) + ", Conv. Th.)")
+        plt.title("Frequency Response of Chosen Window (Conv. Th.)")
         plt.xlabel('f in Hz')
         plt.ylabel('dB')
         plt.grid()
