@@ -11,12 +11,12 @@ import matplotlib.pyplot as plt
 from scipy.spatial.distance import euclidean
 from abraxasOne.helperFunctions import writeMatrixToCsvFile
 from abraxasThree.classifierClass import AbraxasClassifier
-from abraxas4.abraxasFrame import AbraxasFrame
 from fastdtw import fastdtw
 from abraxasOne.gaussFilter import gaussFilter
 from tscAlgs.triang import triang
 from tscAlgs.dtwImp02 import dtwImp02
 
+from abraxas4.abraxasFrame import AbraxasFrame
 b = AbraxasFrame(numIrSensors=10, numFrSensors=2, windowWidth=250, windowShift=50, numFreqs=0, numCoeffs=0,
                       enaStatFeats=False, featNormMethod='none', trainFraction=2/3, waveletLvl1=False,
                       randomSortTT=False, classSortTT=True)
