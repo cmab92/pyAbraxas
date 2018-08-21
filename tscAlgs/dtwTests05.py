@@ -35,11 +35,11 @@ def interceptPoints(d, ref):
     y = np.sqrt(np.square(a) - np.square(x))
 
     q1x = Ax + x*(Bx - Ax)/c - y*(By - Ay)/c
-    #q2x = Ax + x*(Bx - Ax)/c + y*(By - Ay)/c
+    q2x = Ax + x*(Bx - Ax)/c + y*(By - Ay)/c
     q1y = Ay + x*(By - Ay)/c + y*(Bx - Ax)/c
-    #q2y = Ay + x*(By - Ay)/c - y*(Bx - Ax)/c
+    q2y = Ay + x*(By - Ay)/c - y*(Bx - Ax)/c
 
-    return q1x, q1y  #, q2x, q2y
+    return np.round(q1x, 10), np.round(q1y, 10)#, np.round(q2x, 10), np.round(q2y, 10)  #, q2x, q2y
 
 
 def generateOrthBasis(length, vals=None):
@@ -131,24 +131,49 @@ def getRabeData(sensors, length, shift=256):
             markus.append(wData[i]*1)
     return igor, ankita, markus
 
+def triang(dist, refPoints):
+
+    icx00, icy00, icx10, icy10 = interceptPoints(d=np.array([[dist[0]], [dist[1]]]), ref=np.array([refPoints[0],
+                                                                                            refPoints[1]]))
+
+    icx01, icy01, icx11, icy11 = interceptPoints(d=np.array([[dist[1]], [dist[2]]]), ref=np.array([refPoints[1],
+                                                                                            refPoints[2]]))
+
+    icx02, icy02, icx12, icy12 = interceptPoints(d=np.array([[dist[2]], [dist[0]]]), ref=np.array([refPoints[2],
+                                                                                            refPoints[0]]))
+
+    s0 = np.reshape([icx00, icy00], 2), np.reshape([icx10, icy10], 2)
+    s1 = np.reshape([icx01, icy01], 2), np.reshape([icx11, icy11], 2)
+    s2 = np.reshape([icx02, icy02], 2), np.reshape([icx12, icy12], 2)
+
+    if np.round(np.linalg.norm(s0[0]-s1[0]), 10)==0 or np.round(np.linalg.norm(s0[0]-s1[1]), 10)==0:
+        if np.round(np.linalg.norm(s0[0]-s2[0]), 10)==0 or np.round(np.linalg.norm(s0[0]-s2[1]), 10)==0:
+            return s0[0]
+    if np.round(np.linalg.norm(s0[1]-s1[0]), 10)==0 or np.round(np.linalg.norm(s0[1]-s1[1]), 10)==0:
+        if np.round(np.linalg.norm(s0[1]-s2[0]), 10)==0 or np.round(np.linalg.norm(s0[1]-s2[1]), 10)==0:
+            return s0[1]
+
+
 
 '''
 ---
 '''
 
 length = 512
-igor, ankita, markus = getRabeData(sensors=[0, 1, 2, 3, 4, 5, 6, 7, 8, 9], length=length, shift=128)
+igor, ankita, markus = getRabeData(sensors=[0], length=length, shift=128)
 
 base = generateOrthBasis(length) #, vals=[0, 1, 11]) # vals = [0, 1, 11] for 64, 128, 256
 basis = []
+xaxis = np.linspace(0, 1, length)
+# basis.append(np.sin(2*np.pi*xaxis*0)/length)
+# basis.append(np.sin(2*np.pi*xaxis*2)/length)
 basis.append(base[1]/length)
 basis.append(base[11]/length)
-basis.append(base[91]/length)
-xaxis = np.linspace(0, 1, length)
-basis = []
-basis.append(np.sin(2*np.pi*xaxis*0)/length)
-basis.append(np.sin(2*np.pi*xaxis*8)/length)
-basis.append(np.sin(2*np.pi*xaxis*16)/length)
+basis.append(base[19]/length)
+# basis.append(base[91]/length)
+
+basis[0][basis[0]==-1] = 0
+basis[1][basis[1]==-1] = 0
 
 print("ONB / all zero?")
 print(np.dot(basis[0], basis[1]))
@@ -158,15 +183,16 @@ print(np.dot(basis[0], basis[2]))
 d0=fastdtw(basis[0], basis[1], dist=euclidean)[0]
 d1=fastdtw(basis[1], basis[2], dist=euclidean)[0]
 d2=fastdtw(basis[0], basis[2], dist=euclidean)[0]
+print("DTW Costs (Basis): ", d0, d1, d2)
 
 coordBaseA = generateCoordinateBasis([basis[0], basis[1]])
 coordBaseB = generateCoordinateBasis([basis[1], basis[2]])
-coordBaseB = [[coordBaseB[0][0], coordBaseB[0][1]], [coordBaseB[1][1], coordBaseB[1][0]]]
 
 test = []
 testLabel = []
 testMarker = []
 
+# '''
 factor = 1
 for i in range(len(igor)-1):
     test.append(igor[i+1]*factor)
@@ -180,6 +206,7 @@ for i in range(len(markus)-1):
     test.append(markus[i+1]*factor)
     testLabel.append('r')
     testMarker.append('*')
+# '''
 
 '''
 xaxis = np.linspace(0, 1, length)
@@ -195,12 +222,25 @@ for i in range(10):
 plt.show()
 '''
 
+'''
+test.append(igor[0])
+testLabel.append('r')
+testMarker.append('o')
+test.append(ankita[0])
+testLabel.append('g')
+testMarker.append('H')
+test.append(markus[0])
+testLabel.append('b')
+testMarker.append('x')
+
+print(fastdtw(ankita[0], igor[0], dist=euclidean)[0])
+print(fastdtw(ankita[0], markus[0], dist=euclidean)[0])
+print(fastdtw(markus[0], igor[0], dist=euclidean)[0])
+'''
+
+
 fig, ax = plt.subplots()
 box = 25
-# plt.scatter(coordBaseA[0][0], coordBaseA[0][1], c='r', marker='x')
-# plt.scatter(coordBaseA[1][0], coordBaseA[1][1], c='r', marker='x')
-# plt.scatter(coordBaseB[0][0], coordBaseB[0][1], c='r', marker='x')
-# plt.scatter(coordBaseB[1][0], coordBaseB[1][1], c='r', marker='x')
 
 for i in range(len(test)):
     distances = []
@@ -209,13 +249,13 @@ for i in range(len(test)):
         try:
             temp = test[i][0, ::]
             for k in range(np.size(temp)):
-                distance, dummy = fastdtw(test[i][::, k]*basis[j], basis[j], dist=euclidean)
-                d += distance
-            distances.append(distance)
+                dist, dummy = fastdtw(test[i][::, k], basis[j], dist=euclidean)
+                d += dist
+            distances.append(d/np.size(temp))
         except TypeError:
-            distance, dummy = fastdtw(test[i] * basis[j], basis[j], dist=euclidean)
-            d += distance
-            distances.append(distance)
+            dist, dummy = fastdtw(test[i], basis[j], dist=euclidean)
+            d += dist
+            distances.append(d)
     distances = np.array(distances)
 
     x1, y1 = interceptPoints(d=distances, ref=[coordBaseA[0], coordBaseA[1]])
@@ -230,22 +270,39 @@ for i in range(len(test)):
         try:
             temp = test[i][0, ::]
             for k in range(np.size(temp)):
-                distance, dummy = fastdtw(test[i][::, k]*basis[j+1], basis[j+1], dist=euclidean)
-                d += distance
-            distances.append(distance)
+                dist, dummy = fastdtw(test[i][::, k], basis[j+1], dist=euclidean)
+                d += dist
+            distances.append(d/np.size(temp))
         except TypeError:
-            distance, dummy = fastdtw(test[i]*basis[j+1], basis[j+1], dist=euclidean)
-            d += distance
-            distances.append(distance)
+            dist, dummy = fastdtw(test[i], basis[j+1], dist=euclidean)
+            d += dist
+            distances.append(d)
 
     distances = np.array(distances)
 
-    x2, y2 = interceptPoints(d=distances, ref=[coordBaseB[1], coordBaseB[0]])
+    x2, y2 = interceptPoints(d=distances, ref=[coordBaseB[0], coordBaseB[1]])
 
     # ax.add_artist(plt.Circle(xy=coordBaseB[0], radius=distances[0], alpha=0.005, edgecolor='k'))
     # ax.add_artist(plt.Circle(xy=coordBaseB[1], radius=distances[1], alpha=0.005, edgecolor='k'))
 
-    print(x1, x2, y1, y2)
-    plt.scatter(x2, y2, marker=testMarker[i], c=testLabel[i])
+    print(x1, y1, x2, y2)
+    '''
+    for j in range(2):
+        try:
+            temp = test[i][0, ::]
+            for k in range(np.size(temp)):
+                plt.figure(1)
+                plt.plot(test[i][::, k]*basis[j+2], 'r')
+                plt.plot(test[i][::, k]*basis[j], 'g')
+                plt.plot(basis[j+2], 'r--')
+                plt.plot(basis[j], 'g--')
+                plt.figure(2)
+                plt.plot(test[i][::, k], 'b')
+        except TypeError:
+            plt.plot(test[i]*basis[j+2], 'r')
+            plt.plot(test[i], 'b')
+    plt.show()
+    '''
+    plt.scatter(x1, x2, marker='*', c=testLabel[i])
 print("...")
 plt.show()
