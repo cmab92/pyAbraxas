@@ -66,7 +66,7 @@ def qtPlotSerialData(windowWidth=1000):
             port = int(port)
         except ValueError:
             port = 0
-        if ( (port >= 0) & (port < 19)):
+        if ((port >= 0) & (port < 19)):
                 analogPort = port
 
 if __name__ == '__main__':

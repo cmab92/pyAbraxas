@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="">
+    <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="abraxas3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -16,11 +17,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="false">
+      <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="15765">
-              <caret line="1070" column="23" selection-start-line="1070" selection-start-column="23" selection-end-line="1070" selection-end-column="23" />
+            <state relative-caret-position="882">
+              <caret line="1520" column="37" selection-start-line="1520" selection-start-column="37" selection-end-line="1520" selection-end-column="37" />
               <folding>
                 <element signature="e#24#72#1" />
                 <element signature="e#2246#2316#0" />
@@ -47,18 +48,17 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="abraxasFrame.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="abraxasFrame.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxas4/abraxasFrame.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="311">
-              <caret line="1207" lean-forward="true" selection-start-line="1207" selection-end-line="1207" />
+            <state relative-caret-position="4320">
+              <caret line="1572" column="4" selection-start-line="1572" selection-start-column="4" selection-end-line="1572" selection-end-column="4" />
               <folding>
                 <element signature="e#24#114#1" />
-                <element signature="e#798#4227#0" />
+                <element signature="e#115#128#0" expanded="true" />
                 <element signature="e#2317#2387#0" />
                 <element signature="e#4290#4946#0" />
                 <element signature="e#4290#4521#1" />
-                <element signature="e#5012#5937#0" />
                 <element signature="e#5012#5594#1" />
                 <element signature="e#5989#7257#0" />
                 <element signature="e#5989#6406#1" />
@@ -257,33 +257,13 @@
                 <element signature="e#54499#55027#0" />
                 <element signature="e#54499#54666#1" />
                 <element signature="e#54718#54866#0" />
-                <element signature="e#55080#62631#0" />
                 <element signature="e#55080#55439#1" />
-                <element signature="e#55493#61638#0" />
-                <element signature="e#55575#55951#0" />
-                <element signature="e#55614#55951#0" />
-                <element signature="e#55700#55793#0" />
-                <element signature="e#55869#55951#0" />
-                <element signature="e#56157#56367#0" />
-                <element signature="e#56163#56337#0" />
-                <element signature="e#57062#61638#0" />
-                <element signature="e#58032#58361#0" />
-                <element signature="e#58315#58361#0" />
-                <element signature="e#58512#59020#0" />
-                <element signature="e#58672#58879#0" />
-                <element signature="e#58974#59020#0" />
-                <element signature="e#59165#61638#0" />
-                <element signature="e#59194#60502#0" />
-                <element signature="e#59683#59795#0" />
-                <element signature="e#59886#60001#0" />
-                <element signature="e#60092#60207#0" />
                 <element signature="e#60255#60386#0" />
-                <element signature="e#60611#60977#0" />
-                <element signature="e#61203#61638#0" />
                 <element signature="e#61715#62148#0" />
                 <element signature="e#62175#62631#0" />
                 <element signature="e#62214#62532#0" />
                 <element signature="e#62270#62428#0" />
+                <element signature="e#62697#65353#0" />
                 <element signature="e#62697#63343#1" />
                 <element signature="e#63551#63763#0" />
                 <element signature="e#63618#63763#0" />
@@ -324,10 +304,24 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="abraxasGui.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxasThree/abraxasGui.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="900">
+              <caret line="60" selection-start-line="60" selection-end-line="60" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="anomaly.pkl" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxas5/anomaly.pkl">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
       <file leaf-file-name="xgboostClassification.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/xgboostClassification.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="510">
+            <state relative-caret-position="600">
               <caret line="40" column="27" selection-start-line="38" selection-end-line="40" selection-end-column="27" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -339,7 +333,7 @@
       <file leaf-file-name="densitiesRABE.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="75">
+            <state relative-caret-position="120">
               <caret line="8" selection-start-line="8" selection-end-line="8" />
               <folding>
                 <element signature="e#0#18#0" expanded="true" />
@@ -351,22 +345,18 @@
       <file leaf-file-name="qtPlotSerialData.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="285">
-              <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+            <state relative-caret-position="840">
+              <caret line="56" selection-start-line="56" selection-end-line="56" />
+              <folding>
+                <element signature="e#1#39#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="kernelDensityEstimator.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/misc/kernelDensityEstimator.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
+      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxasOne/__init__.py">
+          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
     </leaf>
@@ -419,7 +409,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/abraxasOne/sliceAndWindow.py" />
         <option value="$PROJECT_DIR$/d2_ts.py" />
         <option value="$PROJECT_DIR$/createDataSet.py" />
         <option value="$PROJECT_DIR$/xgboostClassification.py" />
@@ -466,18 +455,19 @@
         <option value="$PROJECT_DIR$/misc/kernelDensityEstimator.py" />
         <option value="$PROJECT_DIR$/misc/densitiesRABE.py" />
         <option value="$PROJECT_DIR$/classifiers/190719.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" />
         <option value="$PROJECT_DIR$/misc/livePlotBno.py" />
-        <option value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
         <option value="$PROJECT_DIR$/variableAndFeatureSelection/recursiveFeatureElimination.py" />
+        <option value="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" />
+        <option value="$PROJECT_DIR$/abraxas4/abraxasFrame.py" />
+        <option value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1919" />
-    <option name="y" value="-17" />
-    <option name="width" value="1922" />
-    <option name="height" value="1098" />
+    <option name="x" value="2535" />
+    <option name="y" value="205" />
+    <option name="width" value="958" />
+    <option name="height" value="1026" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -506,6 +496,11 @@
               <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
               <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
               <item name="abraxasOne" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
+              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
+              <item name="abraxasThree" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
@@ -1028,14 +1023,20 @@
       <option name="project" value="LOCAL" />
       <updated>1532000361475</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="abraxas3">
+      <created>1536738591504</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1536738591504</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="65" y="3" width="1855" height="1077" extended-state="6" />
-    <editor active="true" />
+    <frame x="1920" y="-3" width="1920" height="1083" extended-state="6" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51105124" side_tool="true" weight="0.28483605" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4889488" weight="0.28483605" />
@@ -1056,21 +1057,21 @@
     <layout-to-restore>
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Version Control" order="7" />
       <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4889488" visible="true" weight="0.28483605" />
-      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.32991803" />
+      <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="8" type="SLIDING" weight="0.32889345" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Terminal" order="9" />
       <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.51105124" side_tool="true" visible="true" weight="0.28483605" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Message" order="0" />
       <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.32991803" />
-      <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="8" type="SLIDING" weight="0.32889345" />
     </layout-to-restore>
   </component>
   <component name="VcsContentAnnotationSettings">
@@ -1094,6 +1095,11 @@
           <url>file://$PROJECT_DIR$/threadingTest.py</url>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py</url>
+          <line>27</line>
+          <option name="timeStamp" value="97" />
+        </line-breakpoint>
       </breakpoints>
       <breakpoints-dialog>
         <breakpoints-dialog />
@@ -1105,18 +1111,10 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="93" />
+      <option name="time" value="100" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/abraxasOne/extractFeatures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="19" column="34" lean-forward="true" selection-start-line="19" selection-start-column="34" selection-end-line="19" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/labelData.py" />
     <entry file="file://$PROJECT_DIR$/abraxasOne/sliceAndWindow.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4020">
@@ -1272,13 +1270,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasThree/abraxasGui.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="60" selection-start-line="60" selection-end-line="60" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algs.py" />
     <entry file="file://$PROJECT_DIR$/tscAlgs/dtwSin.txt" />
     <entry file="file://$PROJECT_DIR$/tscAlgs/dtw02_sinc.py">
@@ -1327,9 +1318,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="315">
           <caret line="24" column="28" selection-start-line="24" selection-start-column="28" selection-end-line="24" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1342,7 +1330,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
+        <state relative-caret-position="120">
           <caret line="8" selection-start-line="8" selection-end-line="8" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -1358,20 +1346,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15765">
-          <caret line="1070" column="23" selection-start-line="1070" selection-start-column="23" selection-end-line="1070" selection-end-column="23" />
-          <folding>
-            <element signature="e#24#72#1" />
-            <element signature="e#2246#2316#0" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/xgboostClassification.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
+        <state relative-caret-position="600">
           <caret line="40" column="27" selection-start-line="38" selection-end-line="40" selection-end-column="27" />
           <folding>
             <element signature="e#0#18#0" expanded="true" />
@@ -1386,24 +1363,32 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/abraxas5/anomaly.pkl">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
+        <state relative-caret-position="840">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
+          <folding>
+            <element signature="e#1#39#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasOne/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/abraxas4/abraxasFrame.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="1207" lean-forward="true" selection-start-line="1207" selection-end-line="1207" />
+        <state relative-caret-position="4320">
+          <caret line="1572" column="4" selection-start-line="1572" selection-start-column="4" selection-end-line="1572" selection-end-column="4" />
           <folding>
             <element signature="e#24#114#1" />
-            <element signature="e#798#4227#0" />
+            <element signature="e#115#128#0" expanded="true" />
             <element signature="e#2317#2387#0" />
             <element signature="e#4290#4946#0" />
             <element signature="e#4290#4521#1" />
-            <element signature="e#5012#5937#0" />
             <element signature="e#5012#5594#1" />
             <element signature="e#5989#7257#0" />
             <element signature="e#5989#6406#1" />
@@ -1602,33 +1587,13 @@
             <element signature="e#54499#55027#0" />
             <element signature="e#54499#54666#1" />
             <element signature="e#54718#54866#0" />
-            <element signature="e#55080#62631#0" />
             <element signature="e#55080#55439#1" />
-            <element signature="e#55493#61638#0" />
-            <element signature="e#55575#55951#0" />
-            <element signature="e#55614#55951#0" />
-            <element signature="e#55700#55793#0" />
-            <element signature="e#55869#55951#0" />
-            <element signature="e#56157#56367#0" />
-            <element signature="e#56163#56337#0" />
-            <element signature="e#57062#61638#0" />
-            <element signature="e#58032#58361#0" />
-            <element signature="e#58315#58361#0" />
-            <element signature="e#58512#59020#0" />
-            <element signature="e#58672#58879#0" />
-            <element signature="e#58974#59020#0" />
-            <element signature="e#59165#61638#0" />
-            <element signature="e#59194#60502#0" />
-            <element signature="e#59683#59795#0" />
-            <element signature="e#59886#60001#0" />
-            <element signature="e#60092#60207#0" />
             <element signature="e#60255#60386#0" />
-            <element signature="e#60611#60977#0" />
-            <element signature="e#61203#61638#0" />
             <element signature="e#61715#62148#0" />
             <element signature="e#62175#62631#0" />
             <element signature="e#62214#62532#0" />
             <element signature="e#62270#62428#0" />
+            <element signature="e#62697#65353#0" />
             <element signature="e#62697#63343#1" />
             <element signature="e#63551#63763#0" />
             <element signature="e#63618#63763#0" />
@@ -1664,6 +1629,24 @@
             <element signature="e#70516#70864#1" />
             <element signature="e#71103#71244#0" />
             <element signature="e#71143#71244#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasThree/abraxasGui.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="900">
+          <caret line="60" selection-start-line="60" selection-end-line="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="882">
+          <caret line="1520" column="37" selection-start-line="1520" selection-start-column="37" selection-end-line="1520" selection-end-column="37" />
+          <folding>
+            <element signature="e#24#72#1" />
+            <element signature="e#2246#2316#0" />
           </folding>
         </state>
       </provider>
