@@ -7,10 +7,10 @@ from abraxasThree.classifierClass import AbraxasClassifier
 
 a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numFreqs=1, numCoeffs=0,
                       enaStatFeats=False, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=False,
-                      randomSortTT=False, classSortTT=True, corrPeaks=0, enaRawFeats=False)
+                      randomSortTT=False, classSortTT=True, corrPeaks=0, enaRawFeats=True)
 
-a.setWindowFunction(functionName='tukey', alpha=0.9)
-# a.plotWindowFunction()
+a.setWindowFunction(functionName='tukey', alpha=0.2)
+#a.plotWindowFunction()
 
 a.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
 # a.selectSensorSubset(selectedSensors=[0, 1, 2, 3], sensorType='ir')
@@ -71,7 +71,7 @@ if useDump:
 else:
     a.initFeatNormalization(dumpName="KNeighborsClassifier")
     from sklearn.neighbors import KNeighborsClassifier
-    clf = KNeighborsClassifier()
+    clf = KNeighborsClassifier(n_neighbors=4, metric='euclidean')
     a.trainClassifier(classifier=clf)
     a.dumpClassifier(dumpName="KNeighborsClassifier")
     a.testClassifier()

@@ -3,9 +3,11 @@ import sys
 sys.path.append('../')
 from abraxasThree.classifierClass import AbraxasClassifier
 
+import numpy as np
+import random
 # user identification:
 
-a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numFreqs=1, numCoeffs=0,
+a = AbraxasClassifier(numIrSensors=10, numFrSensors=2, windowWidth=100, windowShift=25, numFreqs=1, numCoeffs=1,
                       enaStatFeats=False, featNormMethod='stand', kernel='rbf', trainFraction=2/3, waveletLvl1=False,
                       randomSortTT=False, classSortTT=True, corrPeaks=2, enaRawFeats=False)
 
@@ -76,3 +78,36 @@ else:
     a.dumpClassifier(dumpName="KNeighborsClassifier")
     a.testClassifier()
 
+windowedData, windowLabels = a.windowSplitSourceDataTT()
+
+index = np.linspace(0, len(windowedData) - 1, len(windowedData), dtype=int)
+random.shuffle(index)
+
+trainingData = []
+trainingLabels = []
+testData = []
+testLabels = []
+for i in range(int(len(windowedData))):
+    if i/len(windowedData) < 0.8:
+        trainingData.append(windowedData[index[i]])
+        trainingLabels.append(windowLabels[index[i]])
+    else:
+        testData.append(windowedData[index[i]])
+        testLabels.append(windowLabels[index[i]])
+
+trainingData = a.initFeatNormalization(inputData=trainingData)
+
+for i in range(len(testData)):
+    testData[i] = a.featureNormalization(features=a.extractFeatures(data=testData[i]), initDone=True)
+
+from sklearn.model_selection import StratifiedKFold
+from sklearn.model_selection import cross_val_score
+from sklearn.model_selection import train_test_split
+#model = xgboost.XGBClassifier(max_depth=3, learning_rate=0.3)
+from sklearn.neural_network import MLPClassifier
+model = NearestCentroid()
+#from sklearn.neighbors import KNeighborsClassifier
+#model = KNeighborsClassifier(n_neighbors=4, metric='euclidean')
+kfold = StratifiedKFold(n_splits=3)
+results = cross_val_score(model, np.array(trainingData), np.array(trainingLabels), cv=kfold)
+print("Accuracy: %.2f%% (%.2f%%)" % (results.mean()*100, results.std()*100))
