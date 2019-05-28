@@ -32,7 +32,7 @@ def display(q, windowWidth):
     QtGui.QApplication.instance().exec_()
 
 def io(running,q):
-    ser = serial.Serial("/dev/ttyACM0", 57600)
+    ser = serial.Serial("/dev/ttyUSB0", 57600)
     dummy = ser.readline()
     t = 0
     while running.is_set():
@@ -68,6 +68,7 @@ def qtPlotSerialData(windowWidth=1000):
             port = 0
         if ((port >= 0) & (port < 19)):
                 analogPort = port
+
 
 if __name__ == '__main__':
     qtPlotSerialData(1000)

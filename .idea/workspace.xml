@@ -1,12 +1,40 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BookmarkManager">
+    <bookmark url="file://$PROJECT_DIR$/../pyRolle/live_clf.py" line="891" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="2947771f-0808-4341-ae90-20a01e456d4c" name="Default" comment="abraxas3">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/dwt_demo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/read_and_plot_file.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/curveClassification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/dictLearning/v01.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/dictLearning/v02_ecg.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/feature_extractor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/gaitClassification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/gaitClassification_testData.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/gather_data.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/liveClassification.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/live_clf.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/ocsvm.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/readFiles.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../pyRolle/wavelets.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/pyAbraxas.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pyAbraxas.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxas4/abraxasFrame.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxas4/abraxasFrame.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abraxasThree/classifierClass.py" beforeDir="false" afterPath="$PROJECT_DIR$/abraxasThree/classifierClass.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classifiers/gNbUserId.py" beforeDir="false" afterPath="$PROJECT_DIR$/classifiers/gNbUserId.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/classifiers/throwAway.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/classifiers/throwAway.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dumpedSVC.pkl" beforeDir="false" afterPath="$PROJECT_DIR$/dumpedSVC.pkl" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/multiClassSVM.py" beforeDir="false" afterPath="$PROJECT_DIR$/multiClassSVM.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,348 +43,167 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="FavoritesManager">
+    <favorites_list name="pyAbraxas" />
+  </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="classifierClass.py" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../pyRolle/gaitClassification.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="882">
-              <caret line="1520" column="37" selection-start-line="1520" selection-start-column="37" selection-end-line="1520" selection-end-column="37" />
+            <state relative-caret-position="207">
+              <caret line="470" column="36" lean-forward="true" selection-start-line="470" selection-start-column="36" selection-end-line="470" selection-end-column="36" />
               <folding>
-                <element signature="e#24#72#1" />
-                <element signature="e#2246#2316#0" />
+                <element signature="e#22#75#1" />
+                <element signature="e#77#95#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="livePlotBno.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/misc/livePlotBno.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pyRolle/curveClassification.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="150">
-              <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="recursiveFeatureElimination.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/variableAndFeatureSelection/recursiveFeatureElimination.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="38" selection-start-line="38" selection-end-line="38" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="abraxasFrame.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/abraxas4/abraxasFrame.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4320">
-              <caret line="1572" column="4" selection-start-line="1572" selection-start-column="4" selection-end-line="1572" selection-end-column="4" />
+            <state relative-caret-position="552">
+              <caret line="996" column="17" selection-start-line="996" selection-start-column="17" selection-end-line="1020" selection-end-column="22" />
               <folding>
-                <element signature="e#24#114#1" />
-                <element signature="e#115#128#0" expanded="true" />
-                <element signature="e#2317#2387#0" />
-                <element signature="e#4290#4946#0" />
-                <element signature="e#4290#4521#1" />
-                <element signature="e#5012#5594#1" />
-                <element signature="e#5989#7257#0" />
-                <element signature="e#5989#6406#1" />
-                <element signature="e#6543#7094#0" />
-                <element signature="e#6578#7094#0" />
-                <element signature="e#6639#6890#0" />
-                <element signature="e#6933#7094#0" />
-                <element signature="e#6939#7093#0" />
-                <element signature="e#7121#7257#0" />
-                <element signature="e#7127#7256#0" />
-                <element signature="e#7306#7842#0" />
-                <element signature="e#7306#7523#1" />
-                <element signature="e#7916#12917#0" />
-                <element signature="e#7916#8656#1" />
-                <element signature="e#8701#9456#0" />
-                <element signature="e#8769#9337#0" />
-                <element signature="e#8837#9033#0" />
-                <element signature="e#9076#9337#0" />
-                <element signature="e#9136#9276#0" />
-                <element signature="e#9502#10254#0" />
-                <element signature="e#9570#10138#0" />
-                <element signature="e#9638#9834#0" />
-                <element signature="e#9877#10138#0" />
-                <element signature="e#9937#10077#0" />
-                <element signature="e#10301#11523#0" />
-                <element signature="e#10403#11523#0" />
-                <element signature="e#10453#11248#0" />
-                <element signature="e#10496#11149#0" />
-                <element signature="e#10565#10856#0" />
-                <element signature="e#10690#10856#0" />
-                <element signature="e#10915#11149#0" />
-                <element signature="e#10921#11148#0" />
-                <element signature="e#11291#11523#0" />
-                <element signature="e#11297#11522#0" />
-                <element signature="e#12029#12917#0" />
-                <element signature="e#12070#12917#0" />
-                <element signature="e#12101#12392#0" />
-                <element signature="e#12442#12658#0" />
-                <element signature="e#12701#12917#0" />
-                <element signature="e#13045#15016#0" />
-                <element signature="e#13045#13896#1" />
-                <element signature="e#14114#14365#0" />
-                <element signature="e#14392#14526#0" />
-                <element signature="e#14398#14525#0" />
-                <element signature="e#14614#14680#0" />
-                <element signature="e#14856#15016#0" />
-                <element signature="e#15081#17858#0" />
-                <element signature="e#15081#15809#1" />
-                <element signature="e#16056#17769#0" />
-                <element signature="e#17913#24590#0" />
-                <element signature="e#17913#18430#1" />
-                <element signature="e#20326#21273#0" />
-                <element signature="e#20643#21216#0" />
-                <element signature="e#20966#21216#0" />
-                <element signature="e#21357#22308#0" />
-                <element signature="e#21676#22249#0" />
-                <element signature="e#21999#22249#0" />
-                <element signature="e#22396#23347#0" />
-                <element signature="e#22715#23288#0" />
-                <element signature="e#23038#23288#0" />
-                <element signature="e#23472#23605#0" />
-                <element signature="e#23703#23839#0" />
-                <element signature="e#23922#24059#0" />
-                <element signature="e#24143#24280#0" />
-                <element signature="e#24364#24499#0" />
-                <element signature="e#24635#25864#0" />
-                <element signature="e#24635#24758#1" />
-                <element signature="e#25938#28790#0" />
-                <element signature="e#25938#26385#1" />
-                <element signature="e#26443#26513#0" />
-                <element signature="e#26540#28790#0" />
-                <element signature="e#26688#26881#0" />
-                <element signature="e#26987#28208#0" />
-                <element signature="e#27639#27754#0" />
-                <element signature="e#27816#27933#0" />
-                <element signature="e#27995#28112#0" />
-                <element signature="e#28252#28657#0" />
-                <element signature="e#28324#28657#0" />
-                <element signature="e#28388#28593#0" />
-                <element signature="e#28838#35637#0" />
-                <element signature="e#28838#29034#1" />
-                <element signature="e#29295#31215#0" />
-                <element signature="e#29352#31215#0" />
-                <element signature="e#30174#30291#0" />
-                <element signature="e#30367#30484#0" />
-                <element signature="e#30574#31215#0" />
-                <element signature="e#30878#31004#0" />
-                <element signature="e#31089#31215#0" />
-                <element signature="e#31378#33056#0" />
-                <element signature="e#31502#33056#0" />
-                <element signature="e#32119#32346#0" />
-                <element signature="e#32523#32646#0" />
-                <element signature="e#32728#32851#0" />
-                <element signature="e#32933#33056#0" />
-                <element signature="e#33135#33941#0" />
-                <element signature="e#33192#33941#0" />
-                <element signature="e#33247#33941#0" />
-                <element signature="e#33358#33941#0" />
-                <element signature="e#33493#33941#0" />
-                <element signature="e#33493#33569#0" />
-                <element signature="e#33989#35155#0" />
-                <element signature="e#34046#35155#0" />
-                <element signature="e#34115#35155#0" />
-                <element signature="e#34890#34983#0" />
-                <element signature="e#35062#35155#0" />
-                <element signature="e#35200#35393#0" />
-                <element signature="e#35257#35393#0" />
-                <element signature="e#35313#35393#0" />
-                <element signature="e#35683#35714#0" />
-                <element signature="e#35767#37231#0" />
-                <element signature="e#35767#36068#1" />
-                <element signature="e#36137#36379#0" />
-                <element signature="e#36165#36379#0" />
-                <element signature="e#36641#36982#0" />
-                <element signature="e#36722#36858#0" />
-                <element signature="e#37009#37231#0" />
-                <element signature="e#37043#37125#0" />
-                <element signature="e#37303#42924#0" />
-                <element signature="e#37303#37748#1" />
-                <element signature="e#37820#40575#0" />
-                <element signature="e#38057#38711#0" />
-                <element signature="e#38167#38655#0" />
-                <element signature="e#38559#38655#0" />
-                <element signature="e#38778#39563#0" />
-                <element signature="e#38917#39498#0" />
-                <element signature="e#39374#39498#0" />
-                <element signature="e#39632#40336#0" />
-                <element signature="e#39746#40276#0" />
-                <element signature="e#40149#40276#0" />
-                <element signature="e#40602#42924#0" />
-                <element signature="e#40681#40835#0" />
-                <element signature="e#40687#40834#0" />
-                <element signature="e#40870#42924#0" />
-                <element signature="e#40927#41409#0" />
-                <element signature="e#41161#41409#0" />
-                <element signature="e#41220#41409#0" />
-                <element signature="e#41331#41359#0" />
-                <element signature="e#41484#42043#0" />
-                <element signature="e#41782#42043#0" />
-                <element signature="e#41841#42043#0" />
-                <element signature="e#42120#42637#0" />
-                <element signature="e#42373#42637#0" />
-                <element signature="e#42432#42637#0" />
-                <element signature="e#42759#42892#0" />
-                <element signature="e#42765#42891#0" />
-                <element signature="e#43026#47366#0" />
-                <element signature="e#43026#43631#1" />
-                <element signature="e#43675#43856#0" />
-                <element signature="e#43763#43856#0" />
-                <element signature="e#44176#45155#0" />
-                <element signature="e#44546#45155#0" />
-                <element signature="e#44645#44811#0" />
-                <element signature="e#45035#45155#0" />
-                <element signature="e#45505#45988#0" />
-                <element signature="e#45556#45988#0" />
-                <element signature="e#45710#45858#0" />
-                <element signature="e#45901#45988#0" />
-                <element signature="e#46062#46559#0" />
-                <element signature="e#46233#46559#0" />
-                <element signature="e#46306#46415#0" />
-                <element signature="e#46458#46559#0" />
-                <element signature="e#46586#46850#0" />
-                <element signature="e#46592#46849#0" />
-                <element signature="e#47059#47182#0" />
-                <element signature="e#47453#48080#0" />
-                <element signature="e#47453#47637#1" />
-                <element signature="e#47680#47847#0" />
-                <element signature="e#47874#48007#0" />
-                <element signature="e#48171#51611#0" />
-                <element signature="e#48171#48361#1" />
-                <element signature="e#48438#48622#0" />
-                <element signature="e#48541#48622#0" />
-                <element signature="e#48750#51190#0" />
-                <element signature="e#48992#49494#0" />
-                <element signature="e#49044#49494#0" />
-                <element signature="e#49529#50064#0" />
-                <element signature="e#49639#50064#0" />
-                <element signature="e#50134#50774#0" />
-                <element signature="e#50275#50620#0" />
-                <element signature="e#50329#50584#0" />
-                <element signature="e#51217#51611#0" />
-                <element signature="e#51288#51585#0" />
-                <element signature="e#51690#52944#0" />
-                <element signature="e#51690#51955#1" />
-                <element signature="e#51999#52202#0" />
-                <element signature="e#52109#52202#0" />
-                <element signature="e#52254#52402#0" />
-                <element signature="e#52539#52707#0" />
-                <element signature="e#53017#53793#0" />
-                <element signature="e#53017#53228#1" />
-                <element signature="e#53280#53428#0" />
-                <element signature="e#53531#53686#0" />
-                <element signature="e#53853#54440#0" />
-                <element signature="e#53853#54019#1" />
-                <element signature="e#54071#54219#0" />
-                <element signature="e#54499#55027#0" />
-                <element signature="e#54499#54666#1" />
-                <element signature="e#54718#54866#0" />
-                <element signature="e#55080#55439#1" />
-                <element signature="e#60255#60386#0" />
-                <element signature="e#61715#62148#0" />
-                <element signature="e#62175#62631#0" />
-                <element signature="e#62214#62532#0" />
-                <element signature="e#62270#62428#0" />
-                <element signature="e#62697#65353#0" />
-                <element signature="e#62697#63343#1" />
-                <element signature="e#63551#63763#0" />
-                <element signature="e#63618#63763#0" />
-                <element signature="e#63856#64051#0" />
-                <element signature="e#64232#64790#0" />
-                <element signature="e#64432#64674#0" />
-                <element signature="e#64954#65263#0" />
-                <element signature="e#65013#65168#0" />
-                <element signature="e#65413#67037#0" />
-                <element signature="e#65473#65686#0" />
-                <element signature="e#65501#65686#0" />
-                <element signature="e#65765#66550#0" />
-                <element signature="e#65818#65907#0" />
-                <element signature="e#65942#66550#0" />
-                <element signature="e#66287#66407#0" />
-                <element signature="e#66577#67037#0" />
-                <element signature="e#66611#66943#0" />
-                <element signature="e#66674#66841#0" />
-                <element signature="e#67090#67578#0" />
-                <element signature="e#67090#67215#1" />
-                <element signature="e#67267#67415#0" />
-                <element signature="e#67635#68267#0" />
-                <element signature="e#67635#67829#1" />
-                <element signature="e#67881#68029#0" />
-                <element signature="e#68321#69481#0" />
-                <element signature="e#68321#68463#1" />
-                <element signature="e#68515#68663#0" />
-                <element signature="e#68921#69139#0" />
-                <element signature="e#69535#70399#0" />
-                <element signature="e#69535#69833#1" />
-                <element signature="e#69885#70033#0" />
-                <element signature="e#70516#71345#0" />
-                <element signature="e#70516#70864#1" />
-                <element signature="e#71103#71244#0" />
-                <element signature="e#71143#71244#0" />
+                <element signature="e#77#95#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="abraxasGui.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/abraxasThree/abraxasGui.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="60" selection-start-line="60" selection-end-line="60" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="anomaly.pkl" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/abraxas5/anomaly.pkl">
-          <provider selected="true" editor-type-id="text-editor" />
-        </entry>
-      </file>
-      <file leaf-file-name="xgboostClassification.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/xgboostClassification.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="600">
-              <caret line="40" column="27" selection-start-line="38" selection-end-line="40" selection-end-column="27" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="densitiesRABE.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="120">
-              <caret line="8" selection-start-line="8" selection-end-line="8" />
-              <folding>
-                <element signature="e#0#18#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="qtPlotSerialData.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pyRolle/readFiles.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="840">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
+              <caret line="56" column="26" lean-forward="true" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
               <folding>
-                <element signature="e#1#39#0" expanded="true" />
+                <element signature="e#55#73#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="__init__.py" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/abraxasOne/__init__.py">
-          <provider selected="true" editor-type-id="text-editor" />
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pyRolle/dictLearning/v01.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="2805">
+              <caret line="691" column="41" selection-start-line="691" selection-start-column="41" selection-end-line="691" selection-end-column="41" />
+              <folding>
+                <element signature="e#77#95#0" expanded="true" />
+                <element signature="e#4312#4631#0" />
+                <element signature="e#6843#10062#0" />
+                <element signature="e#10183#12334#0" />
+                <element signature="e#12404#14382#0" />
+                <element signature="e#14468#17839#0" />
+                <element signature="e#17904#18894#0" />
+                <element signature="e#18942#29582#0" />
+                <element signature="e#29622#31768#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/../pyRolle/dictLearning/v02_ecg.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="123" column="33" lean-forward="true" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
+              <folding>
+                <element signature="e#1#19#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="135">
+              <caret line="21" selection-start-line="21" selection-end-line="21" />
+              <folding>
+                <element signature="e#24#72#1" />
+                <element signature="e#73#86#0" expanded="true" />
+                <element signature="e#727#4067#0" />
+                <element signature="e#2246#2316#0" />
+                <element signature="e#4130#4786#0" />
+                <element signature="e#4130#4361#1" />
+                <element signature="e#4852#5777#0" />
+                <element signature="e#4852#5434#1" />
+                <element signature="e#5829#7097#0" />
+                <element signature="e#5829#6246#1" />
+                <element signature="e#6383#6934#0" />
+                <element signature="e#6418#6934#0" />
+                <element signature="e#6479#6730#0" />
+                <element signature="e#6773#6934#0" />
+                <element signature="e#6779#6933#0" />
+                <element signature="e#6961#7097#0" />
+                <element signature="e#6967#7096#0" />
+                <element signature="e#7146#7682#0" />
+                <element signature="e#7146#7363#1" />
+                <element signature="e#7756#12757#0" />
+                <element signature="e#7756#8496#1" />
+                <element signature="e#8541#9296#0" />
+                <element signature="e#8609#9177#0" />
+                <element signature="e#8677#8873#0" />
+                <element signature="e#8916#9177#0" />
+                <element signature="e#8976#9116#0" />
+                <element signature="e#9342#10094#0" />
+                <element signature="e#9410#9978#0" />
+                <element signature="e#9478#9674#0" />
+                <element signature="e#9717#9978#0" />
+                <element signature="e#9777#9917#0" />
+                <element signature="e#10141#11363#0" />
+                <element signature="e#10243#11363#0" />
+                <element signature="e#10293#11088#0" />
+                <element signature="e#10336#10989#0" />
+                <element signature="e#10405#10696#0" />
+                <element signature="e#10530#10696#0" />
+                <element signature="e#10755#10989#0" />
+                <element signature="e#10761#10988#0" />
+                <element signature="e#11131#11363#0" />
+                <element signature="e#11137#11362#0" />
+                <element signature="e#11869#12757#0" />
+                <element signature="e#11910#12757#0" />
+                <element signature="e#11941#12232#0" />
+                <element signature="e#12282#12498#0" />
+                <element signature="e#12541#12757#0" />
+                <element signature="e#12885#14856#0" />
+                <element signature="e#12885#13736#1" />
+                <element signature="e#13954#14205#0" />
+                <element signature="e#14232#14366#0" />
+                <element signature="e#14238#14365#0" />
+                <element signature="e#14454#14520#0" />
+                <element signature="e#14696#14856#0" />
+                <element signature="e#14921#17037#0" />
+                <element signature="e#14921#15649#1" />
+                <element signature="e#15896#16948#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/classifiers/gNbUserId.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="630">
+              <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/abraxas4/abraxasFrame.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="3150">
+              <caret line="221" column="63" selection-start-line="221" selection-start-column="63" selection-end-line="221" selection-end-column="63" />
+              <folding>
+                <element signature="e#24#114#1" />
+                <element signature="e#130#145#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
         </entry>
       </file>
     </leaf>
@@ -370,66 +217,48 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>self.fileSourceStartT</find>
-      <find>self.fileSourceStopT</find>
-      <find>self.fileLabels</find>
-      <find>numberOfClasses</find>
-      <find>extractFeatures</find>
-      <find>self.__sampleT</find>
-      <find>avail</find>
-      <find>__numOfSensorsAvailable</find>
-      <find>self</find>
-      <find>ratio</find>
-      <find>__featureQueue</find>
-      <find>bno</find>
-      <find>trainFraction</find>
-      <find>self.__trainFraction</find>
-      <find>self.__numberWindowPerClass</find>
-      <find>dumb</find>
-      <find>windowSplitSourceDataTT</find>
-      <find>__sourceTestWindowData</find>
-      <find>wvltLvl1</find>
-      <find>elf.__className</find>
-      <find>label=7</find>
-      <find>b.addDataFiles</find>
-      <find>ankita</find>
-      <find>igor</find>
-      <find>igorBase</find>
-      <find>ankitaBase</find>
-      <find>igorDistance</find>
-      <find>ankitaDistance</find>
-      <find>feature</find>
-      <find>self.__className</find>
+      <find>self.__test_data</find>
+      <find>test_features_std_temp</find>
+      <find>self.__window_function</find>
+      <find>GaitClassifier</find>
+      <find>Oone_class_svm</find>
+      <find>g</find>
+      <find>self.__g</find>
+      <find>self.__ocsvm</find>
+      <find>self.__window_func</find>
+      <find>__receiveDataP</find>
+      <find>print</find>
+      <find>One_class_svm</find>
+      <find>plot</find>
+      <find>__test_data_raw_windows</find>
+      <find>read_file</find>
+      <find>start_index</find>
+      <find>USB 3.0 WLAN AC1200 Dual Band Netzwerkadapter</find>
+      <find>self.__clf</find>
+      <find>c_l</find>
+      <find>extract_and_normalize_features</find>
+      <find>wavelet_stats</find>
+      <find>mad</find>
+      <find>two_class_3.pkl</find>
+      <find>addDataFiles</find>
+      <find>selectS</find>
+      <find>window_data</find>
+      <find>set_window_function</find>
+      <find>add_data_files</find>
+      <find>oc_clf</find>
+      <find>dict_</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="UPDATE_TYPE" value="MERGE" />
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../pyRolle" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/d2_ts.py" />
-        <option value="$PROJECT_DIR$/createDataSet.py" />
-        <option value="$PROJECT_DIR$/xgboostClassification.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/anomalyDetSVM.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/readSerialPort.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/streamData.py" />
-        <option value="$PROJECT_DIR$/trainSVC.py" />
-        <option value="$PROJECT_DIR$/gaitAnaForUserIdentification.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/extractSpectralFeatures.py" />
-        <option value="$PROJECT_DIR$/crossVal.py" />
-        <option value="$PROJECT_DIR$/splitDataTrainTest.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/extractFeatures.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/splitDataTrainTest.py" />
-        <option value="$PROJECT_DIR$/multiClassSVM.py" />
-        <option value="$PROJECT_DIR$/liveClassification.py" />
-        <option value="$PROJECT_DIR$/threadingTest.py" />
-        <option value="$PROJECT_DIR$/deepSpaceCommunication.py" />
-        <option value="$PROJECT_DIR$/kNNdtw.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/readSeveralFiles.py" />
-        <option value="$PROJECT_DIR$/abraxasOne/loadAndClean.py" />
-        <option value="$PROJECT_DIR$/abraxasTwo/labelData.py" />
         <option value="$PROJECT_DIR$/abraxasTwo/loadFile.py" />
         <option value="$PROJECT_DIR$/abraxasTwo/windowDataSet.py" />
         <option value="$PROJECT_DIR$/abraxasTwo/miscFunc.py" />
@@ -458,17 +287,39 @@
         <option value="$PROJECT_DIR$/misc/livePlotBno.py" />
         <option value="$PROJECT_DIR$/variableAndFeatureSelection/recursiveFeatureElimination.py" />
         <option value="$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py" />
+        <option value="$PROJECT_DIR$/dwt_demo.py" />
+        <option value="$PROJECT_DIR$/read_and_plot_file.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/liveClassification/gather_data.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/wavelets.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/liveClassification.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/ocsvm.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/feature_extractor.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/gather_data.py" />
+        <option value="$PROJECT_DIR$/multiClassSVM.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/live_classification/train classifier.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/live_classification/classifier.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/live_classification/get_data.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/live_clf.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/gaitClassification_testData.py" />
         <option value="$PROJECT_DIR$/abraxas4/abraxasFrame.py" />
+        <option value="$PROJECT_DIR$/classifiers/gNbUserId.py" />
         <option value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/erg1819.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/curveClassification.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/dictLearning/v01.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/dictLearning/v02_ecg.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/readFiles.py" />
+        <option value="$PROJECT_DIR$/../pyRolle/gaitClassification.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="2535" />
-    <option name="y" value="205" />
-    <option name="width" value="958" />
-    <option name="height" value="1026" />
+    <option name="x" value="2661" />
+    <option name="y" value="72" />
+    <option name="width" value="1664" />
+    <option name="height" value="941" />
   </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
     <navigator proportions="" version="1">
       <foldersAlwaysOnTop value="true" />
@@ -480,32 +331,12 @@
           <expand>
             <path>
               <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
+              <item name="pyRolle" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
-              <item name="abraxas4" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
-              <item name="abraxas5" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
-              <item name="abraxasOne" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
-              <item name="abraxasThree" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="pyAbraxas" type="b2602c69:ProjectViewProjectNode" />
-              <item name="pyAbraxas" type="462c0819:PsiDirectoryNode" />
-              <item name="abraxasTwo" type="462c0819:PsiDirectoryNode" />
+              <item name="pyRolle" type="462c0819:PsiDirectoryNode" />
+              <item name="dictLearning" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -514,16 +345,18 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="ToolWindowRun.ShowToolbar" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/venv/lib64" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../pyRolle" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/../pyRolle/dictLearning" />
+      <recent name="$PROJECT_DIR$/../pyRolle" />
       <recent name="$PROJECT_DIR$/tscAlgs" />
       <recent name="$PROJECT_DIR$/abraxasOne" />
       <recent name="$PROJECT_DIR$/abraxasTwo" />
-      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -538,115 +371,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.recursiveFeatureElimination">
-    <configuration name="190719" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/classifiers" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/classifiers/190719.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="" />
-      <option name="SCRIPT_NAME" value="" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="classifierClass" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/abraxasThree" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/abraxasThree/classifierClass.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="livePlotBno" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/misc" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/misc/livePlotBno.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="recursiveFeatureElimination" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/variableAndFeatureSelection" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/variableAndFeatureSelection/recursiveFeatureElimination.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
-    <configuration name="xgboostClassification" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="pyAbraxas" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/xgboostClassification.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="false" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-    </configuration>
+  <component name="RunManager" selected="Python.gaitClassification">
     <configuration default="true" type="tests" factoryName="Attests">
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -666,20 +391,146 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="curveClassification" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyRolle" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pyRolle" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pyRolle/curveClassification.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="gaitClassification" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyRolle" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pyRolle" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pyRolle/gaitClassification.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="readFiles" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyRolle" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pyRolle" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pyRolle/readFiles.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="v01" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyRolle" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pyRolle/dictLearning" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pyRolle/dictLearning/v01.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="v02_ecg" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pyRolle" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/../pyRolle/dictLearning" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/../pyRolle/dictLearning/v02_ecg.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python.classifierClass" />
-      <item itemvalue="Python.190719" />
-      <item itemvalue="Python.livePlotBno" />
-      <item itemvalue="Python.recursiveFeatureElimination" />
-      <item itemvalue="Python.xgboostClassification" />
+      <item itemvalue="Python.curveClassification" />
+      <item itemvalue="Python.readFiles" />
+      <item itemvalue="Python.v01" />
+      <item itemvalue="Python.v02_ecg" />
+      <item itemvalue="Python.gaitClassification" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.recursiveFeatureElimination" />
-        <item itemvalue="Python.xgboostClassification" />
-        <item itemvalue="Python.livePlotBno" />
-        <item itemvalue="Python.190719" />
-        <item itemvalue="Python.classifierClass" />
+        <item itemvalue="Python.gaitClassification" />
+        <item itemvalue="Python.readFiles" />
+        <item itemvalue="Python.v02_ecg" />
+        <item itemvalue="Python.v01" />
+        <item itemvalue="Python.curveClassification" />
       </list>
     </recent_temporary>
   </component>
@@ -1034,48 +885,46 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1920" y="-3" width="1920" height="1083" extended-state="6" />
+    <frame x="1920" y="-2" width="1920" height="1082" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48694316" visible="true" weight="0.15392725" />
+      <window_info id="Structure" order="1" sideWeight="0.51319647" side_tool="true" weight="0.15392725" />
+      <window_info id="Favorites" order="2" sideWeight="0.5130568" side_tool="true" weight="0.15392725" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.33892968" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.48708487" visible="true" weight="0.3347324" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.51105124" side_tool="true" weight="0.28483605" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4889488" weight="0.28483605" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="7" type="SLIDING" weight="0.32889345" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="7" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.51291513" side_tool="true" visible="true" weight="0.3347324" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" x="2123" y="220" width="1375" height="505" id="Python Console" internal_type="SLIDING" order="10" type="FLOATING" weight="0.32889345" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.32991803" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout>
     <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.48797736" visible="true" weight="0.19662625" />
+      <window_info id="Structure" order="1" sideWeight="0.5120226" side_tool="true" weight="0.19978914" />
+      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="bottom" id="Message" order="0" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.33892968" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.4889488" visible="true" weight="0.28436518" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.39979014" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.16334231" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
+      <window_info anchor="bottom" id="TODO" order="6" />
+      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Event Log" order="8" sideWeight="0.51105124" side_tool="true" weight="0.28483605" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" x="2465" y="219" width="1375" height="505" id="Python Console" internal_type="SLIDING" order="10" type="FLOATING" weight="0.32889345" />
       <window_info anchor="right" id="Commander" order="0" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4889488" visible="true" weight="0.28483605" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49973047" weight="0.32991803" />
-      <window_info anchor="bottom" id="Python Console" internal_type="SLIDING" order="8" type="SLIDING" weight="0.32889345" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="9" />
-      <window_info anchor="bottom" id="Event Log" order="10" sideWeight="0.51105124" side_tool="true" visible="true" weight="0.28483605" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Favorites" order="2" side_tool="true" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
     </layout-to-restore>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="multiClassSVm for variable selection" />
@@ -1095,15 +944,7 @@
           <url>file://$PROJECT_DIR$/threadingTest.py</url>
           <option name="timeStamp" value="9" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py</url>
-          <line>27</line>
-          <option name="timeStamp" value="97" />
-        </line-breakpoint>
       </breakpoints>
-      <breakpoints-dialog>
-        <breakpoints-dialog />
-      </breakpoints-dialog>
       <default-breakpoints>
         <breakpoint type="python-exception">
           <properties notifyOnTerminate="true" exception="BaseException">
@@ -1111,165 +952,9 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="100" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/abraxasOne/sliceAndWindow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4020">
-          <caret line="271" column="68" selection-start-line="271" selection-start-column="68" selection-end-line="271" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/normData.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/sklearn/svm/base.py" />
-    <entry file="file://$PROJECT_DIR$/abraxasOne/plotMatrixWithValues.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="8" column="31" lean-forward="true" selection-start-line="8" selection-start-column="31" selection-end-line="8" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/trainSVC.py" />
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/gaitSVC.py" />
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/gaitDet.py" />
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/oneClassSVM.py" />
-    <entry file="file://$PROJECT_DIR$/crossVal.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1092">
-          <caret line="73" column="52" lean-forward="true" selection-start-line="73" selection-start-column="52" selection-end-line="73" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasOne/oneClassLearning.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="24">
-          <caret line="24" column="15" lean-forward="true" selection-start-line="24" selection-start-column="15" selection-end-line="24" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="31" column="26" lean-forward="true" selection-start-line="29" selection-end-line="31" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/trainSVC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" column="23" selection-start-line="13" selection-start-column="23" selection-end-line="13" selection-end-column="23" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/getFeatures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="174">
-          <caret line="15" lean-forward="true" selection-start-line="15" selection-end-line="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/windowDataSet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1095">
-          <caret line="75" column="37" selection-start-line="75" selection-start-column="37" selection-end-line="75" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/20187111410.txt" />
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/normalize.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="3" selection-start-column="3" selection-end-column="3" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/CLeVerOne.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="184">
-          <caret line="38" column="35" lean-forward="true" selection-start-line="38" selection-start-column="35" selection-end-line="38" selection-end-column="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/loadFile.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="45">
-          <caret line="6" selection-start-line="6" selection-end-line="7" selection-end-column="109" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/readDataSet.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="630">
-          <caret line="42" selection-start-line="40" selection-start-column="19" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/h5py/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="35" selection-start-line="35" selection-end-line="35" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/anomalySV.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="25" column="44" selection-start-line="25" selection-start-column="44" selection-end-line="25" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/numpy/core/_methods.py" />
-    <entry file="file://$PROJECT_DIR$/2018716150.txt" />
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/trainDumbSVC.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1305">
-          <caret line="91" column="17" selection-start-line="91" selection-start-column="17" selection-end-line="91" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/lib/python3.5/multiprocessing/popen_fork.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="28" selection-start-line="28" selection-end-line="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/receiveData.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="203" selection-start-line="203" selection-end-line="203" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/.local/lib/python3.5/site-packages/sklearn/preprocessing/label.py" />
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/extractFeatures.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="90">
-          <caret line="6" column="80" selection-start-line="6" selection-start-column="19" selection-end-line="6" selection-end-column="80" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/threadingTest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="88" column="36" selection-start-line="88" selection-start-column="36" selection-end-line="88" selection-end-column="36" />
-          <folding>
-            <element signature="e#0#22#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasTwo/miscFunc.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="506">
-          <caret line="93" column="57" selection-start-line="84" selection-start-column="4" selection-end-line="93" selection-end-column="57" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/algs.py" />
     <entry file="file://$PROJECT_DIR$/tscAlgs/dtwSin.txt" />
     <entry file="file://$PROJECT_DIR$/tscAlgs/dtw02_sinc.py">
@@ -1321,38 +1006,25 @@
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/lib/python3.5/multiprocessing/process.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="638">
-          <caret line="248" selection-start-line="248" selection-end-line="248" />
-        </state>
-      </provider>
+    <entry file="file:///usr/lib/python3.5/multiprocessing/process.py" />
+    <entry file="file://$PROJECT_DIR$/classifiers/190719.py" />
+    <entry file="file://$PROJECT_DIR$/abraxas5/anomaly.pkl">
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
+    <entry file="file://$PROJECT_DIR$/abraxasOne/plotSerialData.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="8" selection-start-line="8" selection-end-line="8" />
+        <state relative-caret-position="135">
+          <caret line="15" column="18" selection-start-line="15" selection-start-column="18" selection-end-line="15" selection-end-column="18" />
           <folding>
-            <element signature="e#0#18#0" expanded="true" />
+            <element signature="e#0#13#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/classifiers/190719.py" />
     <entry file="file://$PROJECT_DIR$/misc/livePlotBno.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="150">
-          <caret line="10" column="16" selection-start-line="10" selection-start-column="16" selection-end-line="10" selection-end-column="16" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/xgboostClassification.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="600">
-          <caret line="40" column="27" selection-start-line="38" selection-end-line="40" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
+          <caret line="10" column="45" selection-start-line="10" selection-start-column="45" selection-end-line="10" selection-end-column="45" />
         </state>
       </provider>
     </entry>
@@ -1363,272 +1035,12 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/abraxas5/anomaly.pkl">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
+    <entry file="file://$PROJECT_DIR$/classifiers/crossVal_clf.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="840">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="1620">
+          <caret line="109" selection-start-line="109" selection-end-line="109" selection-end-column="51" />
           <folding>
-            <element signature="e#1#39#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxasOne/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/abraxas4/abraxasFrame.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4320">
-          <caret line="1572" column="4" selection-start-line="1572" selection-start-column="4" selection-end-line="1572" selection-end-column="4" />
-          <folding>
-            <element signature="e#24#114#1" />
-            <element signature="e#115#128#0" expanded="true" />
-            <element signature="e#2317#2387#0" />
-            <element signature="e#4290#4946#0" />
-            <element signature="e#4290#4521#1" />
-            <element signature="e#5012#5594#1" />
-            <element signature="e#5989#7257#0" />
-            <element signature="e#5989#6406#1" />
-            <element signature="e#6543#7094#0" />
-            <element signature="e#6578#7094#0" />
-            <element signature="e#6639#6890#0" />
-            <element signature="e#6933#7094#0" />
-            <element signature="e#6939#7093#0" />
-            <element signature="e#7121#7257#0" />
-            <element signature="e#7127#7256#0" />
-            <element signature="e#7306#7842#0" />
-            <element signature="e#7306#7523#1" />
-            <element signature="e#7916#12917#0" />
-            <element signature="e#7916#8656#1" />
-            <element signature="e#8701#9456#0" />
-            <element signature="e#8769#9337#0" />
-            <element signature="e#8837#9033#0" />
-            <element signature="e#9076#9337#0" />
-            <element signature="e#9136#9276#0" />
-            <element signature="e#9502#10254#0" />
-            <element signature="e#9570#10138#0" />
-            <element signature="e#9638#9834#0" />
-            <element signature="e#9877#10138#0" />
-            <element signature="e#9937#10077#0" />
-            <element signature="e#10301#11523#0" />
-            <element signature="e#10403#11523#0" />
-            <element signature="e#10453#11248#0" />
-            <element signature="e#10496#11149#0" />
-            <element signature="e#10565#10856#0" />
-            <element signature="e#10690#10856#0" />
-            <element signature="e#10915#11149#0" />
-            <element signature="e#10921#11148#0" />
-            <element signature="e#11291#11523#0" />
-            <element signature="e#11297#11522#0" />
-            <element signature="e#12029#12917#0" />
-            <element signature="e#12070#12917#0" />
-            <element signature="e#12101#12392#0" />
-            <element signature="e#12442#12658#0" />
-            <element signature="e#12701#12917#0" />
-            <element signature="e#13045#15016#0" />
-            <element signature="e#13045#13896#1" />
-            <element signature="e#14114#14365#0" />
-            <element signature="e#14392#14526#0" />
-            <element signature="e#14398#14525#0" />
-            <element signature="e#14614#14680#0" />
-            <element signature="e#14856#15016#0" />
-            <element signature="e#15081#17858#0" />
-            <element signature="e#15081#15809#1" />
-            <element signature="e#16056#17769#0" />
-            <element signature="e#17913#24590#0" />
-            <element signature="e#17913#18430#1" />
-            <element signature="e#20326#21273#0" />
-            <element signature="e#20643#21216#0" />
-            <element signature="e#20966#21216#0" />
-            <element signature="e#21357#22308#0" />
-            <element signature="e#21676#22249#0" />
-            <element signature="e#21999#22249#0" />
-            <element signature="e#22396#23347#0" />
-            <element signature="e#22715#23288#0" />
-            <element signature="e#23038#23288#0" />
-            <element signature="e#23472#23605#0" />
-            <element signature="e#23703#23839#0" />
-            <element signature="e#23922#24059#0" />
-            <element signature="e#24143#24280#0" />
-            <element signature="e#24364#24499#0" />
-            <element signature="e#24635#25864#0" />
-            <element signature="e#24635#24758#1" />
-            <element signature="e#25938#28790#0" />
-            <element signature="e#25938#26385#1" />
-            <element signature="e#26443#26513#0" />
-            <element signature="e#26540#28790#0" />
-            <element signature="e#26688#26881#0" />
-            <element signature="e#26987#28208#0" />
-            <element signature="e#27639#27754#0" />
-            <element signature="e#27816#27933#0" />
-            <element signature="e#27995#28112#0" />
-            <element signature="e#28252#28657#0" />
-            <element signature="e#28324#28657#0" />
-            <element signature="e#28388#28593#0" />
-            <element signature="e#28838#35637#0" />
-            <element signature="e#28838#29034#1" />
-            <element signature="e#29295#31215#0" />
-            <element signature="e#29352#31215#0" />
-            <element signature="e#30174#30291#0" />
-            <element signature="e#30367#30484#0" />
-            <element signature="e#30574#31215#0" />
-            <element signature="e#30878#31004#0" />
-            <element signature="e#31089#31215#0" />
-            <element signature="e#31378#33056#0" />
-            <element signature="e#31502#33056#0" />
-            <element signature="e#32119#32346#0" />
-            <element signature="e#32523#32646#0" />
-            <element signature="e#32728#32851#0" />
-            <element signature="e#32933#33056#0" />
-            <element signature="e#33135#33941#0" />
-            <element signature="e#33192#33941#0" />
-            <element signature="e#33247#33941#0" />
-            <element signature="e#33358#33941#0" />
-            <element signature="e#33493#33941#0" />
-            <element signature="e#33493#33569#0" />
-            <element signature="e#33989#35155#0" />
-            <element signature="e#34046#35155#0" />
-            <element signature="e#34115#35155#0" />
-            <element signature="e#34890#34983#0" />
-            <element signature="e#35062#35155#0" />
-            <element signature="e#35200#35393#0" />
-            <element signature="e#35257#35393#0" />
-            <element signature="e#35313#35393#0" />
-            <element signature="e#35683#35714#0" />
-            <element signature="e#35767#37231#0" />
-            <element signature="e#35767#36068#1" />
-            <element signature="e#36137#36379#0" />
-            <element signature="e#36165#36379#0" />
-            <element signature="e#36641#36982#0" />
-            <element signature="e#36722#36858#0" />
-            <element signature="e#37009#37231#0" />
-            <element signature="e#37043#37125#0" />
-            <element signature="e#37303#42924#0" />
-            <element signature="e#37303#37748#1" />
-            <element signature="e#37820#40575#0" />
-            <element signature="e#38057#38711#0" />
-            <element signature="e#38167#38655#0" />
-            <element signature="e#38559#38655#0" />
-            <element signature="e#38778#39563#0" />
-            <element signature="e#38917#39498#0" />
-            <element signature="e#39374#39498#0" />
-            <element signature="e#39632#40336#0" />
-            <element signature="e#39746#40276#0" />
-            <element signature="e#40149#40276#0" />
-            <element signature="e#40602#42924#0" />
-            <element signature="e#40681#40835#0" />
-            <element signature="e#40687#40834#0" />
-            <element signature="e#40870#42924#0" />
-            <element signature="e#40927#41409#0" />
-            <element signature="e#41161#41409#0" />
-            <element signature="e#41220#41409#0" />
-            <element signature="e#41331#41359#0" />
-            <element signature="e#41484#42043#0" />
-            <element signature="e#41782#42043#0" />
-            <element signature="e#41841#42043#0" />
-            <element signature="e#42120#42637#0" />
-            <element signature="e#42373#42637#0" />
-            <element signature="e#42432#42637#0" />
-            <element signature="e#42759#42892#0" />
-            <element signature="e#42765#42891#0" />
-            <element signature="e#43026#47366#0" />
-            <element signature="e#43026#43631#1" />
-            <element signature="e#43675#43856#0" />
-            <element signature="e#43763#43856#0" />
-            <element signature="e#44176#45155#0" />
-            <element signature="e#44546#45155#0" />
-            <element signature="e#44645#44811#0" />
-            <element signature="e#45035#45155#0" />
-            <element signature="e#45505#45988#0" />
-            <element signature="e#45556#45988#0" />
-            <element signature="e#45710#45858#0" />
-            <element signature="e#45901#45988#0" />
-            <element signature="e#46062#46559#0" />
-            <element signature="e#46233#46559#0" />
-            <element signature="e#46306#46415#0" />
-            <element signature="e#46458#46559#0" />
-            <element signature="e#46586#46850#0" />
-            <element signature="e#46592#46849#0" />
-            <element signature="e#47059#47182#0" />
-            <element signature="e#47453#48080#0" />
-            <element signature="e#47453#47637#1" />
-            <element signature="e#47680#47847#0" />
-            <element signature="e#47874#48007#0" />
-            <element signature="e#48171#51611#0" />
-            <element signature="e#48171#48361#1" />
-            <element signature="e#48438#48622#0" />
-            <element signature="e#48541#48622#0" />
-            <element signature="e#48750#51190#0" />
-            <element signature="e#48992#49494#0" />
-            <element signature="e#49044#49494#0" />
-            <element signature="e#49529#50064#0" />
-            <element signature="e#49639#50064#0" />
-            <element signature="e#50134#50774#0" />
-            <element signature="e#50275#50620#0" />
-            <element signature="e#50329#50584#0" />
-            <element signature="e#51217#51611#0" />
-            <element signature="e#51288#51585#0" />
-            <element signature="e#51690#52944#0" />
-            <element signature="e#51690#51955#1" />
-            <element signature="e#51999#52202#0" />
-            <element signature="e#52109#52202#0" />
-            <element signature="e#52254#52402#0" />
-            <element signature="e#52539#52707#0" />
-            <element signature="e#53017#53793#0" />
-            <element signature="e#53017#53228#1" />
-            <element signature="e#53280#53428#0" />
-            <element signature="e#53531#53686#0" />
-            <element signature="e#53853#54440#0" />
-            <element signature="e#53853#54019#1" />
-            <element signature="e#54071#54219#0" />
-            <element signature="e#54499#55027#0" />
-            <element signature="e#54499#54666#1" />
-            <element signature="e#54718#54866#0" />
-            <element signature="e#55080#55439#1" />
-            <element signature="e#60255#60386#0" />
-            <element signature="e#61715#62148#0" />
-            <element signature="e#62175#62631#0" />
-            <element signature="e#62214#62532#0" />
-            <element signature="e#62270#62428#0" />
-            <element signature="e#62697#65353#0" />
-            <element signature="e#62697#63343#1" />
-            <element signature="e#63551#63763#0" />
-            <element signature="e#63618#63763#0" />
-            <element signature="e#63856#64051#0" />
-            <element signature="e#64232#64790#0" />
-            <element signature="e#64432#64674#0" />
-            <element signature="e#64954#65263#0" />
-            <element signature="e#65013#65168#0" />
-            <element signature="e#65413#67037#0" />
-            <element signature="e#65473#65686#0" />
-            <element signature="e#65501#65686#0" />
-            <element signature="e#65765#66550#0" />
-            <element signature="e#65818#65907#0" />
-            <element signature="e#65942#66550#0" />
-            <element signature="e#66287#66407#0" />
-            <element signature="e#66577#67037#0" />
-            <element signature="e#66611#66943#0" />
-            <element signature="e#66674#66841#0" />
-            <element signature="e#67090#67578#0" />
-            <element signature="e#67090#67215#1" />
-            <element signature="e#67267#67415#0" />
-            <element signature="e#67635#68267#0" />
-            <element signature="e#67635#67829#1" />
-            <element signature="e#67881#68029#0" />
-            <element signature="e#68321#69481#0" />
-            <element signature="e#68321#68463#1" />
-            <element signature="e#68515#68663#0" />
-            <element signature="e#68921#69139#0" />
-            <element signature="e#69535#70399#0" />
-            <element signature="e#69535#69833#1" />
-            <element signature="e#69885#70033#0" />
-            <element signature="e#70516#71345#0" />
-            <element signature="e#70516#70864#1" />
-            <element signature="e#71103#71244#0" />
-            <element signature="e#71143#71244#0" />
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1640,13 +1052,406 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/xgboostClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="510">
+          <caret line="40" column="27" selection-start-line="38" selection-end-line="40" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasOne/qtPlotSerialData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="330">
+          <caret line="27" column="27" selection-start-line="27" selection-start-column="27" selection-end-line="27" selection-end-column="27" />
+          <folding>
+            <element signature="e#1#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxasOne/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/misc/densitiesRABE.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="8" selection-start-line="8" selection-end-line="8" />
+          <folding>
+            <element signature="e#0#18#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.local/lib/python3.6/site-packages/numpy/lib/npyio.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="626">
+          <caret line="1057" selection-start-line="1057" selection-end-line="1057" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/.PyCharmCE2018.3/system/python_stubs/-1247971763/numpy/core/_multiarray_umath.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="748" column="4" selection-start-line="748" selection-start-column="4" selection-end-line="748" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/lib/python3.6/tkinter/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="3506" selection-start-line="3506" selection-end-line="3506" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/liveClassification/gather_data.py" />
+    <entry file="file://$PROJECT_DIR$/../pyRolle/ocsvm.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="193">
+          <caret line="20" selection-start-line="20" selection-end-line="83" selection-end-column="120" />
+          <folding>
+            <element signature="e#22#75#1" />
+            <element signature="e#77#95#0" expanded="true" />
+            <element signature="e#634#4010#0" />
+            <element signature="e#4055#4285#0" />
+            <element signature="e#4332#6152#0" />
+            <element signature="e#4332#5098#1" />
+            <element signature="e#5377#6027#0" />
+            <element signature="e#5452#5912#0" />
+            <element signature="e#5553#5839#0" />
+            <element signature="e#5582#5766#0" />
+            <element signature="e#5947#6027#0" />
+            <element signature="e#5989#6027#0" />
+            <element signature="e#6516#9769#0" />
+            <element signature="e#6516#7337#1" />
+            <element signature="e#7897#7999#0" />
+            <element signature="e#8114#8216#0" />
+            <element signature="e#8371#9354#0" />
+            <element signature="e#8495#8607#0" />
+            <element signature="e#8749#8855#0" />
+            <element signature="e#9000#9106#0" />
+            <element signature="e#9245#9354#0" />
+            <element signature="e#9473#9578#0" />
+            <element signature="e#9890#12041#0" />
+            <element signature="e#9890#10675#1" />
+            <element signature="e#10863#11080#0" />
+            <element signature="e#11107#11531#0" />
+            <element signature="e#11279#11413#0" />
+            <element signature="e#11285#11412#0" />
+            <element signature="e#11621#11689#0" />
+            <element signature="e#11875#12041#0" />
+            <element signature="e#12111#14058#0" />
+            <element signature="e#12111#12703#1" />
+            <element signature="e#12763#12845#0" />
+            <element signature="e#12872#14058#0" />
+            <element signature="e#13105#13470#0" />
+            <element signature="e#13516#13966#0" />
+            <element signature="e#13590#13939#0" />
+            <element signature="e#14144#17515#0" />
+            <element signature="e#14144#14874#1" />
+            <element signature="e#15124#16197#0" />
+            <element signature="e#16326#17515#0" />
+            <element signature="e#16326#16461#1" />
+            <element signature="e#16981#17099#0" />
+            <element signature="e#17580#18570#0" />
+            <element signature="e#17580#17996#1" />
+            <element signature="e#18064#18297#0" />
+            <element signature="e#18335#18570#0" />
+            <element signature="e#18397#18547#0" />
+            <element signature="e#18619#24826#0" />
+            <element signature="e#18619#18815#1" />
+            <element signature="e#19084#20331#0" />
+            <element signature="e#19141#20331#0" />
+            <element signature="e#19994#20121#0" />
+            <element signature="e#20204#20331#0" />
+            <element signature="e#20507#22189#0" />
+            <element signature="e#20633#22189#0" />
+            <element signature="e#21247#21451#0" />
+            <element signature="e#21637#21765#0" />
+            <element signature="e#21849#21977#0" />
+            <element signature="e#22061#22189#0" />
+            <element signature="e#22270#24300#0" />
+            <element signature="e#22327#22932#0" />
+            <element signature="e#22383#22932#0" />
+            <element signature="e#22497#22932#0" />
+            <element signature="e#22636#22932#0" />
+            <element signature="e#22989#24300#0" />
+            <element signature="e#23050#24300#0" />
+            <element signature="e#23123#24300#0" />
+            <element signature="e#24008#24110#0" />
+            <element signature="e#24198#24300#0" />
+            <element signature="e#24371#24568#0" />
+            <element signature="e#24428#24568#0" />
+            <element signature="e#24485#24568#0" />
+            <element signature="e#24866#27012#0" />
+            <element signature="e#24866#25231#1" />
+            <element signature="e#25277#25371#0" />
+            <element signature="e#25505#26887#0" />
+            <element signature="e#25779#26194#0" />
+            <element signature="e#25871#26042#0" />
+            <element signature="e#26476#26887#0" />
+            <element signature="e#26568#26743#0" />
+            <element signature="e#27071#30920#0" />
+            <element signature="e#27071#27220#1" />
+            <element signature="e#28241#28806#0" />
+            <element signature="e#28396#28599#0" />
+            <element signature="e#28634#28806#0" />
+            <element signature="e#28911#29056#0" />
+            <element signature="e#29248#30785#0" />
+            <element signature="e#29441#29595#0" />
+            <element signature="e#29928#30676#0" />
+            <element signature="e#30059#30306#0" />
+            <element signature="e#30154#30306#0" />
+            <element signature="e#30446#30676#0" />
+            <element signature="e#30536#30676#0" />
+            <element signature="e#30812#30920#0" />
+            <element signature="e#30960#31198#0" />
+            <element signature="e#31537#31678#0" />
+            <element signature="e#31731#31878#0" />
+            <element signature="e#31987#32032#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/gather_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="225">
+          <caret line="18" column="34" selection-start-line="18" selection-start-column="34" selection-end-line="18" selection-end-column="34" />
+          <folding>
+            <element signature="e#2#20#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/feature_extractor.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="120">
+          <caret line="8" column="8" selection-start-line="8" selection-start-column="8" selection-end-line="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/wavelets.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="8" column="35" selection-start-line="8" selection-start-column="13" selection-end-line="8" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dwt_demo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="405">
+          <caret line="31" column="25" selection-start-line="31" selection-start-column="25" selection-end-line="31" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/multiClassSVM.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="60">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/read_and_plot_file.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="508">
+          <caret line="32" column="9" selection-start-line="32" selection-start-column="9" selection-end-line="32" selection-end-column="9" />
+          <caret line="45" column="36" selection-start-line="45" selection-start-column="36" selection-end-line="45" selection-end-column="36" />
+          <folding>
+            <element signature="e#55#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/live_classification/classifier.py" />
+    <entry file="file://$PROJECT_DIR$/../pyRolle/live_classification/train classifier.py" />
+    <entry file="file://$PROJECT_DIR$/../pyRolle/live_classification/get_data.py" />
+    <entry file="file://$PROJECT_DIR$/../pyRolle/liveClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="896">
+          <caret line="125" column="41" selection-start-line="125" selection-start-column="41" selection-end-line="125" selection-end-column="41" />
+          <folding>
+            <element signature="e#25#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/gait_clf_two_class.pkl">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/dumps">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/live_clf.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="871">
+          <caret line="841" column="36" selection-start-line="841" selection-start-column="36" selection-end-line="841" selection-end-column="36" />
+          <folding>
+            <element signature="e#77#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/gaitClassification_testData.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="16" column="23" selection-start-line="16" selection-start-column="23" selection-end-line="17" selection-end-column="48" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classifiers/dtUserId.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/erg1819.py" />
+    <entry file="file://$USER_HOME$/.local/lib/python2.7/site-packages/matplotlib/axes/_base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="208">
+          <caret line="1792" selection-start-line="1792" selection-end-line="1792" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/abraxasThree/classifierClass.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="882">
-          <caret line="1520" column="37" selection-start-line="1520" selection-start-column="37" selection-end-line="1520" selection-end-column="37" />
+        <state relative-caret-position="135">
+          <caret line="21" selection-start-line="21" selection-end-line="21" />
           <folding>
             <element signature="e#24#72#1" />
+            <element signature="e#73#86#0" expanded="true" />
+            <element signature="e#727#4067#0" />
             <element signature="e#2246#2316#0" />
+            <element signature="e#4130#4786#0" />
+            <element signature="e#4130#4361#1" />
+            <element signature="e#4852#5777#0" />
+            <element signature="e#4852#5434#1" />
+            <element signature="e#5829#7097#0" />
+            <element signature="e#5829#6246#1" />
+            <element signature="e#6383#6934#0" />
+            <element signature="e#6418#6934#0" />
+            <element signature="e#6479#6730#0" />
+            <element signature="e#6773#6934#0" />
+            <element signature="e#6779#6933#0" />
+            <element signature="e#6961#7097#0" />
+            <element signature="e#6967#7096#0" />
+            <element signature="e#7146#7682#0" />
+            <element signature="e#7146#7363#1" />
+            <element signature="e#7756#12757#0" />
+            <element signature="e#7756#8496#1" />
+            <element signature="e#8541#9296#0" />
+            <element signature="e#8609#9177#0" />
+            <element signature="e#8677#8873#0" />
+            <element signature="e#8916#9177#0" />
+            <element signature="e#8976#9116#0" />
+            <element signature="e#9342#10094#0" />
+            <element signature="e#9410#9978#0" />
+            <element signature="e#9478#9674#0" />
+            <element signature="e#9717#9978#0" />
+            <element signature="e#9777#9917#0" />
+            <element signature="e#10141#11363#0" />
+            <element signature="e#10243#11363#0" />
+            <element signature="e#10293#11088#0" />
+            <element signature="e#10336#10989#0" />
+            <element signature="e#10405#10696#0" />
+            <element signature="e#10530#10696#0" />
+            <element signature="e#10755#10989#0" />
+            <element signature="e#10761#10988#0" />
+            <element signature="e#11131#11363#0" />
+            <element signature="e#11137#11362#0" />
+            <element signature="e#11869#12757#0" />
+            <element signature="e#11910#12757#0" />
+            <element signature="e#11941#12232#0" />
+            <element signature="e#12282#12498#0" />
+            <element signature="e#12541#12757#0" />
+            <element signature="e#12885#14856#0" />
+            <element signature="e#12885#13736#1" />
+            <element signature="e#13954#14205#0" />
+            <element signature="e#14232#14366#0" />
+            <element signature="e#14238#14365#0" />
+            <element signature="e#14454#14520#0" />
+            <element signature="e#14696#14856#0" />
+            <element signature="e#14921#17037#0" />
+            <element signature="e#14921#15649#1" />
+            <element signature="e#15896#16948#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classifiers/gNbUserId.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="13" selection-start-line="42" selection-start-column="13" selection-end-line="42" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/abraxas4/abraxasFrame.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="3150">
+          <caret line="221" column="63" selection-start-line="221" selection-start-column="63" selection-end-line="221" selection-end-column="63" />
+          <folding>
+            <element signature="e#24#114#1" />
+            <element signature="e#130#145#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/readFiles.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="840">
+          <caret line="56" column="26" lean-forward="true" selection-start-line="56" selection-start-column="26" selection-end-line="56" selection-end-column="26" />
+          <folding>
+            <element signature="e#55#73#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/dictLearning/v02_ecg.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="123" column="33" lean-forward="true" selection-start-line="123" selection-start-column="33" selection-end-line="123" selection-end-column="33" />
+          <folding>
+            <element signature="e#1#19#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/dictLearning/v01.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2805">
+          <caret line="691" column="41" selection-start-line="691" selection-start-column="41" selection-end-line="691" selection-end-column="41" />
+          <folding>
+            <element signature="e#77#95#0" expanded="true" />
+            <element signature="e#4312#4631#0" />
+            <element signature="e#6843#10062#0" />
+            <element signature="e#10183#12334#0" />
+            <element signature="e#12404#14382#0" />
+            <element signature="e#14468#17839#0" />
+            <element signature="e#17904#18894#0" />
+            <element signature="e#18942#29582#0" />
+            <element signature="e#29622#31768#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/curveClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="552">
+          <caret line="996" column="17" selection-start-line="996" selection-start-column="17" selection-end-line="1020" selection-end-column="22" />
+          <folding>
+            <element signature="e#77#95#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../pyRolle/gaitClassification.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="207">
+          <caret line="470" column="36" lean-forward="true" selection-start-line="470" selection-start-column="36" selection-end-line="470" selection-end-column="36" />
+          <folding>
+            <element signature="e#22#75#1" />
+            <element signature="e#77#95#0" expanded="true" />
           </folding>
         </state>
       </provider>

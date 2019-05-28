@@ -377,144 +377,7 @@ class AbraxasClassifier:
         else:
             print("(setWindowFunction) Give str as window function name.")
 
-    def loadFile(self, fileName, filePath):
-
-        """
-        Load data from single .txt-file, ensure 0 < analogData < 1023 (1), split data to infrared, force, quaternion,
-        linear acceleration and angular velocity data. Also interpolate bno data linearly (same axis as analog data).
-        Consider self.__angVecNormFact, self,__linAccNormFact, self.__quatNormFact, self.__anaNormFact!
-
-        :param fileName:
-        :param filePath:
-        :return: irData, forceData, quatData, linAccData and angVecData. Each as an np.ndarray with time axis.
-        """
-
-        # load data from file:
-        data = np.loadtxt(filePath + fileName, delimiter=',', comments="%")
-        cols = np.size(data[0, ::])
-
-        # ir data (clean transmission errors):
-        irData = data[::, 0:self.__numIrSensors]
-        irData[irData > self.__anaNormFact] = self.__anaNormFact
-        irData[irData < 0] = 0
-        irData = irData / self.__anaNormFact
-
-        # force Data (clean transmission errors):
-        forceData = self.__anaNormFact - data[::, self.__numIrSensors:self.__nrAnalogSensors]
-        forceData[forceData > self.__anaNormFact] = self.__anaNormFact
-        forceData[forceData < 0] = 0
-        forceData = forceData / self.__anaNormFact
-
-        # handle bno data (normalize):
-        temp = data[data[::, cols - 1] == 0]  # get lines with quatData
-        quatData = temp[::, self.__nrAnalogSensors:(
-                self.__nrAnalogSensors + 4)] / self.__quatNormFact  # normalization (14 bit) and scale as analog data
-        temp = data[data[::, cols - 1] == 1]  # get lines with lin acc data
-        linAccData = temp[::, self.__nrAnalogSensors:(self.__nrAnalogSensors + 3)] / self.__linAccNormFact
-        temp = data[data[::, cols - 1] == 2]  # get lines with ang vec data
-        angVecData = temp[::, self.__nrAnalogSensors:(self.__nrAnalogSensors + 3)] / self.__angVecNormFact
-
-        # quat, linaAcc and angVec possibly of different length ...:
-        bnoDataSize = np.min([np.size(quatData[::, 0]), np.size(linAccData[::, 0]), np.size(angVecData[::, 0])])
-        quatData = quatData[:bnoDataSize, ::]
-        linAccData = linAccData[:bnoDataSize, ::]
-        angVecData = angVecData[:bnoDataSize, ::]
-
-        tAxisAnalog = np.linspace(0, self.__sampleT * (np.size(irData[::, 0]) - 1), np.size(irData[::, 0]))
-
-        quatDataTemp = []
-        linAccDataTemp = []
-        angVecDataTemp = []
-        for i in range(4):
-            tempData = quatData[::, 3]
-            tempAxis = np.linspace(0, 3 * self.__sampleT * bnoDataSize, bnoDataSize)
-            dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-            try:
-                quatData[i] = dataInterp(tAxisAnalog)
-            except ValueError:
-                tempData = np.concatenate([tempData, np.array([0])])
-                tempAxis = np.linspace(0, 3 * self.__sampleT * (bnoDataSize + 1), bnoDataSize + 1)
-                try:
-                    dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-                except ValueError:
-                    tempData = np.concatenate([tempData, np.array([0])])
-                    tempAxis = np.linspace(0, 3 * self.__sampleT * (bnoDataSize + 2), bnoDataSize + 2)
-                    dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-            quatDataTemp.append(dataInterp(tAxisAnalog))
-        quatData = np.array(quatDataTemp).T
-        for i in range(3):
-            tempData = linAccData[::, i]
-            tempAxis = np.linspace(0, 3 * self.__sampleT * bnoDataSize, bnoDataSize)
-            dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-            try:
-                quatData[i] = dataInterp(tAxisAnalog)
-            except ValueError:
-                tempData = np.concatenate([tempData, np.array([0])])
-                tempAxis = np.linspace(0, 3 * self.__sampleT * (bnoDataSize + 1), bnoDataSize + 1)
-                try:
-                    dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-                except ValueError:
-                    tempData = np.concatenate([tempData, np.array([0])])
-                    tempAxis = np.linspace(0, 3 * self.__sampleT * (bnoDataSize + 2), bnoDataSize + 2)
-                    dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-            linAccDataTemp.append(dataInterp(tAxisAnalog))
-        linAccData = np.array(linAccDataTemp).T
-        for i in range(3):
-            tempData = angVecData[::, i]
-            tempAxis = np.linspace(0, 3 * self.__sampleT * bnoDataSize, bnoDataSize)
-            dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-            try:
-                quatData[i] = dataInterp(tAxisAnalog)
-            except ValueError:
-                tempData = np.concatenate([tempData, np.array([0])])
-                tempAxis = np.linspace(0, 3 * self.__sampleT * (bnoDataSize + 1), bnoDataSize + 1)
-                try:
-                    dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-                except ValueError:
-                    tempData = np.concatenate([tempData, np.array([0])])
-                    tempAxis = np.linspace(0, 3 * self.__sampleT * (bnoDataSize + 2), bnoDataSize + 2)
-                    dataInterp = scipy.interpolate.interp1d(tempAxis, tempData, kind='linear')
-            angVecDataTemp.append(dataInterp(tAxisAnalog))
-        angVecData = np.array(angVecDataTemp).T
-
-        temp = []
-        for i in range(self.__numIrSensors):
-            temp2 = []
-            temp2.append(tAxisAnalog)
-            temp2.append(irData[::, i])
-            temp.append(np.transpose(temp2))
-        irData = temp
-        temp = []
-        for i in range(self.__numFrSensors):
-            temp2 = []
-            temp2.append(tAxisAnalog)
-            temp2.append(forceData[::, i])
-            temp.append(np.transpose(temp2))
-        forceData = temp
-        temp = []
-        for i in range(3):
-            temp2 = []
-            temp2.append(tAxisAnalog)
-            temp2.append(linAccData[::, i])
-            temp.append(np.transpose(temp2))
-        linAccData = temp
-        temp = []
-        for i in range(3):
-            temp2 = []
-            temp2.append(tAxisAnalog)
-            temp2.append(angVecData[::, i])
-            temp.append(np.transpose(temp2))
-        angVecData = temp
-        temp = []
-        for i in range(4):
-            temp2 = []
-            temp2.append(tAxisAnalog)
-            temp2.append(quatData[::, i])
-            temp.append(np.transpose(temp2))
-        quatData = temp
-        return irData, forceData, quatData, linAccData, angVecData
-
-    def plotWindowFunction(self):
+    def plotWindowFunction(self,):
 
         """
         Simply plot time function and spectrum of window function. Only for convenience.
@@ -733,7 +596,7 @@ class AbraxasClassifier:
 
         return featureVector
 
-    def returnFeatureIndices(self):
+    def returnFeatureIndices(self,):
         return self.__featureOfVariable
 
     def initFeatureQueue(self, opt=None):
@@ -1152,8 +1015,7 @@ class AbraxasClassifier:
             else:
                 dumpName = dumpName + ".pkl"
         else:
-            dumpName = "normValDump.pkl"
-
+            dumpName = "normValDump.pk
         with open(dumpName, 'rb') as normValDump:
             self.__normVal = cPickle.load(normValDump)
 
@@ -1479,7 +1341,7 @@ if __name__ == '__main__':
     b.testClassifier()
 
     # b.startLiveClassification()
-    """
+    
 
     # xbg:
     """

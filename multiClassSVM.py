@@ -2,7 +2,7 @@ import numpy as np
 from sklearn import svm
 import matplotlib.pyplot as plt
 from six.moves import cPickle
-from  abraxasOne.splitDataTrainTest import splitDataTrainTest
+from abraxasOne.splitDataTrainTest import splitDataTrainTest
 from abraxasOne.plotMatrixWithValues import plotMatrixWithValues
 
 files = ["igor.txt", "chris_c.txt", "ankita_pos2_lrRl.txt", "igor2.txt", "chris1.txt", "chris_pos2.txt", "ben.txt", "markus.txt", "markusSchnell.txt"]

@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/pyAbraxas.iml" filepath="$PROJECT_DIR$/.idea/pyAbraxas.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../pyRolle/.idea/pyRolle.iml" filepath="$PROJECT_DIR$/../pyRolle/.idea/pyRolle.iml" />
     </modules>
   </component>
 </project>

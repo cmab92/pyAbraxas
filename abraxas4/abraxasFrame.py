@@ -7,7 +7,7 @@ cb, 11.07.2018
  - adding
 
 """
-import serial
+#import serial
 import datetime
 import csv
 import pywt

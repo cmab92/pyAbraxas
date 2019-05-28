@@ -13,8 +13,10 @@ gNbAbra = AbraxasFrame(numIrSensors=10, numFrSensors=2, windowWidth=50, windowSh
 
 gNbAbra.setWindowFunction(functionName='tukey', alpha=0.1)
 
-gNbAbra.selectSensorSubset(selectedSensors=[False, True, True], sensorType='bno')
-
+gNbAbra.selectSensorSubset(selectedSensors=[False, False, False], sensorType='bno')
+gNbAbra.selectSensorSubset(selectedSensors=[0, 1, 2], sensorType='ir')
+gNbAbra.selectSensorSubset(selectedSensors=[], sensorType='fr')
+'''
 gNbAbra.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=3550, stopTime=3800, label=0,
                className="not walking")
 gNbAbra.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=300, stopTime=500, label=0)
@@ -31,6 +33,7 @@ gNbAbra.addDataFiles(fileSourceName="nowalk2.txt", fileSourcePath="../", startTi
 gNbAbra.addDataFiles(fileSourceName="nowalk3.txt", fileSourcePath="../", startTime=0, stopTime=10000, label=0)
 gNbAbra.addDataFiles(fileSourceName="chris2.txt", fileSourcePath="../", startTime=0, stopTime=1000, label=0)
 gNbAbra.addDataFiles(fileSourceName="chrisOut.txt", fileSourcePath="../", startTime=9000, stopTime=12000, label=0)
+'''
 gNbAbra.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=24000, stopTime=26000, label=0)
 
 gNbAbra.addDataFiles(fileSourceName="ankita.txt", fileSourcePath="../", startTime=200, stopTime=1900, label=1,
@@ -47,7 +50,6 @@ gNbAbra.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", start
 gNbAbra.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=4250, stopTime=5250, label=2)
 gNbAbra.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=6000, stopTime=14000, label=2)
 gNbAbra.addDataFiles(fileSourceName="chrisOut2.txt", fileSourcePath="../", startTime=14000, stopTime=22000, label=2)
-
 gNbAbra.addDataFiles(fileSourceName="chris_c.txt", fileSourcePath="../", startTime=100, stopTime=1600, label=3,
                      className="crooked")
 
@@ -61,7 +63,7 @@ gNbAbra.addDataFiles(fileSourceName="igor.txt", fileSourcePath="../", startTime=
                      className="igor")
 gNbAbra.addDataFiles(fileSourceName="igor2.txt", fileSourcePath="../", startTime=600, stopTime=6000, label=6)
 
-gNbAbra.readDataSet(equalLength=False, checkData=False)
+gNbAbra.readDataSet(equalLength=False, checkData=True)
 
 gNbAbra.initFeatNormalization(dumpName="throwAway")
 from sklearn.naive_bayes import GaussianNB
